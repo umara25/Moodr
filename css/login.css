@@ -1,0 +1,32 @@
+body{ 
+    margin:0;
+    background-color:#2b3137;
+}
+
+#container{
+    max-width:768px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+}
+
+
+#login{ 
+    justify-items:center;
+    color:white;
+    border:2px solid white;
+    padding:10px;
+}
+#loginform{
+    display:flex;
+    flex-direction: column;
+    width:50%;
+}
+
+#loginform input{ 
+    padding: 8px;
+}
+
+#loginform input[type = "submit"]:hover{ 
+    cursor:pointer;
+}
