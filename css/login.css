@@ -8,14 +8,20 @@ body{
     margin-left:auto;
     margin-right:auto;
     text-align:center;
+    height:100vh;
 }
 
+#content{ 
+    margin-top:auto;
+    margin-bottom:auto;
+}
 
 #login{ 
     justify-items:center;
     color:white;
-    border:2px solid white;
+    border-radius:20px;
     padding:10px;
+    background-color:#24292e;
 }
 #loginform{
     display:flex;
