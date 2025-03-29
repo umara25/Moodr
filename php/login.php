@@ -3,7 +3,7 @@ session_start()
 ?>
 <!doctype html>
 <!--
-This is the main page.
+This is the login page
 -->
 <html>
 
@@ -24,8 +24,8 @@ This is the main page.
             <div id = "login"> 
                 <h1>Enter Login</h1>
                 <form id = "loginform" action = "loginhandler.php" method = "POST">
-                    <input id="username" type = "text" name = "user" placeholder = "Username" required> 
-                    <input id="password" type = "password" name = "password" placeholder = "Password" required>
+                    <input id="username" type = "text" name = "user" placeholder = "Username" required maxlength = "20"> 
+                    <input id="password" type = "password" name = "password" placeholder = "Password" required minlength = "8">
                     <input type = "submit">
 
                 <?php   

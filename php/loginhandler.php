@@ -1,7 +1,6 @@
 
 <?php 
 
-
     /** 
      * Password verification 
      * Checks if user exists in database, and if they do 
