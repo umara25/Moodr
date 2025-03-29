@@ -67,3 +67,7 @@ a{
 a:hover{ 
     color:whitesmoke;
 }
+
+.invalid::-webkit-input-placeholder{
+    color:red;
+}
