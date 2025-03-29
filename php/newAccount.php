@@ -69,16 +69,18 @@ if ($paramsok) {
                     <input type="email" required name="confirm" placeholder="Confirm Email" id="confirm">
                     <input type = "password" name = "password" placeholder = "Password" required id="password">
                     <input type = "submit">
+                    <?php
+                    if($emailExists){
+                        echo "<p class='warning'>EMAIL ALREADY USED</p>";
+                    }elseif($userExists){
+                        echo "<p class='warning'>USER ALREADY EXISTS</p>";   
+                    }elseif(!$load && !$paramsok){
+                        echo "<p class='warning'>ERROR INVALID INPUT</p>";
+                    }
+                    ?>
+                    <a href="login.php">Back to Login</a>
                 </form>
-                <?php
-                if($emailExists){
-                    echo "<p class='warning'>EMAIL ALREADY USED</p>";
-                }elseif($userExists){
-                    echo "<p class='warning'>USER ALREADY EXISTS</p>";   
-                }elseif(!$load && !$paramsok){
-                    echo "<p class='warning'>ERROR INVALID INPUT</p>";
-                }
-                ?>
+                
             </div>
 
         </div>
