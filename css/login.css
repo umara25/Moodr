@@ -14,19 +14,20 @@ body{
 #content{ 
     margin-top:auto;
     margin-bottom:auto;
+    width:70%;
 }
 
 #login{ 
     justify-items:center;
     color:white;
     border-radius:20px;
-    padding:10px;
+    padding:20px;
     background-color:#24292e;
 }
 #loginform{
     display:flex;
     flex-direction: column;
-    width:50%;
+    width:60%;
 }
 
 #loginform input{ 
@@ -36,3 +37,15 @@ body{
 #loginform input[type = "submit"]:hover{ 
     cursor:pointer;
 }
+
+#container { 
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+#content{
+    justify-content:center;
+    align-items: center;
+}
+
