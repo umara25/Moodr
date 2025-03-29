@@ -25,17 +25,17 @@ body{
     background-color:#24292e;
 }
 
-#loginform{
+#newAccountForm{
     display:flex;
     flex-direction: column;
     width:60%;
 }
 
-#loginform input{ 
+#newAccountForm input{ 
     padding: 8px;
 }
 
-#loginform input[type = "submit"]:hover{ 
+#newAccountForm input[type = "submit"]:hover{ 
     cursor:pointer;
 }
 

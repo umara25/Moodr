@@ -3,6 +3,39 @@
 Allows users to make a new account
 -->
 <html>
+<script src="js/newAccount.js"></script>
+
+<?php
+$username = filter_input(INPUT_POST,"username");
+$email = filter_input(INPUT_POST,"email", FILTER_SANITIZE_SPECIAL_CHARS);
+$confirm = filter_input(INPUT_POST,"confirm", FILTER_SANITIZE_SPECIAL_CHARS);
+$password = filter_input(INPUT_POST,"password");
+$passwordHash = password_hash($password, PASSWORD_BCRYPT);
+$userExists = false;
+$paramsok = false;
+
+include "connect.php";
+
+if ($username !== null and $password !== null and $email !== null and $confirm !== null){
+    $paramsok = true;
+}
+
+if ($paramsok) {
+    $cmd = "SELECT * FROM users WHERE username=? LIMIT 1";
+    $stmt = $dbh->prepare($cmd);
+    $stmt->execute([$username]);
+    if($stmt->fetch()){
+        $userExists = true;
+    }else{
+        $cmd = "INSERT INTO `users`(`username`, `email`, `role`, `password`) VALUES (?,?,'user',?)";
+        $stmt = $dbh->prepare($cmd);
+        $stmt->execute([$username,$email,$passwordHash]);
+        $row = $stmt->fetch();
+    }
+    
+}
+
+?>
 
 <head>
     <meta charset="utf-8">
@@ -18,10 +51,11 @@ Allows users to make a new account
 
             <div id = "login"> 
                 <h1>Create New Account</h1>
-                <form id = "loginform" action = "php/login.php" method = "POST">
-                    <input type = "text" name = "user" placeholder = "Username" required> 
-                    <input type = "email" name = "email" placeholder = "Email" required>
-                    <input type = "password" name = "password" placeholder = "Password" required>
+                <form id = "newAccountForm" action = "php/newAccount.php" method = "POST">
+                    <input type = "text" name = "user" placeholder = "Username" required id="username"> 
+                    <input type = "email" name = "email" placeholder = "Email" required id="email">
+                    <input type="email" required name="confirm" placeholder="Confirm Email" id="confirm">
+                    <input type = "password" name = "password" placeholder = "Password" required id="password">
                     <input type = "submit">
                 </form>
                 
