@@ -6,24 +6,31 @@ Allows users to make a new account
 <script src="../js/newAccount.js"></script>
 
 <?php
-$username = filter_input(INPUT_POST,"username");
+$username = filter_input(INPUT_POST,"user");
 $email = filter_input(INPUT_POST,"email", FILTER_SANITIZE_SPECIAL_CHARS);
 $confirm = filter_input(INPUT_POST,"confirm", FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST,"password");
 $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 $userExists = false;
+$emailExists = false;
 $paramsok = false;
+$load = true;
 
+session_start();
 include "connect.php";
 
-if ($username !== null and $password !== null and $email !== null and $confirm !== null){
+if ($username !== null && $password !== null && $email !== null && $confirm !== null
+    && $email !== false && $confirm !== false){
+    $load = false;
     $paramsok = true;
 }
 
+
+
 if ($paramsok) {
-    $cmd = "SELECT * FROM users WHERE username=? LIMIT 1";
+    $cmd = "SELECT * FROM users WHERE username=? OR email=? LIMIT 1";
     $stmt = $dbh->prepare($cmd);
-    $stmt->execute([$username]);
+    $stmt->execute([$username,$email]);
     $row = $stmt->fetch();
     if($row){
         $userExists = true;
@@ -31,11 +38,12 @@ if ($paramsok) {
         $cmd = "INSERT INTO `users`(`username`, `email`, `role`, `password`) VALUES (?,?,?,?)";
         $stmt = $dbh->prepare($cmd);
         $stmt->execute([$username,$email,"user",$passwordHash]);
-        $row = $stmt->fetch();
-       
+        $_SESSION["newUser"]= true;
+        header('Location:login.php');
     }
-
-    
+    if($row["email"] === $email){
+        $emailExists = true;
+    }
 }
 
 ?>
@@ -62,7 +70,15 @@ if ($paramsok) {
                     <input type = "password" name = "password" placeholder = "Password" required id="password">
                     <input type = "submit">
                 </form>
-                
+                <?php
+                if($emailExists){
+                    echo "<p class='warning'>EMAIL ALREADY USED</p>";
+                }elseif($userExists){
+                    echo "<p class='warning'>USER ALREADY EXISTS</p>";   
+                }elseif(!$load && !$paramsok){
+                    echo "<p class='warning'>ERROR INVALID INPUT</p>";
+                }
+                ?>
             </div>
 
         </div>
