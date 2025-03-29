@@ -3,7 +3,7 @@ session_start()
 ?>
 <!doctype html>
 <!--
-This is the main page.
+This is the login page
 -->
 <html>
 
