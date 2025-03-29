@@ -64,7 +64,7 @@ if ($paramsok) {
             <div id = "login"> 
                 <h1>Create New Account</h1>
                 <form id = "newAccountForm" action = "newAccount.php" method = "POST">
-                    <input type = "text" name = "user" placeholder = "Username" required id="username"> 
+                    <input type = "text" name = "user" placeholder = "Username" required id="username" maxlength = "20"> 
                     <input type = "email" name = "email" placeholder = "Email" required id="email">
                     <input type="email" required name="confirm" placeholder="Confirm Email" id="confirm">
                     <input type = "password" name = "password" placeholder = "Password" required id="password">
