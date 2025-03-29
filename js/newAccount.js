@@ -7,6 +7,8 @@ window.addEventListener("load",function(event){
 
     myForm.addEventListener("submit",function(event){
         if(email.value !== confirm.value){
+            confirm.value = "";
+            confirm.placeholder = "MUST MATCH EMAIL ABOVE";
             event.preventDefault();
         }
     })
