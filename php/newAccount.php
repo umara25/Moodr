@@ -45,6 +45,7 @@ if ($paramsok) {
     <meta name="viewport" content="width=device-width">
     <title>Create New Account Page</title>
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/newAccount.css">
 </head>
 
 <body>
