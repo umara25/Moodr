@@ -1,52 +1,59 @@
-
 <?php 
+session_start()
+?>
+<!doctype html>
+<!--
+This is the main page.
+-->
+<html>
 
-    /** 
-     * Password verification 
-     * Checks if user exists in database, and if they do 
-     * checks if the password matches
-     */
-    session_start();
-    include "connect.php";
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
 
-
-    $username = filter_input(INPUT_POST,"user"); 
-    $password = filter_input(INPUT_POST,"password");
-
-
-    if($username !== null && $password !== null){ 
-
-        /** 
-         * Prepare SELECT command to see if they exist
-         */
-        $cmd = "SELECT password,role FROM users WHERE username = ?";
-        $stmt = $dbh->prepare($cmd);
-        $success = $stmt->execute([$username]);
-
-        //Check if user found
-        if($row = $stmt->fetch()){ 
-
-            if(password_verify($password,$row["password"])){ 
-                //Access granted
-                $_SESSION["username"] = $row["username"];
-                $_SESSION["role"] = $row["role"];
-                echo"<h1>SUCCESS</h1>";
+<body>
+    <div id="container">
 
 
-            }else {
-                echo"<h1>FAIL</h1>";
-                // bad login attempt. kick them out.
-                session_unset();
-                session_destroy();
 
-            }
-        }else {
-            echo"<h1>FAIL</h1>";
-            // bad login attempt. kick them out.
-            session_unset();
-            session_destroy();
-        }
+        <div id="content"> 
+            
+            <div id = "login"> 
+                <h1>Enter Login</h1>
+                <form id = "loginform" action = "loginhandler.php" method = "POST">
+                    <input id="username" type = "text" name = "user" placeholder = "Username" required> 
+                    <input id="password" type = "password" name = "password" placeholder = "Password" required>
+                    <input type = "submit">
 
-        // echo password_hash("kiwipassword", PASSWORD_BCRYPT); 
-    }
+                <?php   
+            
+                    $session = filter_input(INPUT_GET,"create");
+                    $failed = filter_input(INPUT_GET,"login");
+                    //Came from user creation page
+                    // if($failed!== null){
+                    if(isset($_SESSION["loginFail"])){
+                        echo "<p class = 'warning'>INVALID LOGIN</p>";
+                        $_SESSION["loginFail"] = null;  //Clear session variable
+                        
+                    }elseif(isset($_SESSION["newUser"])){
+                        echo "<p class = 'create'>ACCOUNT CREATED SUCCESSFULLY</p>";
+                        $_SESSION["newUser"] = null; //Clear session variable
+                    }
+                    ?>
+                    <a href="newAccount.php">Create new account</a>
+                </form>
+                
+            </div>
 
+        </div>
+
+        <!-- <div id="footer"> TODO </div> -->
+
+        
+    </div>
+</body>
+
+</html>

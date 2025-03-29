@@ -52,4 +52,30 @@ body{
 
 a{
     margin-top:10px;
+    color:antiquewhite;
+    text-decoration:none;
+    width:50%;
+    margin-left:auto;
+    margin-right:auto;
+}
+a:hover{ 
+    color:whitesmoke;
+}
+
+
+.warning{ 
+    font-family: Arial,Arial, Helvetica, sans-serif;
+    font-size:small;
+    color:red;
+}
+
+
+.create{ 
+    font-family: Arial,Arial, Helvetica, sans-serif;
+    font-size:small;
+    color:green;
+}
+
+p.warning,p.create {
+    margin-bottom:0;
 }
