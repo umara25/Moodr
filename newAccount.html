@@ -1,13 +1,13 @@
 <!doctype html>
 <!--
-This is the main page.
+Allows users to make a new account
 -->
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Login Page</title>
+    <title>Create New Account Page</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
 
@@ -17,12 +17,12 @@ This is the main page.
         <div id="content"> 
 
             <div id = "login"> 
-                <h1>Enter Login</h1>
+                <h1>Create New Account</h1>
                 <form id = "loginform" action = "php/login.php" method = "POST">
-                    <input id="username" type = "text" name = "user" placeholder = "Username" required> 
-                    <input id="password" type = "password" name = "password" placeholder = "Password" required>
+                    <input type = "text" name = "user" placeholder = "Username"> 
+                    <input type = "email" name = "email" placeholder = "Email">
+                    <input type = "password" name = "password" placeholder = "Password" required>
                     <input type = "submit">
-                    <a href="newAccount.html">Create new account</a>
                 </form>
                 
             </div>
