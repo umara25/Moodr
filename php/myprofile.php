@@ -18,7 +18,7 @@ This is the Calendar Page.
     include "connect.php";
 
     // Checks if there is an Active Session
-    if (!isset($_SESSION["username"])) {//
+    if (!isset($_SESSION["username"])) {
         //Sends you back to login
         session_destroy();
         header('Location: login.php');
