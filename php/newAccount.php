@@ -6,7 +6,7 @@ Allows users to make a new account
 <script src="../js/newAccount.js"></script>
 
 <?php
-$username = filter_input(INPUT_POST,"user");
+$username = filter_input(INPUT_POST,"user", FILTER_SANITIZE_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST,"email", FILTER_SANITIZE_SPECIAL_CHARS);
 $confirm = filter_input(INPUT_POST,"confirm", FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST,"password");
@@ -66,7 +66,7 @@ if ($paramsok) {
                 <form id = "newAccountForm" action = "newAccount.php" method = "POST">
                     <input type = "text" name = "user" placeholder = "Username" required id="username" maxlength = "20"> 
                     <input type = "email" name = "email" placeholder = "Email" required id="email">
-                    <input type="email" required name="confirm" placeholder="Confirm Email" id="confirm">
+                    <input type="email" name="confirm" placeholder="Confirm Email" required id="confirm">
                     <input type = "password" name = "password" placeholder = "Password" required id="password">
                     <input type = "submit">
                     <?php
