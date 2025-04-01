@@ -17,7 +17,7 @@
         /** 
          * Prepare SELECT command to see if they exist
          */
-        $cmd = "SELECT password,role FROM users WHERE username = ?";
+        $cmd = "SELECT username,password,role FROM users WHERE username = ?";
         $stmt = $dbh->prepare($cmd);
         $success = $stmt->execute([$username]);
 
@@ -33,7 +33,6 @@
                 exit;
 
             }else {
-
                 //Set session as failed login
                 $_SESSION["loginFail"] = true;
                 //Sends you back to login

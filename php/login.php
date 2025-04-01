@@ -29,9 +29,6 @@ This is the login page
                     <input type = "submit">
 
                 <?php   
-            
-                    $session = filter_input(INPUT_GET,"create");
-                    $failed = filter_input(INPUT_GET,"login");
                     //Came from user creation page
                     // if($failed!== null){
                     if(isset($_SESSION["loginFail"])){
