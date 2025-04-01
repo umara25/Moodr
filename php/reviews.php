@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-This is the Calendar Page.
+This is the Review Page.
 -->
 <html>
 
