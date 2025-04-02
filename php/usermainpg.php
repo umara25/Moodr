@@ -50,11 +50,15 @@ This is the USER Main Page.
                 <h1>Welcome <?= $_SESSION["username"] ?>!</h1>
                 <p>What's on the agenda for today?</p>
             </div>
-            <div id = announcments>
-                <h2>Latest Announcement</h2>
-                <li>Mood FM Exec Meeting – April 4th @ 6 PM</li>
+
+            <div id="announcments">
+                <h1>Latest Announcements</h1>
+                <ul>
+                    <li>Mood FM Exec Meeting – April 4th @ 6 PM</li>
+                </ul>
             </div>
         </div>
+
         <div id="footer"> </div>
     </div>
 
