@@ -29,7 +29,7 @@
                 //Set SESSION variables
                 $_SESSION["username"] = $row["username"];
                 $_SESSION["role"] = $row["role"];
-                header('Location: usermainpg.php');
+                header('Location: index.php');
                 exit;
 
             }else {
