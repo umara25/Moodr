@@ -1,5 +1,5 @@
 <?php 
-session_start()
+session_start();
 ?>
 <!doctype html>
 <!--
@@ -12,6 +12,7 @@ This is the login page
     <meta name="viewport" content="width=device-width">
     <title>Login Page</title>
     <link rel="stylesheet" href="../css/login.css">
+    <script src = "../js/login.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@ This is the login page
                 <form id = "loginform" action = "loginhandler.php" method = "POST">
                     <input id="username" type = "text" name = "user" placeholder = "Username" required maxlength = "20"> 
                     <input id="password" type = "password" name = "password" placeholder = "Password" required minlength = "8">
-                    <input type = "submit">
+                <input type = "submit">
 
                 <?php   
                     //Came from user creation page
