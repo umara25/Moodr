@@ -9,7 +9,7 @@ This is the User Managment Page.
     <meta name="viewport" content="width=device-width">
     <title>Moodr - User Managment</title>
     <link rel="stylesheet" href="../css/mainpg.css">
-    <script src="../js/mainpgButtons.js"></script>
+    <script src="../js/index.js"></script>
 </head>
 
 <body>
