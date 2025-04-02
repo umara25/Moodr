@@ -24,4 +24,4 @@ window.addEventListener("load", function (event) {
     document.getElementById("usermang-btn").addEventListener("click", function (event) {
         window.location.href = 'usermanagment.php';
     })
-})
+});

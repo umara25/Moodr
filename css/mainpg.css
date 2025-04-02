@@ -84,3 +84,9 @@ p {
     padding-left: 20px;
 }
 
+#announcments{
+    padding: 10px;
+    color: black;
+    border-radius: 10px;
+    background-color: white;
+}
