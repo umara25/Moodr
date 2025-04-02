@@ -28,7 +28,9 @@ This is the USER Main Page.
     <div id="container">
         <div id="header">
 
-            <p class="nav">M o o d r <?php if ($_SESSION["role"] === "admin") {echo " A d m i n";} ?></p>
+            <p class="nav">M o o d r <?php if ($_SESSION["role"] === "admin") {
+                                            echo " A d m i n";
+                                        } ?></p>
             <div class="nav-links">
                 <button id="dashb-btn" class="nav">Dashboard</button>
                 <button id="cal-btn" class="nav">Calendar</button>
@@ -48,9 +50,20 @@ This is the USER Main Page.
                 <h1>Welcome <?= $_SESSION["username"] ?>!</h1>
                 <p>What's on the agenda for today?</p>
             </div>
+            <div>
+                <h2>Latest Announcement</h2>
+                <p>Mood FM Exec Meeting – April 4th @ 6 PM</p>
+            </div>
         </div>
-        <div id="footer"> TODO </div>
+        <div id="color-picker">
+            <label for="bgcolor">Choose Background Color:</label>
+            <input type="color" id="bgcolor" name="bgcolor">
+            <button onclick="saveBgColor()">Save</button>
+        </div>
+
+        <div id="footer"> </div>
     </div>
 
 </body>
+
 </html>
