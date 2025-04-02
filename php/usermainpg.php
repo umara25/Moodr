@@ -50,17 +50,11 @@ This is the USER Main Page.
                 <h1>Welcome <?= $_SESSION["username"] ?>!</h1>
                 <p>What's on the agenda for today?</p>
             </div>
-            <div>
+            <div id = announcments>
                 <h2>Latest Announcement</h2>
-                <p>Mood FM Exec Meeting – April 4th @ 6 PM</p>
+                <li>Mood FM Exec Meeting – April 4th @ 6 PM</li>
             </div>
         </div>
-        <div id="color-picker">
-            <label for="bgcolor">Choose Background Color:</label>
-            <input type="color" id="bgcolor" name="bgcolor">
-            <button onclick="saveBgColor()">Save</button>
-        </div>
-
         <div id="footer"> </div>
     </div>
 
