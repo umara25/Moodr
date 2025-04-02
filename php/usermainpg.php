@@ -58,7 +58,6 @@ This is the USER Main Page.
                 </ul>
             </div>
         </div>
-
         <div id="footer"> </div>
     </div>
 
