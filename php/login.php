@@ -16,6 +16,11 @@ This is the login page
 </head>
 
 <body>
+    <div id="header">
+         <p id="moodr">M o o d r</p>
+    </div>
+   
+
     <div id="container">
 
 
