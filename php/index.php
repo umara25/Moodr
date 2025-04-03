@@ -80,7 +80,7 @@ This is the splash page which users will first be greeted with. It holds announc
                     <img src="../images/defaultpfp.jpg" width="75px" height="75px">
                     <div class="textbox">
                         <p><b>Username -  Title</b></p>
-                        <p>Mood FM Study Session – April 4th @ 6 PM</p>
+                        <p>Mood FM Study Session - April 4th @ 6 PM</p>
                     </div>
                 </div>
             </div>
