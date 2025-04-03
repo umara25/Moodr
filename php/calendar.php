@@ -8,7 +8,7 @@ This is the Calendar Page.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Moodr - Calendar</title>
-    <link rel="stylesheet" href="../css/mainpg.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="../js/index.js"></script>
 </head>
 

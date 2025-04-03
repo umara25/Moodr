@@ -8,7 +8,7 @@ This is the splash page which users will first be greeted with. It holds announc
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Moodr</title>
-    <link rel="stylesheet" href="../css/mainpg.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script src="../js/index.js"></script>
 </head>
 
