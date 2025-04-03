@@ -1,4 +1,3 @@
-
 <?php 
 
     /** 
@@ -17,7 +16,7 @@
         /** 
          * Prepare SELECT command to see if they exist
          */
-        $cmd = "SELECT username,password,role FROM users WHERE username = ?";
+        $cmd = "SELECT username,password,role,bio FROM users WHERE username = ?";
         $stmt = $dbh->prepare($cmd);
         $success = $stmt->execute([$username]);
 
@@ -29,6 +28,7 @@
                 //Set SESSION variables
                 $_SESSION["username"] = $row["username"];
                 $_SESSION["role"] = $row["role"];
+                $_SESSION["bio"] = $row["bio"];
                 header('Location: index.php');
                 exit;
 
@@ -50,4 +50,4 @@
         }
 
     }
-  
+?>

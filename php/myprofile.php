@@ -70,9 +70,15 @@ This is the My Profile Page.
                     <button class="profile-btn">Change Password</button>
                     <button class="profile-btn">Change Personal Info</button>
                     <button class="profile-btn-delete">Delete Profile</button>
-                    <div id="bio-box">
-                        <textarea id="bio-textarea" placeholder="Write a short bio..."></textarea>
-                    </div>
+                    <form id="bio-form" method="POST" action="updateBio.php">
+                        <div id="bio-box">
+                            <textarea id="bio-textarea" name="bio" placeholder="Write a short bio..."><?php
+                                        echo isset($_SESSION['bio']) ? htmlspecialchars($_SESSION['bio']) : '';
+                                        ?></textarea>
+                            <button type="submit" id="save-bio-btn">Save Bio</button>
+                        </div>
+                    </form>
+
 
                 </div>
             </div>
