@@ -26,7 +26,7 @@ This is the splash page which users will first be greeted with. It holds announc
     <div id="container">
         <div id="header">
 
-            <p class="nav">M o o d r
+            <p id="moodr">M o o d r
                 <?php
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
@@ -64,7 +64,7 @@ This is the splash page which users will first be greeted with. It holds announc
                 if (isset($_SESSION['username'])) {
                 ?>
                     <h1>Welcome <?= $_SESSION['username'] ?>!</h1>
-                    <p>What's on the agenda for today?</p>
+                    <p>What are some of your favourite albums?</p>
                 <?php
                 } else {
                     echo "<h1>Welcome to Mood FM!</h1>";
@@ -76,9 +76,13 @@ This is the splash page which users will first be greeted with. It holds announc
             </div>
             <div id="announcments">
                 <h1>Latest Announcements</h1>
-                <ul>
-                    <li>Mood FM Exec Meeting – April 4th @ 6 PM</li>
-                </ul>
+                <div class="post">
+                    <img src="../images/defaultpfp.jpg" width="75px" height="75px">
+                    <div class="textbox">
+                        <p><b>Username -  Title</b></p>
+                        <p>Mood FM Study Session – April 4th @ 6 PM</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="footer"> </div>

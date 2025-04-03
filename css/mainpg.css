@@ -29,7 +29,18 @@ body {
     /* Show pointer cursor */
     margin: 20px;
     text-decoration: none;
-    color: white;
+    color: antiquewhite;
+}
+
+.nav:hover{
+    color: whitesmoke;
+}
+
+#moodr{
+    all:unset;
+    text-decoration: none;
+    margin: 20px;
+    color:whitesmoke;
 }
 
 #container {
@@ -54,7 +65,7 @@ body {
 #user-intro,
 #announcments {
     width: 90%;
-    background-color: white;
+    background-color: whitesmoke;
     color: #181e23;
     border-radius: 10px;
     padding: 20px;
@@ -71,4 +82,9 @@ p,
 li {
     margin-left: 30px;
     padding-left: 20px;
+}
+
+.post{
+    display:flex;
+    margin:30px;
 }

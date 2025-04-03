@@ -57,6 +57,10 @@ if ($paramsok) {
 </head>
 
 <body>
+    <div id="header">
+         <p id="moodr">M o o d r</p>
+    </div>
+    
     <div id="container">
 
         <div id="content"> 
