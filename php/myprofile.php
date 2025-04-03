@@ -61,8 +61,16 @@ This is the My Profile Page.
         <div id="content">
             <div id="profile-container">
                 <div id="profile-left">
-                    <div id="profile-image"></div>
-                    <button id="change-pfp-btn">Change Profile Picture</button>
+                    <?php if ($loggedIn): ?>
+                        <img src="getPfp.php" id="profile-image">
+                        <form id="pfp-form" action="uploadPfp.php" method="POST" enctype="multipart/form-data">
+                            <label for="pfp-input" class="pfp-btn">Choose File</label>
+                            <input type="file" name="pfp" id="pfp-input" accept="image/*">
+                            <button type="submit" class="pfp-btn">Change Profile Picture</button>
+                        </form>
+                    <?php else: ?>
+                        <div id="profile-image"></div>
+                    <?php endif; ?>
                 </div>
 
                 <div id="profile-options">
@@ -73,16 +81,15 @@ This is the My Profile Page.
                     <form id="bio-form" method="POST" action="updateBio.php">
                         <div id="bio-box">
                             <textarea id="bio-textarea" name="bio" placeholder="Write a short bio..."><?php
-                                        echo isset($_SESSION['bio']) ? htmlspecialchars($_SESSION['bio']) : '';
-                                        ?></textarea>
+                                  echo isset($_SESSION['bio']) ? htmlspecialchars($_SESSION['bio']) : '';
+                                  ?></textarea>
                             <button type="submit" id="save-bio-btn">Save Bio</button>
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>
+
     </div>
 
 </body>

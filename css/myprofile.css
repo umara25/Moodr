@@ -198,3 +198,34 @@ li {
     background-color: #1e2226;
     color: white;
 }
+
+#pfp-form {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 220px;
+}
+
+#pfp-input {
+    display: none;
+}
+
+.pfp-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 220px;
+    text-align: center;
+    display: block;  
+    box-sizing: border-box;
+}
+
+.pfp-btn:hover {
+    background-color: #666;
+}
