@@ -23,10 +23,6 @@ body {
 }
 
 .nav {
-    all: unset;
-    /* Reset all properties */
-    cursor: pointer;
-    /* Show pointer cursor */
     margin: 20px;
     text-decoration: none;
     color: antiquewhite;

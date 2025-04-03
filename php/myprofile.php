@@ -9,7 +9,6 @@ This is the My Profile Page.
     <meta name="viewport" content="width=device-width">
     <title>Moodr - My Profile</title>
     <link rel="stylesheet" href="../css/myprofile.css">
-    <script src="../js/index.js"></script>
 </head>
 
 <body>
@@ -36,22 +35,20 @@ This is the My Profile Page.
                 ?>
             </p>
             <div class="nav-links">
-                <button id="dashb-btn" class="nav">Dashboard</button>
-                <button id="cal-btn" class="nav">Calendar</button>
-                <button id="review-btn" class="nav">Reviews</button>
+            <a href="index.php" class="nav">Dashboard</a>
+                <a href="calendar.php" class="nav">Calendar</a>
+                <a href="reviews.php" class="nav">Reviews</a>
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<button id='usermang-btn' class='nav'>User Managment</button>";
+                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                     }
                 }
-                ?>
-                <button id="myprofile-btn" class="nav">My Profile</button>
-                <?php
-                if (!isset($_SESSION["username"])) {
-                    echo "<button id='loginpage-btn' class='nav'>Log in</button>";
+                if (!$loggedIn) {
+                    echo "<a href='login.php' class='nav'>Log in</a>";
                 } else {
-                    echo "<button id='loginpage-btn' class='nav'>Log out</button>";
+                    echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                    echo "<a href='logouthandler.php' class='nav'>Log out</a>";
                 }
                 ?>
 
