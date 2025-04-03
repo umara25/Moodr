@@ -9,7 +9,6 @@ This is the splash page which users will first be greeted with. It holds announc
     <meta name="viewport" content="width=device-width">
     <title>Moodr</title>
     <link rel="stylesheet" href="../css/index.css">
-    <script src="../js/index.js"></script>
 </head>
 
 <body>
@@ -36,20 +35,20 @@ This is the splash page which users will first be greeted with. It holds announc
                 ?>
             </p>
             <div class="nav-links">
-                <button id="dashb-btn" class="nav">Dashboard</button>
-                <button id="cal-btn" class="nav">Calendar</button>
-                <button id="review-btn" class="nav">Reviews</button>
+                <a href="index.php" class="nav">Dashboard</a>
+                <a href="calendar.php" class="nav">Calendar</a>
+                <a href="reviews.php" class="nav">Reviews</a>
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<button id='usermang-btn' class='nav'>User Managment</button>";
+                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                     }
                 }
                 if (!$loggedIn) {
-                    echo "<button id='loginpage-btn' class='nav'>Log in</button>";
+                    echo "<a href='login.php' class='nav'>Log in</a>";
                 } else {
-                    echo "<button id='myprofile-btn' class='nav'>My Profile</button>";
-                    echo "<button id='loginpage-btn' class='nav'>Log out</button>";
+                    echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                    echo "<a href='logouthandler.php' class='nav'>Log out</a>";
                 }
                 ?>
 
@@ -60,10 +59,10 @@ This is the splash page which users will first be greeted with. It holds announc
             <div id="user-intro">
                 <?php
                 if (isset($_SESSION['username'])) {
-                ?>
+                    ?>
                     <h1>Welcome <?= $_SESSION['username'] ?>!</h1>
                     <p>What are some of your favourite albums?</p>
-                <?php
+                    <?php
                 } else {
                     echo "<h1>Welcome to Mood FM!</h1>";
                     echo "<p>What's on the agenda for today?</p>";
@@ -77,7 +76,7 @@ This is the splash page which users will first be greeted with. It holds announc
                 <div class="post">
                     <img src="../images/defaultpfp.jpg" width="75px" height="75px">
                     <div class="textbox">
-                        <p><b>Username -  Title</b></p>
+                        <p><b>Username - Title</b></p>
                         <p>Mood FM Study Session – April 4th @ 6 PM</p>
                     </div>
                 </div>
