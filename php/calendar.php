@@ -41,17 +41,15 @@ This is the Calendar Page.
                 <button id="cal-btn" class="nav">Calendar</button>
                 <button id="review-btn" class="nav">Reviews</button>
                 <?php // If admin, they will have a user management button.
-                if($loggedIn){
+                if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
                         echo "<button id='usermang-btn' class='nav'>User Managment</button>";
                     }
                 }
-                ?>
-                <button id="myprofile-btn" class="nav">My Profile</button>
-                <?php
-                if(!isset($_SESSION["username"])){
+                if (!$loggedIn) {
                     echo "<button id='loginpage-btn' class='nav'>Log in</button>";
-                }else{
+                } else {
+                    echo "<button id='myprofile-btn' class='nav'>My Profile</button>";
                     echo "<button id='loginpage-btn' class='nav'>Log out</button>";
                 }
                 ?>
@@ -60,7 +58,7 @@ This is the Calendar Page.
 
         </div>
         <div id="content">
-            TODO
+            CAL TODO
         </div>
     </div>
 

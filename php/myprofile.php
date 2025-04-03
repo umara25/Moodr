@@ -45,12 +45,10 @@ This is the My Profile Page.
                         echo "<button id='usermang-btn' class='nav'>User Managment</button>";
                     }
                 }
-                ?>
-                <button id="myprofile-btn" class="nav">My Profile</button>
-                <?php
-                if (!isset($_SESSION["username"])) {
+                if (!$loggedIn) {
                     echo "<button id='loginpage-btn' class='nav'>Log in</button>";
                 } else {
+                    echo "<button id='myprofile-btn' class='nav'>My Profile</button>";
                     echo "<button id='loginpage-btn' class='nav'>Log out</button>";
                 }
                 ?>
