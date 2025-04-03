@@ -28,7 +28,7 @@ This is the User Managment Page.
     <div id="container">
         <div id="header">
 
-            <p class="nav">M o o d r <?php if ($_SESSION["role"] === "admin") {echo " A d m i n";} ?></p>
+            <p id="moodr">M o o d r <?php if ($_SESSION["role"] === "admin") {echo " A d m i n";} ?></p>
             <div class="nav-links">
                 <button id="dashb-btn" class="nav">Dashboard</button>
                 <button id="cal-btn" class="nav">Calendar</button>

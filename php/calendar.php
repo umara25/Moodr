@@ -27,7 +27,7 @@ This is the Calendar Page.
     <div id="container">
         <div id="header">
 
-            <p class="nav">M o o d r 
+            <p id="moodr">M o o d r 
             <?php 
             if($loggedIn){
                 if ($_SESSION["role"] === "admin") {

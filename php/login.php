@@ -16,6 +16,11 @@ This is the login page
 </head>
 
 <body>
+    <div id="header">
+         <p id="moodr">M o o d r</p>
+    </div>
+   
+
     <div id="container">
 
 
@@ -31,7 +36,6 @@ This is the login page
 
                 <?php   
                     //Came from user creation page
-                    // if($failed!== null){
                     if(isset($_SESSION["loginFail"])){
                         echo "<p class = 'warning'>INVALID LOGIN</p>";
                         $_SESSION["loginFail"] = null;  //Clear session variable
