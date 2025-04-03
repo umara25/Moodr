@@ -8,11 +8,11 @@
      */
     session_start();
     include "connect.php";
-    $username = filter_input(INPUT_POST,"user"); 
+    $username = filter_input(INPUT_POST,"user",FILTER_SANITIZE_SPECIAL_CHARS); 
     $password = filter_input(INPUT_POST,"password");
 
 
-    if($username !== null && $password !== null){ 
+    if($username !== null && $password !== null && $username !==false){ 
 
         /** 
          * Prepare SELECT command to see if they exist
@@ -49,12 +49,5 @@
         
         }
 
-
-        // $pwdhash = "kiwipassword";
-        // echo password_hash("kiwipassword", PASSWORD_BCRYPT); 
     }
-    // echo "<p>".password_hash($pwdhash, PASSWORD_BCRYPT)."</p>"; 
-    // echo "<p>".password_hash($pwdhash, PASSWORD_BCRYPT)."</p>";
-
-    // header('Location:../login.html');
-    // exit;
+  
