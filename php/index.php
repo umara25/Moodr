@@ -118,7 +118,7 @@ This is the splash page which users will first be greeted with. It holds announc
                         <?php // If admin, they delete posts.
                             if ($_SESSION["role"] === "admin") {
                                 ?>
-                            <div class="trash-icon" id="<?=$row["postId"]?>">
+                            <div class="trash-icon" id="<?= $row["postId"] ?>">
                                 <img src="../images/trashicon.png" width="20px" height="20px">
                             </div>
                         <?php } ?>

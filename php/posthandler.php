@@ -35,11 +35,13 @@ $success = $stmt->execute([$_SESSION["username"], $title, $message]);
 if (!$success) {
     echo "Error: Failed to insert into database.";
 }
+// Get the ID of the newly inserted post
+$postId = $dbh->lastInsertId();
 
 echo "<span class='post'><img src='../images/defaultpfp.jpg' width='75px' height='75px'>";
 echo "<div class='textbox'>";
 echo "<p><b>$_SESSION[username] - $title </b></p>";
 echo "<p>$message</p></div>";
-echo "<div class='trash-icon' id='$row[postId]'>";
+echo "<div class='trash-icon' id='$postId'>";
 echo "<img src='../images/trashicon.png' width='20px' height='20px'>";
 echo "</div></div></span>";
