@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!doctype html>
 <!--
 This is the User Managment Page.
@@ -14,7 +15,6 @@ This is the User Managment Page.
 
 <body>
     <?php
-    session_start();
     include "connect.php";
 
     // Checks if there is an Active Session
