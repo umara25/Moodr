@@ -1,0 +1,13 @@
+input[type = 'file']:hover{
+    cursor:pointer;
+}
+
+
+input[type = 'file']{ 
+    width:25%;
+}
+
+
+#reviews { 
+    width:90%;
+}
