@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!doctype html>
 <!--
 Allows users to make a new account
@@ -16,7 +17,6 @@ $emailExists = false;
 $paramsok = false;
 $load = true;
 
-session_start();
 include "connect.php";
 
 if ($username !== null && $password !== null && $email !== null && $confirm !== null
