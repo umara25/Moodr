@@ -60,7 +60,8 @@ body {
 
 #user-intro,
 #make-post,
-#announcments {
+#announcments,
+#table {
     width: 90%;
     background-color: whitesmoke;
     color: #181e23;
