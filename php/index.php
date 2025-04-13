@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <!doctype html>
 <!--
 This is the splash page which users will first be greeted with. It holds announcements and important information about the club.
@@ -8,13 +10,18 @@ This is the splash page which users will first be greeted with. It holds announc
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Moodr</title>
-    <script src="../js/postlistener.js"></script>
+    <?php 
+    if($_SESSION["role"]==="admin"){
+        echo "<script src='../js/postListenerAdmin.js'></script>";
+    }else{
+        echo "<script src='../js/postListenerUser.js'></script>";
+    }
+    ?>
     <link rel="stylesheet" href="../css/index.css">
 </head>
 
 <body>
     <?php
-    session_start();
     include "connect.php";
     $loggedIn = false;
 
