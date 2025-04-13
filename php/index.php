@@ -97,12 +97,35 @@ This is the splash page which users will first be greeted with. It holds announc
 
             <div id="announcments">
                 <h1>Latest Announcements</h1>
-                <div class="post">
-                    <img src="../images/defaultpfp.jpg" width="75px" height="75px">
-                    <div class="textbox">
-                        <p><b>Username - Title</b></p>
-                        <p>Mood FM Study Session - April 4th @ 6 PM</p>
-                    </div>
+                <div id="posts">
+                    <?php
+                    // Get the latest announcements from the database
+                    $cmd = "SELECT * FROM announcements ORDER BY date DESC";
+                    $stmt = $dbh->prepare($cmd);
+                    $success = $stmt->execute();
+                    if (!$success) {
+                        echo "Error: Failed to retrieve announcements from database.";
+                    }
+
+                    while ($row = $stmt->fetch()) {
+                        ?>
+                        <span class="post">
+                            <img src="../images/defaultpfp.jpg" width="75px" height="75px">
+                            <div class="textbox">
+                                <p><b><?= $row["username"] ?> - <?= $row["title"] ?> <span
+                                            class='timestamp'><?= $row["date"] ?></span></b></p>
+                                <p><?= $row["message"] ?></p>
+                            </div>
+                            <?php // If admin, they delete posts.
+                                if ($_SESSION["role"] === "admin") {
+                                    ?>
+                                <div class="trash-icon" id="<?= $row["postId"] ?>">
+                                    <img src="../images/trashicon.png" width="20px" height="20px">
+                                </div>
+                            <?php } ?>
+
+                        </span>
+                    <?php } ?>
                 </div>
             </div>
         </div>
