@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!doctype html>
 <!--
 This is the Review Page.
@@ -13,7 +14,6 @@ This is the Review Page.
 
 <body>
     <?php
-    session_start();
     include "connect.php";
     $loggedIn = false;
 
