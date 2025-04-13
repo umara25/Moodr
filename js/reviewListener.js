@@ -29,6 +29,7 @@ window.addEventListener("load",function(event){
         // Initiate AJAX request
         fetch(url)
         .then(response=>response.json())
+        // .then(d => console.log(d));
         .then(success);
 
     });
@@ -50,6 +51,8 @@ window.addEventListener("load",function(event){
      * @param {Object} review 
      */ 
     function success(review){ 
+        myform.reset(); //Clear form
+        rangeField.innerHTML = "Score: 0/10";
         let reviewField = document.getElementById("reviews");
 
         if(review != -1){ 

@@ -95,6 +95,21 @@ This is the Review Page.
             ?>
             <div id = "reviews"> 
 
+                <?php 
+
+                    $cmd = "SELECT * FROM reviews ORDER BY date desc";
+                    $stmt = $dbh->prepare($cmd); 
+                    $succ = $stmt->execute();
+
+                    while($row = $stmt->fetch()){ 
+                        //Grab each review 
+
+                        
+
+                    }
+
+                ?>
+
             </div>
 
         </div>

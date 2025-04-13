@@ -14,7 +14,7 @@ date_default_timezone_set('America/New_York');
     $title = filter_input(INPUT_GET,"title",FILTER_SANITIZE_SPECIAL_CHARS);
     $msg = filter_input(INPUT_GET,"msg",FILTER_SANITIZE_SPECIAL_CHARS);
     $score = filter_input(INPUT_GET,"score",FILTER_VALIDATE_INT);
-    $date = date('y-m-d');
+    $date = date('Y-m-d');
 
 
     if($title !== null && $msg !== null && $score !== null && $score !== false){ 
