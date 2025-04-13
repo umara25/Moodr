@@ -70,7 +70,7 @@ This is the User Managment Page.
                             <tr class="user">
                                 <td><?= $user["username"] ?></td>
                                 <td><?= $user["email"] ?></td>
-                                <td><?= $user["role"] ?></td>
+                                <td id="#<?= $user["username"]?>"><?= $user["role"] ?></td>
                                 <td class="editCol">
                                     <button class="ban-user" id="<?= $user['username'] ?>">BAN USER</button>
                                     <button class="make-admin" id="<?= $user['username'] ?>">Make Admin</button>
