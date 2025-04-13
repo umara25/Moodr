@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 /** 
  * Delete Post Processing
  * Checks if user is admin, then allows admin to delete post.
