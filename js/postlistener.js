@@ -1,7 +1,7 @@
 window.addEventListener("load", function (event) {
     /*Thumbs down and up reactions?*/
     let myForm = document.getElementById("make-post-form");
-    let announcments = document.getElementById("announcments");
+    let announcments = document.getElementById("posts");
 
     myForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -14,7 +14,7 @@ window.addEventListener("load", function (event) {
          * @param {String} text 
          */
         function success(text) {
-            let announcments = document.getElementById("announcments");
+            let announcments = document.getElementById("posts");
             announcments.innerHTML = text + announcments.innerHTML + "";
             console.log(text); //debug
         }

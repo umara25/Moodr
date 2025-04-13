@@ -1,7 +1,13 @@
 table {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#table{
+    width: 95%;
 }
 
 table th, table td {
@@ -34,4 +40,9 @@ button {
 
 button:hover {
     background-color: #181e23;
+}
+
+h1{
+    padding-left: 0px;
+    padding-bottom:10px;
 }
