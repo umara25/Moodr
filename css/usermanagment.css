@@ -6,6 +6,11 @@ table {
     margin-right: auto;
 }
 
+.editCol{
+    text-align: right;
+    width:30%;
+}
+
 #table{
     width: 95%;
 }
@@ -40,6 +45,14 @@ button {
 
 button:hover {
     background-color: #181e23;
+}
+
+.ban-user{
+    background-color: darkred;
+}
+
+.ban-user:hover{
+    background-color: red;
 }
 
 h1{

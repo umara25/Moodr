@@ -11,6 +11,7 @@ This is the User Managment Page.
     <title>Moodr - User Managment</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/usermanagment.css">
+    <script src="../js/userManagment.js"></script>
 </head>
 
 <body>
@@ -18,16 +19,19 @@ This is the User Managment Page.
     include "connect.php";
 
     // Checks if there is an Active Session
-    if (!isset($_SESSION["username"])) {
+    if (!isset($_SESSION["username"]) || $_SESSION["role"] !== "admin") {
         //Sends you back to login
         session_destroy();
         header('Location: login.php');
         exit;
     }
 
-    $cmd = "SELECT * FROM users";
-    $stmt = $dbh->prepare($cmd);
-    $stmt->execute();
+    if($_SESSION["role"]==="admin"){
+        $cmd = "SELECT * FROM users";
+        $stmt = $dbh->prepare($cmd);
+        $stmt->execute();
+    }
+    
     ?>
     <div id="container">
         <div id="header">
@@ -52,28 +56,28 @@ This is the User Managment Page.
                 <table>
                     <thead>
                         <tr>
-                            <th>UserName</th>
+                            <th>Username</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Bio</th>
-                            <th>Edit</th>
+                            <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        while ($user = $stmt->fetch()) {
-                            ?>
-                            <tr>
+                        if($_SESSION["role"]==="admin"){
+                            while ($user = $stmt->fetch()) {
+                        ?>
+                            <tr class="user">
                                 <td><?= $user["username"] ?></td>
                                 <td><?= $user["email"] ?></td>
-                                <td><?= $user["role"] ?></td>
-                                <td><?= $user["bio"] ?></td>
-                                <td>
-                                    <button class="edit-user" username="<?= $user['username'] ?>">Edit</button>
-                                    <button class="delete-user" username="<?= $user['username'] ?>">Delete</button>
+                                <td id="#<?= $user["username"]?>"><?= $user["role"] ?></td>
+                                <td class="editCol">
+                                    <button class="ban-user" id="<?= $user['username'] ?>">BAN USER</button>
+                                    <button class="make-admin" id="<?= $user['username'] ?>">Make Admin</button>
+                                    <button class="delete-user" id="<?= $user['username'] ?>">Delete</button>
                                 </td>
                             </tr>
-                        <?php } ?>
+                        <?php }} ?>
                     </tbody>
                 </table>
             </div>
