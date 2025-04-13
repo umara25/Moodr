@@ -4,6 +4,8 @@ $primary = filter_input(INPUT_GET, "primary");
 
 $secondary = filter_input(INPUT_GET, "secondary");
 
+$textbox = filter_input(INPUT_GET,"textbox");
+
 $text = filter_input(INPUT_GET, "text");
 
 
@@ -19,16 +21,15 @@ $paramsok = $primary !== null && $pimary !== false && $secondary !== null &&$sec
             && validateHex($text);
 
 
-    
 if($paramsok){ 
-
     //CHECK IF STYLE EXISTS
 
     include "connect.php";
 
-    $cmd = "SELECT * FROM styles WHERE primary_colour = ? AND secondary_colour = ? AND text_colour = ?";
+    $cmd = "SELECT * FROM styles WHERE primary_colour = ? AND secondary_colour = ? AND textbox_colour = ?
+            AND text_colour = ?";
     $stmt = $dbh->prepare($cmd);
-    $succ = $stmt->execute([$primary,$secondary,$text]);
+    $succ = $stmt->execute([$primary,$secondary,$textbox,$text]);
 
     if($row = $stmt->fetch()){
         //Style already exists 
@@ -37,22 +38,17 @@ if($paramsok){
 
     }else{ 
 
-        $cmd = "INSERT INTO styles (primary_colour,secondary_colour,text_colour) VALUES (?,?,?)";
+        $cmd = "INSERT INTO styles (primary_colour,secondary_colour,textbox_colour,text_colour) VALUES (?,?,?,?)";
         $stmt = $dbh->prepare($cmd);
-        $suc = $stmt->execute([$primary,$secondary,$text]);
+        $suc = $stmt->execute([$primary,$secondary,$textbox,$text]);
 
         if($suc){ 
             echo (1);
         }
 
     }
-
-    // var_dump( "#".$primary); 
-    // var_dump($secondary);
-    // var_dump($text);
 }else{
     echo(-1);
 }
 
 
-// var_dump(validateHexColor($primary)); 

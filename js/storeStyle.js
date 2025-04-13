@@ -1,9 +1,9 @@
 window.addEventListener("load",function(event){ 
 
     let button = document.getElementById("confirmStyle");
-
     let primary = document.getElementById("primary");
     let secondary = document.getElementById("secondary");
+    let textbox =  document.getElementById("textbox");
     let text = document.getElementById("text");
 
 
@@ -12,7 +12,8 @@ window.addEventListener("load",function(event){
 
 
         let url = "../php/storeStyle.php?primary="+primary.value.substring(1) + 
-        "&secondary="+secondary.value.substring(1)+"&text="+text.value.substring(1); //Removes the #
+        "&secondary="+secondary.value.substring(1)+"&text="+text.value.substring(1) 
+        + "&textbox=" + textbox.value.substring(1); //Removes the #
 
         console.log(url);
 
@@ -27,8 +28,10 @@ window.addEventListener("load",function(event){
 
         let res = document.getElementById("styleResult");
         if(text != -1){ 
+            // Inserted correctly 
             res.innerHTML = "STYLE STORED SUCCESSFULLY";
         }else{
+            // Wasn't able to insert
             res.innerHTML = "STYLE ALREADY EXISTS";
         }
     }

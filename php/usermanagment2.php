@@ -52,6 +52,7 @@ This is the Admin Permissions Page, only accessible by admins.
                     <input id = "primary" type = "color">
                     <input id = "secondary" type = "color">
                     <input id = "text" type = "color">
+                    <input id = "textbox" type = "color">
                     <input id = "confirmStyle" type = "button" value = "submit">
                     <p id = "styleResult"></p>
             </div>
