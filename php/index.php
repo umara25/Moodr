@@ -8,6 +8,7 @@ This is the splash page which users will first be greeted with. It holds announc
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Moodr</title>
+    <script src="../js/postlistener.js"></script>
     <link rel="stylesheet" href="../css/index.css">
 </head>
 
@@ -68,16 +69,39 @@ This is the splash page which users will first be greeted with. It holds announc
                     echo "<p>What's on the agenda for today?</p>";
                 }
                 ?>
-
-
             </div>
+
+            <?php // If admin, they can post.
+            if ($loggedIn) {
+                if ($_SESSION["role"] === "admin") {
+                    ?>
+                    <div id="make-post">
+                        <h1>Make a Post</h1>
+                        <div class="make-post-container">
+
+                            <form id="make-post-form" action="posthandler.php" method="POST">
+                                <label for="post-title">Title:</label>
+                                <input type="text" id="post-title" name="post-title" placeholder="Enter post title..." required>
+                                <label for="post-message">Message:</label>
+                                <textarea id="post-message" name="post-message" placeholder="Enter your message..." rows="5"
+                                    required></textarea>
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+
+
             <div id="announcments">
                 <h1>Latest Announcements</h1>
                 <div class="post">
                     <img src="../images/defaultpfp.jpg" width="75px" height="75px">
                     <div class="textbox">
-                        <p><b>Username -  Title</b></p>
-                        <p>Mood FM Study Session - April 4th @ 6 PM</p>
+                        <p><b>Username - Title</b></p>
+                        <p>Mood FM Study Session – April 4th @ 6 PM</p>
                     </div>
                 </div>
             </div>
