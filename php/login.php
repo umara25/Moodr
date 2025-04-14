@@ -35,14 +35,18 @@ This is the login page
                 <input type = "submit">
 
                 <?php   
-                    //Came from user creation page
-                    if(isset($_SESSION["loginFail"])){
+
+                    if(isset($_SESSION["loginFail"])){ // Invalid login
                         echo "<p class = 'warning'>INVALID LOGIN</p>";
                         $_SESSION["loginFail"] = null;  //Clear session variable
                         
-                    }elseif(isset($_SESSION["newUser"])){
+                    }elseif(isset($_SESSION["newUser"])){ // Created account
                         echo "<p class = 'create'>ACCOUNT CREATED SUCCESSFULLY</p>";
                         $_SESSION["newUser"] = null; //Clear session variable
+                    }
+                    elseif(isset($_SESSION["inactive"])){ // Account banned
+                        echo "<p class = 'warning'>THIS ACCOUNT IS BANNED</p>";
+                        $_SESSION["inactive"] = null; //Clear session variable
                     }
                     ?>
                     <a href="newAccount.php">Create new account</a>
