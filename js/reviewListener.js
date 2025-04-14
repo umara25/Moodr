@@ -55,10 +55,11 @@ window.addEventListener("load",function(event){
         // Initiate AJAX request
         fetch("../php/reviewhandler.php",config)
         .then(response=>response.json())
-        .then(d =>console.log(d));
+        // .then(d =>console.log(d))
+        .then(success);
 
+        // fetch("../php/reviewhandler.php",config)
         // .then(response=>response.json())
-        // // .then(d => console.log(d));
         // .then(success);
 
     });
@@ -76,12 +77,14 @@ window.addEventListener("load",function(event){
      * Receives HTTP response from reviewhandler.php in form on object
      * Showcases new post if successsful, else displays error message
      * {username: user, title: review title, msg: review text, score: review score, 
-     *  date: date it was posted, img-path: path to image (if one was sent)}
+     *  date: date it was posted, img: path to image (if one was sent)}
      * @param {Object} review 
      */ 
     function success(review){ 
         myform.reset(); //Clear form
         rangeField.innerHTML = "Score: 0/10";
+
+        console.log("Hit here");
         let reviewField = document.getElementById("reviews");
 
         if(review != -1){ 
@@ -106,10 +109,12 @@ window.addEventListener("load",function(event){
         str += "<div class = 'textbox'>";
         str += "<p><b>" + review.username + " - " + review.title + "</b></p>";
         str += "<p>" + review.msg + "</p></div>";
-        str += "<div class = 'trash-icon'><img src = '../images/trashicon.png' width = '20px' height = '20px'>";
+        str += "<div class = 'trash-icon'><img src = " + review.img + "width = '20px' height = '20px'>";
         str += "</div></div>";
         element.innerHTML = str;
         // element.innerHTML = review.username + review.title + review.text;
+        console.log(review.img);
+
     }
 
 

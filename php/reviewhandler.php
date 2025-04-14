@@ -73,7 +73,7 @@ if($_SESSION["role"] === "admin"){
                                     "msg" => $msg , 
                                     "score" => $score,
                                     "date" => $date, 
-                                    "img" =>$newFileName]); //Echo AA with image path 
+                                    "img" =>$path]); //Echo AA with image path 
                 }else{  //Failed to insert into databse
                     echo json_encode(-1);
                 }
