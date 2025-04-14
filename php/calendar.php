@@ -58,8 +58,7 @@ This is the Calendar Page.
         </div>
         <div id="content">
             <div class="calendar-container">
-                <h2>Team Calendar</h2>
-                <p>This calendar displays team events and schedules. Updates made on the team's Google Calendar will appear here automatically.</p>
+                <h2>Monthly Calendar</h2>
                 <iframe src="https://calendar.google.com/calendar/embed?src=2457521e4fcf4cc28835fca83e2eac85013d65751c9d04469752959d9a238a31%40group.calendar.google.com&ctz=America%2FNew_York&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=1&mode=MONTH&wkst=1&outputType=EMBED" 
                         style="border: 0" 
                         width="100%" 
