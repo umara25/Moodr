@@ -187,3 +187,39 @@ li {
 .trash-icon:hover {
     opacity: 1; /* Makes a nice animation */
 }
+
+/* Calendar styling */
+.calendar-container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: whitesmoke;
+    color: #181e23;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-container h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #181e23;
+}
+
+.calendar-container p {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.calendar-container iframe {
+    margin: 0 auto;
+    display: block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-note {
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+    color: #555;
+}
