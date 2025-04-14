@@ -4,6 +4,7 @@ window.addEventListener("load",function(event){
     let confirm = document.getElementById("confirm");
     let myForm = document.getElementById("newAccountForm");
     let password = document.getElementById("password");
+    let showPassword = document.getElementById("showPassword");
 
 
     myForm.addEventListener("submit",function(event){
@@ -20,5 +21,16 @@ window.addEventListener("load",function(event){
             event.preventDefault();
         }
     })
+
+    showPassword.addEventListener("input",function(event){
+        console.log("got here");
+        if (password.type === "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
+    })
+    
     
 });
+
