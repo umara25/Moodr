@@ -54,6 +54,9 @@ This is the User Managment Page.
 
             <div id="table">
                 <h1>User Management</h1>
+                <div id="resetbutton">
+                    <button id="reset-admin">Reset Admins</button>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -72,7 +75,7 @@ This is the User Managment Page.
                             <tr class="user">
                                 <td><?= $user["username"] ?></td>
                                 <td><?= $user["email"] ?></td>
-                                <td id="#<?= $user["username"]?>"><?= $user["role"] ?></td>
+                                <td class="role" id="#<?= $user["username"]?>"><?= $user["role"] ?></td>
                                 <td id="##<?= $user["username"]?>"><?=$user["status"]?></td>
                                 <td class="editCol">
                                     <?php 

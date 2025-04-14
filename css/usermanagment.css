@@ -2,8 +2,8 @@ table {
     width: 95%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .editCol{
@@ -65,5 +65,16 @@ button:hover {
 
 h1{
     padding-left: 0px;
-    padding-bottom:10px;
+    margin-bottom:10px;
+}
+
+#resetbutton{
+    text-align: right;
+    width:95%;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+#reset-admin{
+    margin-bottom:10px;
 }

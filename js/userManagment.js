@@ -6,7 +6,7 @@ window.addEventListener("load", function (event) {
     users.addEventListener("click", function (event) {
         let deleteUser = event.target.closest(".delete-user");
         if (deleteUser) { // Checks if the trash icon was clicked
-            let sure = confirm("Are you sure you want to delete " + deleteUser.id+"?")
+            let sure = confirm("Are you sure you want to delete " + deleteUser.id+"?");
             if(sure){
                 // Perform an AJAX request to delete the post
                 let params = "user=" + deleteUser.id;
@@ -36,7 +36,7 @@ window.addEventListener("load", function (event) {
 
         let makeAdmin = event.target.closest(".make-admin");
         if (makeAdmin) { // Checks if the trash icon was clicked
-            let sure = confirm("Are you sure you want to make " + makeAdmin.id + " an admin?")
+            let sure = confirm("Are you sure you want to make " + makeAdmin.id + " an admin?");
             if(sure){
                 //perform an AJAX request to make admin
                 let params = "user=" + makeAdmin.id;
@@ -69,7 +69,7 @@ window.addEventListener("load", function (event) {
 
         let banUser = event.target.closest(".ban-user");
         if (banUser) { // Checks if the trash icon was clicked
-            let sure = confirm("Are you sure you want to ban/unban " + banUser.id + "?")
+            let sure = confirm("Are you sure you want to ban/unban " + banUser.id + "?");
             if(sure){
                 //perform an AJAX request to make ban user
                 let params = "user=" + banUser.id;
@@ -108,6 +108,32 @@ window.addEventListener("load", function (event) {
                     .catch(error => console.error("Fetch error:", error));
             }
         }
+
+    });
+
+    resetAdmin = document.getElementById("reset-admin");
+    resetAdmin.addEventListener("click", function (event) {
+        let sure = confirm("Are you sure you want to reset admins?");
+            if(sure){
+                fetch("resetAdminHandler.php")
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);//debug
+                        
+                        if(data!=(-1)){
+                            //change role in dom
+                            let userRole = document.querySelectorAll(".role"); 
+                            for(let user of userRole){
+                                if(user.id !== "#Admin"){
+                                    user.innerHTML = "user";
+                                }
+                            }
+                        }else{
+                            alert("Unable to proccess request.");
+                        }
+                    })
+                    .catch(error => console.error("Fetch error:", error));
+            }
     });
 
 });
