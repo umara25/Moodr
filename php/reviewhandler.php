@@ -9,10 +9,11 @@ date_default_timezone_set('America/New_York');
 
 //  var_dump($_FILES);
 
- if($_SESSION["role"] === "admin"){ 
+if($_SESSION["role"] === "admin"){ 
     //They are an admin 
+    include "connect.php";
 
-     // Receive POST params
+    // Receive POST params
     $title = filter_input(INPUT_POST,"title",FILTER_SANITIZE_SPECIAL_CHARS);
     $msg = filter_input(INPUT_POST,"msg",FILTER_SANITIZE_SPECIAL_CHARS);
     $score = filter_input(INPUT_POST,"score",FILTER_VALIDATE_FLOAT);
@@ -23,25 +24,15 @@ date_default_timezone_set('America/New_York');
         //Params are ok 
         include "connect.php"; 
 
-        $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`) VALUES (?,?,?,?,?)";
-        $stmt = $dbh->prepare($cmd);
-        $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score]);
+        //Image was sent 
+        if(isset($_FILES['image'])){ 
 
-        // $succ = true;
-
-        if($succ){ 
-
-
-            // echo("title: ". $title . "\n");
-            // echo("body:" . $msg. "\n");
-            // echo("score:" . $score. "\n");
-            // echo("date:" . $date. "\n");
-            // echo("Files AA: " .var_dump($_FILES['image']));
-
-            //$_FILES['image']['tmp_name'] Stores current file path to image
-
-
-            //Upload file 
+            // Check for file upload error 
+            if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+                // echo "File upload error: " . $_FILES['image']['error'];
+                echo json_encode(-1);
+                exit;
+            }
 
             //Extract file details from $_FILES array
             $fileTmpPath = $_FILES['image']['tmp_name'];  // Temporary file path
@@ -52,55 +43,61 @@ date_default_timezone_set('America/New_York');
             // Santize file, replace any non alphanumeric characters with underscores
             $fileName = preg_replace('/[^a-zA-Z0-9-_\.]/', '_', $fileName);
 
+            //Append current time to beginning of file to help with uniqueness
+            $newFileName = time() . "_" . $fileName;
+
             // Specify the directory where you want to save the file
             $uploadDir = '../ReviewImgs/';
 
-            $path = $uploadDir . $fileName; // Upload to /ReviewImgs/ImageName
+            $path = $uploadDir . $newFileName; // Upload to /ReviewImgs/ImageName
 
-            // Check for file upload error 
-            if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-                // echo "File upload error: " . $_FILES['image']['error'];
-                echo json_encode(-1);
-                exit;
-            }
-
-
-            // if (file_exists($_FILES['image']['tmp_name'])) {
-            //     // echo "Temporary file does exist.";
-            // }
-
-            // Check if direectory is writeable
+            // Check if directory is writeable
             if (!is_writable($uploadDir)) {
                 echo json_encode(-1);
                 // echo "Upload directory is not writable.";
                 exit;
             }
-          
-            // Upload from tmpPath to path
+
+            // Upload from fileTmpPath to path
             if(move_uploaded_file($fileTmpPath,$path)){ 
                 // File was uploaded successfully 
-                // echo("Successfully uploaded " . $fileName);
-            }else{ // Failed to upload
-                // echo("FAILED TO UPLOAD FILE to ".$path);
+
+                //Insert into database (image)
+                $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`,`img_path`) VALUES (?,?,?,?,?,?)";
+                $stmt = $dbh->prepare($cmd);
+                $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score,$path]);
+
+                if($succ){ // Successfully inserted into DB
+                    echo json_encode(["username" => $_SESSION["username"], 
+                                    "title" => $title, 
+                                    "msg" => $msg , 
+                                    "score" => $score,
+                                    "date" => $date, 
+                                    "img" =>$newFileName]); //Echo AA with image path 
+                }else{  //Failed to insert into databse
+                    echo json_encode(-1);
+                }
+            }else{ // Failed to upload image
                 echo json_encode(-1);
             }
+        }else{ // No image sent 
 
-            echo json_encode(["username" => $_SESSION["username"], 
-                              "title" => $title, 
-                               "msg" => $msg , 
-                               "score" => $score,
-                               "date" => $date, 
-                                "img" =>$path]);
+            // Insert into DB (no image) 
+            $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`) VALUES (?,?,?,?,?)";
+            $stmt = $dbh->prepare($cmd);
+            $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score]);
 
-
-
-        }else{
-            echo json_encode(-1);
+            if($succ){ // Successfully inserted into DB
+                echo json_encode(["username" => $_SESSION["username"], 
+                                "title" => $title, 
+                                "msg" => $msg , 
+                                "score" => $score,
+                                "date" => $date]); 
+            }else{ //Failed to insert into database 
+                echo json_encode(-1); 
+            }
         }
     }
-
-
-
- } else {
-    echo json_encode(-1);
- }
+}
+    
+ 

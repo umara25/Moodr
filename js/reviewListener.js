@@ -76,7 +76,7 @@ window.addEventListener("load",function(event){
      * Receives HTTP response from reviewhandler.php in form on object
      * Showcases new post if successsful, else displays error message
      * {username: user, title: review title, msg: review text, score: review score, 
-     *  date: date it was posted}
+     *  date: date it was posted, img-path: path to image (if one was sent)}
      * @param {Object} review 
      */ 
     function success(review){ 
