@@ -27,7 +27,7 @@
                 if($row['status'] === 'inactive'){ 
                     // Account was banned
                      //Set session as failed login
-                    $_SESSION["loginFail"] = true;
+                    $_SESSION["inactive"] = true;
                     //Sends you back to login
                     header('Location: login.php');
                     exit;

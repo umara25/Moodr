@@ -23,11 +23,11 @@ date_default_timezone_set('America/New_York');
         //Params are ok 
         include "connect.php"; 
 
-        // $cmd = "INSERT INTO reviews (username,title,text_body,date) VALUES (?,?,?,?)";
-        // $stmt = $dbh->prepare($cmd);
-        // $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date]);
+        $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`) VALUES (?,?,?,?,?)";
+        $stmt = $dbh->prepare($cmd);
+        $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score]);
 
-        $succ = true;
+        // $succ = true;
 
         if($succ){ 
 
