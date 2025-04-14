@@ -26,6 +26,7 @@ This is the User Managment Page.
         exit;
     }
 
+    //fetching all users from the database
     if($_SESSION["role"]==="admin"){
         $cmd = "SELECT * FROM users";
         $stmt = $dbh->prepare($cmd);
@@ -59,6 +60,7 @@ This is the User Managment Page.
                             <th>Username</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Status</th>
                             <th>Options</th>
                         </tr>
                     </thead>
@@ -71,8 +73,14 @@ This is the User Managment Page.
                                 <td><?= $user["username"] ?></td>
                                 <td><?= $user["email"] ?></td>
                                 <td id="#<?= $user["username"]?>"><?= $user["role"] ?></td>
+                                <td id="##<?= $user["username"]?>"><?=$user["status"]?></td>
                                 <td class="editCol">
-                                    <button class="ban-user" id="<?= $user['username'] ?>">BAN USER</button>
+                                    <?php 
+                                    if($user["status"] === "active"){?>
+                                        <button class="ban-user" id="<?= $user['username'] ?>">BAN USER</button>
+                                    <?php }else{ ?>
+                                        <button class="ban-user unbanned" id="<?= $user['username'] ?>">UNBAN USER</button>
+                                    <?php } ?>
                                     <button class="make-admin" id="<?= $user['username'] ?>">Make Admin</button>
                                     <button class="delete-user" id="<?= $user['username'] ?>">Delete</button>
                                 </td>

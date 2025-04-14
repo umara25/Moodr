@@ -55,6 +55,14 @@ button:hover {
     background-color: red;
 }
 
+.unbanned{
+    background-color: #24292e;
+}
+
+.unbanned:hover{
+    background-color: #181e23;
+}
+
 h1{
     padding-left: 0px;
     padding-bottom:10px;
