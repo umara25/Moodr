@@ -70,7 +70,7 @@ This is the Review Page.
                 if ($_SESSION["role"] === "admin") {
                     ?>
                     <div id="make-post">
-                        <h1>Write a Review</h1>
+                        <h1>Write an Album Review</h1>
                         <div class="make-post-container">
 
                             <form id="make-review-form" method="POST" enctype="multipart/form-data">
