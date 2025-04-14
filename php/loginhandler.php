@@ -16,7 +16,7 @@
         /** 
          * Prepare SELECT command to see if they exist
          */
-        $cmd = "SELECT username,password,role,bio FROM users WHERE username = ?";
+        $cmd = "SELECT * FROM users WHERE username = ?";
         $stmt = $dbh->prepare($cmd);
         $success = $stmt->execute([$username]);
 
@@ -24,6 +24,14 @@
         if($row = $stmt->fetch()){ 
 
             if(password_verify($password,$row["password"])){ 
+                if($row['status'] === 'inactive'){ 
+                    // Account was banned
+                     //Set session as failed login
+                    $_SESSION["loginFail"] = true;
+                    //Sends you back to login
+                    header('Location: login.php');
+                    exit;
+                }
                 //Access granted
                 //Set SESSION variables
                 $_SESSION["username"] = $row["username"];

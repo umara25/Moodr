@@ -71,12 +71,12 @@ This is the Review Page.
                         <h1>Write a Review</h1>
                         <div class="make-post-container">
 
-                            <form id="make-review-form" action="reviewhandler.php" method="POST">
+                            <form id="make-review-form" method="POST" enctype="multipart/form-data">
                                 <label for="review-title">Title:</label>
                                 <input type="text" id="review-title" name="post-title" placeholder="Enter review title... (30 chars max)" required maxlength = "30">
 
                                 <label for="album-cover" class="pfp-btn">Choose Image</label>
-                                <input type = "file" id = "album-cover">
+                                <input type = "file" id = "album-cover" accept="image/*">
 
                                 <label for="review-message">Review:</label>
                                 <textarea id="review-message" name="post-message" placeholder="Enter your review..." rows="5"

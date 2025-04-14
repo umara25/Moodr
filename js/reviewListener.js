@@ -21,16 +21,45 @@ window.addEventListener("load",function(event){
         let title = document.getElementById("review-title").value;
         let msg = document.getElementById("review-message").value;
         let score = parseFloat(document.getElementById("review-score").value);
+        let file = document.getElementById("album-cover").files[0]; //Get first fle uploaded 
+
+
+        // Used to store form data, so it can be sent using fetch
+        // Important when using multipart type data
+        let formData = new FormData();      //Create form data object for multipart form data type
+        formData.append('title',title);     //Append review title
+        formData.append('msg',msg);         //Append review  body
+        formData.append('score',score);     //Append review score
+        formData.append('image', file);     //Append image under name 'image'
+
+        // Debugging, view items inside formData 
+        // for (let [key, value] of formData.entries()) {
+        //     console.log(key,value);
+        // }
+
+
+        // console.log(file);
+
+        // let params = "title=" + title + "&msg=" + msg + "&score="+score + "&file="+file;
+        // console.log(params);
+        let config = {
+            method: 'POST',
+            // headers: { "Content-Type": "multipart/form-data" }, // Parameter format, sending file
+            body: formData  //Send formData as parameters in HTTP request body
+        };
 
 
         // Construct AJAX request URL using GET params
-        let url = "../php/reviewhandler.php?title=" +title + "&msg="+msg + "&score="+score;
+        // let url = "../php/reviewhandler.php?title=" +title + "&msg="+msg + "&score="+score;
 
         // Initiate AJAX request
-        fetch(url)
+        fetch("../php/reviewhandler.php",config)
         .then(response=>response.json())
-        // .then(d => console.log(d));
-        .then(success);
+        .then(d =>console.log(d));
+
+        // .then(response=>response.json())
+        // // .then(d => console.log(d));
+        // .then(success);
 
     });
 
