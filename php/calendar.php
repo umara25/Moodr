@@ -67,9 +67,6 @@ This is the Calendar Page.
                         frameborder="0" 
                         scrolling="no">
                 </iframe>
-                <p class="calendar-note">
-                    <p>To add events to this calendar, team members with access to the Google account can update it from their phone or computer.</p>
-                </p>
             </div>
         </div>
     </div>
