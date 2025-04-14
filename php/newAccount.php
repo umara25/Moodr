@@ -73,6 +73,7 @@ if ($paramsok) {
                     <input type="email" name="confirm" placeholder="Confirm Email" required id="confirm">
                     <input type = "password" name = "password" placeholder = "Password" required id="password">
                     <input type = "submit">
+                    <div id="showpas"><input type="checkbox" id="showPassword">Show Password </div>
                     <?php
                     if($emailExists){
                         echo "<p class='warning'>EMAIL ALREADY USED</p>";
