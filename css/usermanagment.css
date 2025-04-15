@@ -78,3 +78,20 @@ h1{
 #reset-admin{
     margin-bottom:10px;
 }
+
+#styleCreate{
+    width: 95%;
+    background-color: whitesmoke;
+    color: #181e23;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+input{
+    margin:10px;
+}
+
+#inputStyle{
+    padding-left: 20px;
+}
