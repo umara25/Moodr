@@ -52,6 +52,21 @@ This is the User Managment Page.
         </div>
         <div id="content">
 
+            <div id = "styleCreate"> 
+                <!-- ADD UPDATING STYLES, USING UPDATE SQL -->
+                 <!-- ADD DELETING STYLES -->
+                <h1>Create Custom Styles</h1>
+                <div id="inputStyle">
+                    <input id="styleName" type="text" placeholder="Name">
+                    <input id = "primary" type = "color">Primary
+                    <input id = "secondary" type = "color">Secondary
+                    <input id = "text" type = "color">Text
+                    <input id = "textbox" type = "color">Textbox
+                    <input id = "confirmStyle" type = "button" value = "submit">
+                    <p id = "styleResult"></p>
+                </div>
+            </div>
+
             <div id="table">
                 <h1>User Management</h1>
                 <div id="resetbutton">
