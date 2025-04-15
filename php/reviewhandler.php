@@ -39,16 +39,13 @@ if($_SESSION["role"] === "admin"){
             $fileSize = $_FILES['image']['size'];         // File size
             $fileType = $_FILES['image']['type'];         // File type
 
-
             $path = image_verify($fileName,$fileType,$fileSize,$fileTmpPath);  // Call image_verify function
 
             if($path !== false){ 
                 //Insert into database (image)
-                // $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`,`img_path`) VALUES (?,?,?,?,?,?)";
-                // $stmt = $dbh->prepare($cmd);
-                // $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score,$path]);
-
-                $succ = true;
+                $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`,`img_path`) VALUES (?,?,?,?,?,?)";
+                $stmt = $dbh->prepare($cmd);
+                $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score,$path]);
 
                 if($succ){ // Successfully inserted into DB
                     echo json_encode(["username" => $_SESSION["username"], 
@@ -82,6 +79,8 @@ if($_SESSION["role"] === "admin"){
                 echo json_encode(-1); 
             }
         }
+    }else{ // Params are invalid
+        echo json_encode(-1);
     }
 }
     
