@@ -22,14 +22,13 @@ if($_SESSION["role"] === "admin"){
 
     if($title !== null && $msg !== null && $score !== null && $score !== false){ 
         //Params are ok 
-        include "connect.php"; 
 
         //Image was sent 
         if(isset($_FILES['image'])){ 
+            include "imageHandler.php"; // Used for file uploading and verification
 
             // Check for file upload error 
             if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-                // echo "File upload error: " . $_FILES['image']['error'];
                 echo json_encode(-1);
                 exit;
             }
@@ -40,32 +39,16 @@ if($_SESSION["role"] === "admin"){
             $fileSize = $_FILES['image']['size'];         // File size
             $fileType = $_FILES['image']['type'];         // File type
 
-            // Santize file, replace any non alphanumeric characters with underscores
-            $fileName = preg_replace('/[^a-zA-Z0-9-_\.]/', '_', $fileName);
 
-            //Append current time to beginning of file to help with uniqueness
-            $newFileName = time() . "_" . $fileName;
+            $path = image_verify($fileName,$fileType,$fileSize,$fileTmpPath);  // Call image_verify function
 
-            // Specify the directory where you want to save the file
-            $uploadDir = '../ReviewImgs/';
-
-            $path = $uploadDir . $newFileName; // Upload to /ReviewImgs/ImageName
-
-            // Check if directory is writeable
-            if (!is_writable($uploadDir)) {
-                echo json_encode(-1);
-                // echo "Upload directory is not writable.";
-                exit;
-            }
-
-            // Upload from fileTmpPath to path
-            if(move_uploaded_file($fileTmpPath,$path)){ 
-                // File was uploaded successfully 
-
+            if($path !== false){ 
                 //Insert into database (image)
-                $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`,`img_path`) VALUES (?,?,?,?,?,?)";
-                $stmt = $dbh->prepare($cmd);
-                $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score,$path]);
+                // $cmd = "INSERT INTO reviews (`username`,`title`,`text_body`,`date`,`score`,`img_path`) VALUES (?,?,?,?,?,?)";
+                // $stmt = $dbh->prepare($cmd);
+                // $succ = $stmt->execute([$_SESSION["username"],$title,$msg,$date,$score,$path]);
+
+                $succ = true;
 
                 if($succ){ // Successfully inserted into DB
                     echo json_encode(["username" => $_SESSION["username"], 
@@ -73,7 +56,9 @@ if($_SESSION["role"] === "admin"){
                                     "msg" => $msg , 
                                     "score" => $score,
                                     "date" => $date, 
-                                    "img" =>$path]); //Echo AA with image path 
+                                    "img" =>$path ]
+                                    //  "fileDetails" =>$_FILES['image']] 
+                                      ); //Echo AA with image path 
                 }else{  //Failed to insert into databse
                     echo json_encode(-1);
                 }
