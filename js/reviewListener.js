@@ -12,6 +12,24 @@ window.addEventListener("load",function(event){
     let rangeField = document.getElementById("score-field");
 
 
+    let reviewOpenButton = document.getElementById("make-post-button");  // Open review form button
+    let reviewFormDiv = document.getElementById("make-post");            // Div containing review form
+
+    let reviewCloseButton = document.getElementById("close-post-img");  
+
+    // Display the make review inputs when clicked
+    reviewOpenButton.addEventListener("click",function(event){ 
+        reviewFormDiv.style.display = "flex";    // Make form visible
+        reviewOpenButton.style.display = "none";  // Hide create review 'button'
+    })
+
+    reviewCloseButton.addEventListener("click",function(event){  
+        reviewFormDiv.style.display = "none";    // Hide form 
+        reviewOpenButton.style.display = "flex";  // Make create review 'button' visible
+
+    });
+
+
     /** 
      * Handle submitting AJAX request 
      */

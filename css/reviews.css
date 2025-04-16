@@ -16,3 +16,62 @@ h1 {
     margin-left:0;
     padding-left:0;
 }
+
+#make-post{
+    display:none;
+    /* display:flex; */
+    flex-direction: column;
+    /* background-image: url("../images/close.png"); */
+    /* background-position: right top; */
+    /* background-position: 98% 3%;
+    background-repeat: no-repeat;
+    background-size: 25px 25px; */
+
+}
+
+#make-post-js{ 
+    display:flex;
+    width:100%;
+}
+
+#make-post-js h1{ 
+    color:white;
+}
+
+#make-post-js input { 
+    width:30%;
+    height:50px;
+    border-radius:15px;
+    margin-left:auto;
+    margin-right:auto;
+    background-image: url("../images/write.png");
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#make-post-button{ 
+    font-size:100%;
+}
+
+#make-post-button:hover{ 
+   cursor:pointer;
+}
+
+
+#close-post { 
+    width:90%;
+    margin:0;
+    padding:0;
+}
+
+#close-post img{ 
+    width:25px;
+    height:25px;
+    margin:0;
+    padding:0;
+}
+
+#close-post img:hover{ 
+    cursor:pointer;
+}
