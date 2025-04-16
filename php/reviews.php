@@ -90,7 +90,7 @@ This is the Review Page.
                                 <label for="review-title">Title:</label>
                                 <input type="text" id="review-title" name="post-title" placeholder="Enter review title... (30 chars max)" required maxlength = "30">
 
-                                <label for="album-cover" class="pfp-btn">Choose Image</label>
+                                <label for="album-cover" class="pfp-btn">Choose Image (.png, .jpg, .jpeg)</label>
                                 <input type = "file" id = "album-cover" accept="image/*">
 
                                 <label for="review-message">Review:</label>
