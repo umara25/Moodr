@@ -15,11 +15,6 @@
   */
  function image_verify($fileName,$fileType,$fileSize,$fileTmp){ 
 
-    // Create file info object, 
-    // $file_info = new finfo(FILEINFO_MIME_TYPE);
-    // $type = $file_info->file($fileTmp);         //Get files type 
-
-
     $valid_types = ['image/jpeg','image/jpg','image/png'];
 
     // File type check
@@ -57,8 +52,6 @@
     }
 
     return false; // Unable to upload
-
-
  }
 
  /** 
@@ -84,6 +77,5 @@
     }else{ 
         return $new_name;  // Unique name, so return it
     }
-
  }
 

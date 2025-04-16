@@ -14,7 +14,8 @@ This is the Review Page.
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/reviews.css">
 
-    <?php if($_SESSION["role"] === "admin"){ 
+    <?php 
+    if($_SESSION["role"] === "admin"){ 
         //Include create review JS if admin
         echo "<script src = '../js/reviewListener.js'></script>";
     }
@@ -69,8 +70,20 @@ This is the Review Page.
             if ($loggedIn) {
                 if ($_SESSION["role"] === "admin") {
                     ?>
+
+                    <div id = "make-post-js"> 
+                        <input id = 'make-post-button' type = "button" value = "Click to write an album review">
+                        <!-- <img id = "make-post-img" src = "../images/write.png"> -->
+                    </div>
+
                     <div id="make-post">
+
+                        <div id = "close-post"> 
+                            <img id = "close-post-img" src = "../images/close.png">
+                        </div>
+
                         <h1>Write an Album Review</h1>
+
                         <div class="make-post-container">
 
                             <form id="make-review-form" method="POST" enctype="multipart/form-data">
