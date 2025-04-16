@@ -110,6 +110,72 @@ This is the Review Page.
             ?>
             <div id = "reviews"> 
 
+                <div class = "review"> 
+                    <div class = "review-pfp"> 
+                        <img src = "../images/defaultpfp.jpg">
+                    </div>
+                    <div class = "triangle"></div>
+
+                    <div class = "review-content"> 
+
+                        <div class = "review-title"> 
+                            <h1> MY FIRST REVIEW - Username </h1>
+                        </div>
+
+                        <div class = "review-body"> 
+
+                            <div class = "review-img"> 
+                                <img src = "../images/write.png"> 
+                            </div>
+                            <div class = "review-text"> 
+                                <p>
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                                    Vitae corrupti minima voluptate laboriosam voluptatibus aliquid, 
+                                    enim facere ipsum hic? Eos, natus enim! Odit, explicabo! 
+                                    Cupiditate molestias reiciendis velit doloremque quod!
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, sequi doloribus, ducimus animi ex asperiores cumque aperiam quis iste labore adipisci, harum perferendis et amet? Minus delectus impedit harum officiis.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+            
+                </div>
+
+                <div class = "review"> 
+                    <div class = "review-pfp"> 
+                        <img src = "../images/defaultpfp.jpg">
+                    </div>
+                    <div class = "triangle"></div>
+
+                    <div class = "review-content"> 
+
+                        <div class = "review-title"> 
+                            <h1> MY FIRST REVIEW - Username </h1>
+                        </div>
+
+                        <div class = "review-body"> 
+
+                            <div class = "review-img"> 
+                                <img src = "../images/write.png"> 
+                            </div>
+                            <div class = "review-text"> 
+                                <p>
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                                    Vitae corrupti minima voluptate laboriosam voluptatibus aliquid, 
+                                    enim facere ipsum hic? Eos, natus enim! Odit, explicabo! 
+                                    Cupiditate molestias reiciendis velit doloremque quod!
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, sequi doloribus, ducimus animi ex asperiores cumque aperiam quis iste labore adipisci, harum perferendis et amet? Minus delectus impedit harum officiis.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+            
+                </div>
+
                 <?php 
 
                     $cmd = "SELECT * FROM reviews ORDER BY date desc";

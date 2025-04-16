@@ -43,7 +43,7 @@
 
     $path = $uploadDir . $new_name;   // Add file name to path of file upload
 
-    // Move from $fileTmp to path 
+    // Move from fileTmp to path 
     $upload_file = move_uploaded_file($fileTmp,$path); 
 
     // File upload check 

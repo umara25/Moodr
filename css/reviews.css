@@ -75,3 +75,68 @@ h1 {
 #close-post img:hover{ 
     cursor:pointer;
 }
+
+.review{ 
+    display:flex;
+    margin-left:auto;
+    margin-right:auto;
+    width:90%;
+    margin-bottom:20px;
+}
+
+.review-pfp{
+    width:15%;
+    margin-right:3px;
+}
+
+.review-pfp img {
+    width:100%;
+    border-radius:10px;
+}
+
+.review-content { 
+    background-color: white;
+    width:100%;
+    border-radius:10px;
+}
+
+.review-title h1{ 
+    margin-left:5px;
+    font-size:30px;
+}
+
+
+.triangle {
+    width: 0;
+	height: 0;
+	border-top: 12px solid transparent;
+	border-right: 20px solid white;
+	border-bottom: 12px solid transparent;
+    margin-top:25px;
+}
+
+.review-body{ 
+    display:flex;
+    width:100%;
+}
+
+
+.review-img {
+    width:30%;
+}
+.review-img img{ 
+    width:100%;
+}
+
+
+.review-text{
+    color:black;
+    text-align:left;
+    width:100%;
+}
+
+.review-text p { 
+    padding-left:0;
+    margin-left:0;
+    font-size:18px;
+}
