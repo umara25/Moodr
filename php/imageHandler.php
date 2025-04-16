@@ -8,12 +8,14 @@
 
 
  /** 
-  * Takes fileName, fileType, fileSize and fileTmp (Temporary file path); 
+  * Takes fileName, fileType, fileSize, fileTmp (Temporary file path), and 
+  * uploadDir (Path to directory you want to upload) i.e '../exDirectory/'
+  *
   * Checks if it is an image and if it uploads successfully 
   * Returns path to uploaded file if valid 
   * Else Returns false
   */
- function image_verify($fileName,$fileType,$fileSize,$fileTmp){ 
+ function image_verify($fileName,$fileType,$fileSize,$fileTmp,$uploadDir){ 
 
     $valid_types = ['image/jpeg','image/jpg','image/png'];
 
@@ -32,22 +34,21 @@
     
     $new_name = renameFile($fileName);       // Rename file 
 
-    $uploadDir = "../ReviewImgs";           // Directory you want to upload file to 
+    // $uploadDir = "../ReviewImgs";           // Directory you want to upload file to 
 
     // Check if Directory is writeable
     if(!is_writable($uploadDir)){
         return false;
     }
 
-    $path = "../ReviewImgs/" . $new_name;   // Path of file upload
+    $path = $uploadDir . $new_name;   // Add file name to path of file upload
 
     // Move from $fileTmp to path 
     $upload_file = move_uploaded_file($fileTmp,$path); 
 
     // File upload check 
-
     if($upload_file){ 
-        // uploaded successfully 
+        // Uploaded successfully 
         return $path; // Return path
     }
 

@@ -39,7 +39,7 @@ if($_SESSION["role"] === "admin"){
             $fileSize = $_FILES['image']['size'];         // File size
             $fileType = $_FILES['image']['type'];         // File type
 
-            $path = image_verify($fileName,$fileType,$fileSize,$fileTmpPath);  // Call image_verify function
+            $path = image_verify($fileName,$fileType,$fileSize,$fileTmpPath,"../ReviewImgs/");  // Call image_verify function
 
             if($path !== false){ 
                 //Insert into database (image)
