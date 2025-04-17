@@ -150,3 +150,63 @@ h1 {
 .timestamp { 
     font-size:18px;
 }
+
+.trash-icon{
+    width:20px;
+    height:20px;
+    margin-left: auto;
+    cursor: pointer; /* Changes curser to seem clickable */
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out; /* Makes a nice animation */
+    position: relative;
+    top: 12px
+}
+
+.review-title{ 
+    width:100%;
+    display:flex;
+}
+
+.review-title h1{ 
+    width:100%;
+}
+
+.delete { 
+    width:100%;
+    margin-bottom:10px;
+    text-align: center;
+    margin-bottom:15px;
+}
+
+
+
+.confirm-button{ 
+    color:white;
+    width:30%;
+    padding:10px;
+    background-color:#4CAF50;
+    margin-right: 2px;
+    border: solid black 2px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.confirm-button:hover{
+    background-color: #45A049;
+}
+
+
+
+.cancel-button{ 
+    color:white;
+    width:30%;
+    padding:10px;
+    background-color: #F44336;
+    border: solid black 2px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.cancel-button:hover{
+    background-color: #D32F2F
+}
