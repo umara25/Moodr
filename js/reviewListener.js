@@ -10,6 +10,7 @@ window.addEventListener("load",function(event){
     let myform = document.getElementById("make-review-form");
     let rangeSlider = document.getElementById("review-score");
     let rangeField = document.getElementById("score-field");
+    let errorField = document.getElementById("error");
 
 
     let reviewOpenButton = document.getElementById("make-post-button");  // Open review form button
@@ -35,11 +36,13 @@ window.addEventListener("load",function(event){
      */
     myform.addEventListener("submit",function(event){ 
         event.preventDefault();
+        errorField.innerHTML = "";
 
         let title = document.getElementById("review-title").value;
         let msg = document.getElementById("review-message").value;
         let score = parseFloat(document.getElementById("review-score").value);
         let file = document.getElementById("album-cover").files[0]; //Get first fle uploaded 
+
 
 
         // Used to store form data, so it can be sent using fetch
@@ -102,7 +105,7 @@ window.addEventListener("load",function(event){
         myform.reset(); //Clear form
         rangeField.innerHTML = "Score: 0/10";
 
-        console.log("Hit here");
+        // console.log("Hit here");
         let reviewField = document.getElementById("reviews");
 
         if(review != -1){ 
@@ -110,7 +113,7 @@ window.addEventListener("load",function(event){
             // reviewField.innerHTML = "SUCCESS";
             renderReview(review,reviewField); // Render new review to page
         }else { 
-            reviewField.innerHTML = "<h1> <span style = 'color:red'>ERROR FAILED TO CREATE REVIEW</span></h1>";
+            errorField.innerHTML = "<h1> <span style = 'color:red'>ERROR FAILED TO CREATE REVIEW</span></h1>";
         }
     }
 
@@ -122,17 +125,68 @@ window.addEventListener("load",function(event){
      * @param {HTML Element} element 
      */
     function renderReview(review,element){ 
-        let reviewDiv = document.createElement("div");  // Create review div 
-        reviewDiv.classList.add("review");              // Add it to class review
+        let reviewDiv = document.createElement("div");          // Create review div 
+        reviewDiv.classList.add("review");                      // Add it to class review
+
+        let reviewPfpDiv = document.createElement("div");       // Create review-pfp div
+        reviewPfpDiv.classList.add("review-pfp");               // Add it to class review-pfp
+
+        let triangleDiv = document.createElement("div");        // Create triangle div (Gives speech bubble effect)
+        triangleDiv.classList.add("triangle");
+
+        let reviewContentDiv = document.createElement("div");   // Create review-content Div
+        reviewContentDiv.classList.add("review-content");       
+
+        let reviewTitleDiv = document.createElement("div");     // Create review-title div
+        reviewTitleDiv.classList.add("review-title");
+
+        let reviewBodyDiv = document.createElement("div");      // Create review Body div
+        reviewBodyDiv.classList.add("review-body");
+
+        let reviewTextDiv = document.createElement("div");      // Create review-text div
+        reviewTextDiv.classList.add("review-text");
 
 
-        let reviewTitle = document.createElement("h1"); // Create h1 element for review title
+        // Construct DOM Tree
+        // element.appendChild(reviewDiv);
+        element.insertBefore(reviewDiv,element.children[1]);  // Insert before second child
+                                                               // First child is an error div
+
+        reviewDiv.appendChild(reviewPfpDiv);
+        reviewDiv.appendChild(triangleDiv);
+        reviewDiv.appendChild(reviewContentDiv);
+
+        reviewContentDiv.appendChild(reviewTitleDiv);
+        reviewContentDiv.appendChild(reviewBodyDiv);
 
 
-        let reviewText = document.createElement("p");   // Create p element for review text 
+        // Check if an image was uploaded with review
+        if(review.img !== null && review.img !== undefined){ 
+            let reviewImgDiv = document.createElement("div");       // Create review image div
+            reviewImgDiv.classList.add("review-img");
+            reviewBodyDiv.appendChild(reviewImgDiv);
+            reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
+            console.log(review.img);
+        }
+
+        reviewBodyDiv.appendChild(reviewTextDiv);
+
+        // Start altering innerHTML 
+
+        reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";  //PLACEHOLDER PFP FOR NOW
+
+        reviewTitleDiv.innerHTML =( 
+            "<h1>" + review.title + " - " + review.username 
+            + "<span class = 'timestamp'>" + review.date +"</span></h1>"   // Render title 
+        );
+
+        reviewTextDiv.innerHTML =(
+             "<p>" + review.msg + "</p>" + 
+             "<p>Score: " + review.score + "/10</p>"             
+         ); // Render text
 
 
-        
+
 
     }
 

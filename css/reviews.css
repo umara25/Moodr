@@ -80,12 +80,12 @@ h1 {
     display:flex;
     margin-left:auto;
     margin-right:auto;
-    width:90%;
+    width:100%;
     margin-bottom:20px;
 }
 
 .review-pfp{
-    width:15%;
+    width:8%;
     margin-right:3px;
 }
 
@@ -103,6 +103,7 @@ h1 {
 .review-title h1{ 
     margin-left:5px;
     font-size:30px;
+    margin-bottom:5px;
 }
 
 
@@ -118,25 +119,34 @@ h1 {
 .review-body{ 
     display:flex;
     width:100%;
+    margin-bottom:5px;
 }
 
 
 .review-img {
-    width:30%;
+    width:25%;
+    margin-top:auto;
+    margin-bottom:auto;
+    margin-left:5px;
 }
 .review-img img{ 
-    width:100%;
+    width:90%;
 }
 
 
 .review-text{
     color:black;
-    text-align:left;
     width:100%;
+    margin-right:5px;
+    margin-left:5px;
 }
 
 .review-text p { 
     padding-left:0;
     margin-left:0;
+    font-size:18px;
+}
+
+.timestamp { 
     font-size:18px;
 }
