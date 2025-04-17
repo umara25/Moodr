@@ -10,6 +10,7 @@ window.addEventListener("load",function(event){
     let myform = document.getElementById("make-review-form");
     let rangeSlider = document.getElementById("review-score");
     let rangeField = document.getElementById("score-field");
+    let errorField = document.getElementById("error");
 
 
     let reviewOpenButton = document.getElementById("make-post-button");  // Open review form button
@@ -35,11 +36,13 @@ window.addEventListener("load",function(event){
      */
     myform.addEventListener("submit",function(event){ 
         event.preventDefault();
+        errorField.innerHTML = "";
 
         let title = document.getElementById("review-title").value;
         let msg = document.getElementById("review-message").value;
         let score = parseFloat(document.getElementById("review-score").value);
         let file = document.getElementById("album-cover").files[0]; //Get first fle uploaded 
+
 
 
         // Used to store form data, so it can be sent using fetch
@@ -73,8 +76,8 @@ window.addEventListener("load",function(event){
         // Initiate AJAX request
         fetch("../php/reviewhandler.php",config)
         .then(response=>response.json())
-        .then(d =>console.log(d))
-        // .then(success);
+        // .then(d =>console.log(d))
+        .then(success);
 
         // fetch("../php/reviewhandler.php",config)
         // .then(response=>response.json())
@@ -102,7 +105,7 @@ window.addEventListener("load",function(event){
         myform.reset(); //Clear form
         rangeField.innerHTML = "Score: 0/10";
 
-        console.log("Hit here");
+        // console.log("Hit here");
         let reviewField = document.getElementById("reviews");
 
         if(review != -1){ 
@@ -110,38 +113,83 @@ window.addEventListener("load",function(event){
             // reviewField.innerHTML = "SUCCESS";
             renderReview(review,reviewField); // Render new review to page
         }else { 
-            reviewField.innerHTML = "<h1> <span style = 'color:red'>ERROR FAILED TO CREATE REVIEW</span></h1>";
+            errorField.innerHTML = "<h1> <span style = 'color:red'>ERROR FAILED TO CREATE REVIEW</span></h1>";
         }
     }
 
     /**
-     * Recieves object storing review information 
-     * And HTML element you want to write this information to 
-     * {username: user, title: review title, msg: review text, score: review score, 
-     *  date: date it was posted}
-     * @param {Object} review
-     * @param {HTML Element} element
+     * Render review inside element based on review object received
+     * {username: user, title: review title, msg: review body, score: review score, 
+     * date: date review posted, img: img path}
+     * @param {Object} review 
+     * @param {HTML Element} element 
      */
-    function renderReview(review,element){
-        let str = "<div class = 'review'><img src = '../images/defaultpfp.jpg' width = '75px' height = '75px'>";
-        str += "<div class = 'textbox'>";
-        str += "<p><b>" + review.username + " - " + review.title + "</b></p>";
-        str += "<p>" + review.msg + "</p></div>";
-        str += "<div class = 'trash-icon'><img src = " + review.img + "width = '20px' height = '20px'>";
-        str += "</div></div>";
-        element.innerHTML = str;
-        // element.innerHTML = review.username + review.title + review.text;
-        console.log(review.img);
+    function renderReview(review,element){ 
+        let reviewDiv = document.createElement("div");          // Create review div 
+        reviewDiv.classList.add("review");                      // Add it to class review
+
+        let reviewPfpDiv = document.createElement("div");       // Create review-pfp div
+        reviewPfpDiv.classList.add("review-pfp");               // Add it to class review-pfp
+
+        let triangleDiv = document.createElement("div");        // Create triangle div (Gives speech bubble effect)
+        triangleDiv.classList.add("triangle");
+
+        let reviewContentDiv = document.createElement("div");   // Create review-content Div
+        reviewContentDiv.classList.add("review-content");       
+
+        let reviewTitleDiv = document.createElement("div");     // Create review-title div
+        reviewTitleDiv.classList.add("review-title");
+
+        let reviewBodyDiv = document.createElement("div");      // Create review Body div
+        reviewBodyDiv.classList.add("review-body");
+
+        let reviewTextDiv = document.createElement("div");      // Create review-text div
+        reviewTextDiv.classList.add("review-text");
+
+
+        // Construct DOM Tree
+        // element.appendChild(reviewDiv);
+        element.insertBefore(reviewDiv,element.children[1]);  // Insert before second child
+                                                               // First child is an error div
+
+        reviewDiv.appendChild(reviewPfpDiv);
+        reviewDiv.appendChild(triangleDiv);
+        reviewDiv.appendChild(reviewContentDiv);
+
+        reviewContentDiv.appendChild(reviewTitleDiv);
+        reviewContentDiv.appendChild(reviewBodyDiv);
+
+
+        // Check if an image was uploaded with review
+        if(review.img !== null && review.img !== undefined){ 
+            let reviewImgDiv = document.createElement("div");       // Create review image div
+            reviewImgDiv.classList.add("review-img");
+            reviewBodyDiv.appendChild(reviewImgDiv);
+            reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
+            console.log(review.img);
+        }
+
+        reviewBodyDiv.appendChild(reviewTextDiv);
+
+        // Start altering innerHTML 
+
+        reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";  //PLACEHOLDER PFP FOR NOW
+
+        reviewTitleDiv.innerHTML =( 
+            "<h1>" + review.title + " - " + review.username 
+            + "<span class = 'timestamp'>" + review.date +"</span></h1>"   // Render title 
+        );
+
+        reviewTextDiv.innerHTML =(
+             "<p>" + review.msg + "</p>" + 
+             "<p>Score: " + review.score + "/10</p>"             
+         ); // Render text
+
+
+
 
     }
 
 
 
 });
-// echo "<span class='post'><img src='../images/defaultpfp.jpg' width='75px' height='75px'>";
-// echo "<div class='textbox'>";
-// echo "<p><b>$_SESSION[username] - $title </b></p>";
-// echo "<p>$message</p></div>";
-// echo "<div class='trash-icon' id='$postId'>";
-// echo "<img src='../images/trashicon.png' width='20px' height='20px'>";
-// echo "</div></div></span>";

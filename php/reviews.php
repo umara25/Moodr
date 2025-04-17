@@ -94,8 +94,8 @@ This is the Review Page.
                                 <input type = "file" id = "album-cover" accept="image/*">
 
                                 <label for="review-message">Review:</label>
-                                <textarea id="review-message" name="post-message" placeholder="Enter your review..." rows="5"
-                                    required></textarea>
+                                <textarea id="review-message" name="post-message" placeholder="Enter your review... (400 chars max)" rows="5" 
+                                maxlength = "400" required></textarea>
 
                                 <label for = "review-score" id = "score-field">Score: 0 / 10</label> 
                                 <input id ="review-score" type = "range" min = "0" max = "10" placeholder = "Score from 0-10" value ="0" step = "0.5" >
@@ -110,19 +110,117 @@ This is the Review Page.
             ?>
             <div id = "reviews"> 
 
+            <div id = 'error'></div>
+<!-- 
+                <div class = "review"> 
+                    <div class = "review-pfp"> 
+                        <img src = "../images/defaultpfp.jpg">
+                    </div>
+                    <div class = "triangle"></div>
+
+                    <div class = "review-content"> 
+
+                        <div class = "review-title"> 
+                            <h1> MY FIRST REVIEW - Username <span class = 'timestamp'> 2025-04-15 </span></h1> 
+                        </div>
+
+                        <div class = "review-body"> 
+
+                            <div class = "review-img"> 
+                                <img src = "../images/write.png"> 
+                            </div>
+                            <div class = "review-text"> 
+                                <p>
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                                    Vitae corrupti minima voluptate laboriosam voluptatibus aliquid, 
+                                    enim facere ipsum hic? Eos, natus enim! Odit, explicabo! 
+                                    Cupiditate molestias reiciendis velit doloremque quod!
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, sequi doloribus, ducimus animi ex asperiores cumque aperiam quis iste labore adipisci, harum perferendis et amet? Minus delectus impedit harum officiis.
+                                </p>
+                                <p>Score: 10/10</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+            
+                </div>
+
+                <div class = "review"> 
+                    <div class = "review-pfp"> 
+                        <img src = "../images/defaultpfp.jpg">
+                    </div>
+                    <div class = "triangle"></div>
+
+                    <div class = "review-content"> 
+
+                        <div class = "review-title"> 
+                            <h1> MY FIRST REVIEW - Username </h1>
+                        </div>
+
+                        <div class = "review-body"> 
+
+                            <div class = "review-img"> 
+                                <img src = "../ReviewImgs/zgJVAwtk1744844895.png"> 
+                            </div>
+                            <div class = "review-text"> 
+                                <p>
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                                    Vitae corrupti minima voluptate laboriosam voluptatibus aliquid, 
+                                    enim facere ipsum hic? Eos, natus enim! Odit, explicabo! 
+                                    Cupiditate molestias reiciendis velit doloremque quod!
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, sequi doloribus, ducimus animi ex asperiores cumque aperiam quis iste labore adipisci, harum perferendis et amet? Minus delectus impedit harum officiis.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+            
+                </div> -->
+
                 <?php 
 
-                    $cmd = "SELECT * FROM reviews ORDER BY date desc";
+                    $cmd = "SELECT * FROM reviews ORDER BY date DESC LIMIT 10";
                     $stmt = $dbh->prepare($cmd); 
                     $succ = $stmt->execute();
 
                     while($row = $stmt->fetch()){ 
                         //Grab each review 
 
+                        echo "<div class = 'review'>"; 
+                        echo "<div class = 'review-pfp'> 
+                                 <img src = '../images/defaultpfp.jpg'> 
+                              </div>"; // Temporary PFP, REPLACE WITH ACTUAL LATER
+
+                        echo "<div class = 'triangle'></div>";
+                        echo "<div class = 'review-content'>"; 
+
+                        echo "<div class = 'review-title'>
+                                <h1> $row[title]  -  $row[username]
+                                <span class = 'timestamp'>$row[date]</span>
+                                </h1>
+                               </div>";
+
+                        echo "<div class = 'review-body'>";
+
+                        if($row["img_path"] !== NULL){ 
+
+                            // Image was uploaded and exists in directory
+                             echo "<div class = 'review-img'>
+                                      <img src =" . $row["img_path"] . ">
+                                    </div>";
+                        }
+                              
+                        echo "<div class = 'review-text'>
+                                <p>$row[text_body]</p>
+                                <p>Score: $row[score]/10</p>
+                             </div>";
                         
+                        echo "</div></div></div>";
 
-                    }
-
+                    } 
+                    
                 ?>
 
             </div>

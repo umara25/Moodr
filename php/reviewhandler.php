@@ -17,10 +17,11 @@ if($_SESSION["role"] === "admin"){
     $title = filter_input(INPUT_POST,"title",FILTER_SANITIZE_SPECIAL_CHARS);
     $msg = filter_input(INPUT_POST,"msg",FILTER_SANITIZE_SPECIAL_CHARS);
     $score = filter_input(INPUT_POST,"score",FILTER_VALIDATE_FLOAT);
-    $date = date('Y-m-d');
+    $date = date('Y-m-d H:i:s');
 
 
-    if($title !== null && $msg !== null && $score !== null && $score !== false){ 
+    if($title !== null && $msg !== null && $score !== null && $score !== false 
+       && strlen($title) <= 30 && strlen($msg) <= 400){ 
         //Params are ok 
 
         //Image was sent 
