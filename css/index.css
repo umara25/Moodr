@@ -190,7 +190,7 @@ li {
 
 /* Calendar styling */
 .calendar-container {
-    width: 100%;
+    width: 95%;
     max-width: 1200px;
     background-color: whitesmoke;
     color: #181e23;
