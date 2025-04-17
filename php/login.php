@@ -1,5 +1,6 @@
 <?php 
 session_start();
+
 ?>
 <!doctype html>
 <!--
@@ -35,7 +36,6 @@ This is the login page
                 <input type = "submit">
 
                 <?php   
-
                     if(isset($_SESSION["loginFail"])){ // Invalid login
                         echo "<p class = 'warning'>INVALID LOGIN</p>";
                         $_SESSION["loginFail"] = null;  //Clear session variable
@@ -48,7 +48,16 @@ This is the login page
                         echo "<p class = 'warning'>THIS ACCOUNT IS BANNED</p>";
                         $_SESSION["inactive"] = null; //Clear session variable
                     }
+
+                    // Used for adminHandler check 
+                    $badLogin = filter_input(INPUT_GET,"status",FILTER_VALIDATE_INT);
+                    if($badLogin !== null && $badLogin !== false){ 
+                        if($badLogin === 1){  // status = 1 means adminHandler failed
+                            echo "<p class = 'warning'>SESSION EXPIRED, PLEASE LOGIN AGAIN</p>";
+                        }
+                    }
                     ?>
+                    
                     <a href="newAccount.php">Create new account</a>
                 </form>
                 

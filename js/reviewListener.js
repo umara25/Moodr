@@ -1,29 +1,29 @@
 window.addEventListener("load",function(event){ 
 
     /** 
-     * Calls reviewhandler.php using AJAX in response to Admin 
-     * creating a review
+     * Calls reviewhandler.php using AJAX in response to Admin creating a review
      * Is included on reviews.php
+     * Also handles review deletion 
      */
 
 
     let myform = document.getElementById("make-review-form");
     let rangeSlider = document.getElementById("review-score");
     let rangeField = document.getElementById("score-field");
-    let errorField = document.getElementById("error");
+    let errorField = document.getElementById("error");                  // Review creation error field
 
 
     let reviewOpenButton = document.getElementById("make-post-button");  // Open review form button
+    let reviewCloseButton = document.getElementById("close-post-img");   // Close review form button
     let reviewFormDiv = document.getElementById("make-post");            // Div containing review form
 
-    let reviewCloseButton = document.getElementById("close-post-img");  
-
-    // Display the make review inputs when clicked
+    // Display the make review inputs form clicked
     reviewOpenButton.addEventListener("click",function(event){ 
         reviewFormDiv.style.display = "flex";    // Make form visible
         reviewOpenButton.style.display = "none";  // Hide create review 'button'
     })
 
+    // Hide the make review form when clickeed
     reviewCloseButton.addEventListener("click",function(event){  
         reviewFormDiv.style.display = "none";    // Hide form 
         reviewOpenButton.style.display = "flex";  // Make create review 'button' visible
@@ -36,15 +36,25 @@ window.addEventListener("load",function(event){
      */
     myform.addEventListener("submit",function(event){ 
         event.preventDefault();
-        errorField.innerHTML = "";
+        errorField.innerHTML = "";      // Clear review upload error field
+
 
         let title = document.getElementById("review-title").value;
         let msg = document.getElementById("review-message").value;
         let score = parseFloat(document.getElementById("review-score").value);
-        let file = document.getElementById("album-cover").files[0]; //Get first fle uploaded 
+        let fileField = document.getElementById("album-cover");
 
+        let file = fileField.files[0]; //Get first fle uploaded 
 
+        let uploadSize = 5 * (10**6);   // 5MB in bytes
 
+        // Ensure file smaller than upload size
+        if(file.size > uploadSize){ 
+            let fileLabel = document.getElementById("file-label"); 
+            fileLabel.innerHTML = "<span style = 'color:red'> FILE TOO LARGE ; MUST BE LESS THAN 5MB</span>";
+            fileField.value = null;  // Clear current file;
+            return;
+        }
         // Used to store form data, so it can be sent using fetch
         // Important when using multipart type data
         let formData = new FormData();      //Create form data object for multipart form data type
@@ -60,28 +70,17 @@ window.addEventListener("load",function(event){
 
 
         // console.log(file);
-
-        // let params = "title=" + title + "&msg=" + msg + "&score="+score + "&file="+file;
-        // console.log(params);
         let config = {
             method: 'POST',
             // headers: { "Content-Type": "multipart/form-data" }, // Parameter format, sending file
             body: formData  //Send formData as parameters in HTTP request body
         };
 
-
-        // Construct AJAX request URL using GET params
-        // let url = "../php/reviewhandler.php?title=" +title + "&msg="+msg + "&score="+score;
-
         // Initiate AJAX request
         fetch("../php/reviewhandler.php",config)
         .then(response=>response.json())
         // .then(d =>console.log(d))
         .then(success);
-
-        // fetch("../php/reviewhandler.php",config)
-        // .then(response=>response.json())
-        // .then(success);
 
     });
 
@@ -98,7 +97,7 @@ window.addEventListener("load",function(event){
      * Receives HTTP response from reviewhandler.php in form on object
      * Showcases new post if successsful, else displays error message
      * {username: user, title: review title, msg: review text, score: review score, 
-     *  date: date it was posted, img: path to image (if one was sent)}
+     *  date: date it was posted, img: img path,id: reviewID}
      * @param {Object} review 
      */ 
     function success(review){ 
@@ -120,13 +119,14 @@ window.addEventListener("load",function(event){
     /**
      * Render review inside element based on review object received
      * {username: user, title: review title, msg: review body, score: review score, 
-     * date: date review posted, img: img path}
+     * date: date review posted, img: img path, id: reviewID}
      * @param {Object} review 
      * @param {HTML Element} element 
      */
     function renderReview(review,element){ 
         let reviewDiv = document.createElement("div");          // Create review div 
         reviewDiv.classList.add("review");                      // Add it to class review
+        reviewDiv.id = review.id;                               // Give it the unique reviewID
 
         let reviewPfpDiv = document.createElement("div");       // Create review-pfp div
         reviewPfpDiv.classList.add("review-pfp");               // Add it to class review-pfp
@@ -166,7 +166,7 @@ window.addEventListener("load",function(event){
             reviewImgDiv.classList.add("review-img");
             reviewBodyDiv.appendChild(reviewImgDiv);
             reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
-            console.log(review.img);
+            // console.log(review.img);
         }
 
         reviewBodyDiv.appendChild(reviewTextDiv);
@@ -177,8 +177,13 @@ window.addEventListener("load",function(event){
 
         reviewTitleDiv.innerHTML =( 
             "<h1>" + review.title + " - " + review.username 
-            + "<span class = 'timestamp'>" + review.date +"</span></h1>"   // Render title 
-        );
+            + "<span class = 'timestamp'>" + review.date +"</span></h1>"
+            + "<img class = 'trash-icon' src = '../images/trashicon.png'>"   
+        ); // Render title 
+
+        // Add delete event to trash icon 
+        reviewTitleDiv.querySelector(".trash-icon")
+        .addEventListener("click",deleteReview);
 
         reviewTextDiv.innerHTML =(
              "<p>" + review.msg + "</p>" + 
@@ -186,10 +191,71 @@ window.addEventListener("load",function(event){
          ); // Render text
 
 
-
-
     }
 
+
+    // DELETION
+
+    let deleteIcon = document.querySelectorAll(".trash-icon");  // Select all trash icons 
+
+    for(let e of deleteIcon){ 
+        e.addEventListener("click",deleteReview);
+    }
+
+    /**
+     * Traverses DOM to delete review   
+     * the trash icon is inside 
+     */
+    function deleteReview(){ 
+        let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
+                                                // This is the overarching review
+
+        if(toDelete){ 
+            // Node to delete exists   
+            let content = toDelete.querySelector(".review-title");    // Get review title
+            let temp = content.innerHTML;   // Store copy of the innerHTML 
+
+            // Create confirm / cancel buttons 
+            content.innerHTML = (
+                "<div class = 'delete'>"+
+                "<h1> Are you sure you want to delete this post?</h1>"+
+                "<input class = 'confirm-button' type = 'button' value = 'Yes'>" + 
+                "<input class = 'cancel-button' type = 'button' value = 'No'>"+ 
+                "</div>"
+            );
+
+            let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
+            let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
+
+            console.log(cancel);
+            console.log(confirm);
+
+            /** 
+             * Delete review tied to this element 
+             */
+            confirm.addEventListener("click",function(event){ 
+                let id = toDelete.id;   // Get ID of parent node
+                let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
+
+                fetch(url)
+                .then(toDelete.remove()); // Delete node
+
+            });
+
+            /** 
+             * Reset innerHTML and reset trash icon event listener
+             */
+            cancel.addEventListener("click",function(event){ 
+                content.innerHTML = temp;
+                content.querySelector(".trash-icon")
+                .addEventListener("click",deleteReview); // Re-add event listener
+            });
+
+
+
+        }
+        console.log(toDelete);
+    }
 
 
 });
