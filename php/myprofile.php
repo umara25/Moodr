@@ -11,6 +11,7 @@ This is the My Profile Page.
     <title>Moodr - My Profile</title>
     <link rel="stylesheet" href="../css/myprofile.css">
     <script src="../js/changeusername.js"></script>
+    <script src="../js/changepassword.js"></script>
 </head>
 
 <body>
