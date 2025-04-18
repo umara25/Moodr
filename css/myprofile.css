@@ -196,7 +196,7 @@ li {
     background-color: #cc4c4c;
 }
 
-#username-form {
+#username-form, #password-form {
     width: 100%;
     max-width: 400px;
 }
@@ -222,6 +222,7 @@ li {
 
 .form-input {
     width: 100%;
+    max-width: 300px;
     padding: 10px;
     border-radius: 8px;
     border: none;
