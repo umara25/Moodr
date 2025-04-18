@@ -12,6 +12,7 @@ This is the My Profile Page.
     <link rel="stylesheet" href="../css/myprofile.css">
     <script src="../js/changeusername.js"></script>
     <script src="../js/changepassword.js"></script>
+    <script src="../js/changepersonalinfo.js"></script>
 </head>
 
 <body>

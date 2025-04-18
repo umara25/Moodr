@@ -196,7 +196,7 @@ li {
     background-color: #cc4c4c;
 }
 
-#username-form, #password-form {
+#username-form, #password-form, #info-form {
     width: 100%;
     max-width: 400px;
 }
