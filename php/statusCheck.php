@@ -2,7 +2,7 @@
 
 /** 
  * Takes username and role from $_SESSION and checks 
- * the database to see if role matches and if account is still valid
+ * the database to see if role matches and if account is still active
  */
 function status_check($username,$role){ 
     include "connect.php";
