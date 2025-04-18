@@ -10,7 +10,7 @@ window.addEventListener("load",function(event){
     let myform = document.getElementById("make-review-form");
     let rangeSlider = document.getElementById("review-score");
     let rangeField = document.getElementById("score-field");
-    let errorField = document.getElementById("error");                  // Review creation error field
+    let errorField = document.getElementById("review-fail");               // Review creation error field
 
 
     let reviewOpenButton = document.getElementById("make-post-button");  // Open review form button
@@ -112,7 +112,7 @@ window.addEventListener("load",function(event){
             // reviewField.innerHTML = "SUCCESS";
             renderReview(review,reviewField); // Render new review to page
         }else { 
-            errorField.innerHTML = "<h1> <span style = 'color:red'>ERROR FAILED TO CREATE REVIEW</span></h1>";
+            errorField.innerHTML = "<h2>ERROR FAILED TO CREATE REVIEW</h2>";
         }
     }
 
