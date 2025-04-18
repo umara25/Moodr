@@ -60,6 +60,28 @@ body {
     align-items: center;
 }
 
+#error-message {
+    background-color: #e75d5d;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+#success-message {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
 #user-intro,
 #announcments {
     width: 90%;
@@ -172,6 +194,77 @@ li {
 
 .profile-btn-delete:hover {
     background-color: #cc4c4c;
+}
+
+#username-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-heading {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    color: white;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e2226;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.save-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+    background-color: #3d9240;
+}
+
+.cancel-button {
+    background-color: #666;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-button:hover {
+    background-color: #555;
 }
 
 #bio-box {

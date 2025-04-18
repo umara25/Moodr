@@ -10,6 +10,7 @@ This is the My Profile Page.
     <meta name="viewport" content="width=device-width">
     <title>Moodr - My Profile</title>
     <link rel="stylesheet" href="../css/myprofile.css">
+    <script src="../js/changeusername.js"></script>
 </head>
 
 <body>
@@ -56,6 +57,16 @@ This is the My Profile Page.
 
         </div>
         <div id="content">
+            <?php
+            if (isset($_SESSION['error'])) {
+                echo '<div id="error-message">' . $_SESSION['error'] . '</div>';
+                unset($_SESSION['error']);
+            }
+            if (isset($_SESSION['success'])) {
+                echo '<div id="success-message">' . $_SESSION['success'] . '</div>';
+                unset($_SESSION['success']);
+            }
+            ?>
             <div id="profile-container">
                 <div id="profile-left">
                     <?php if ($loggedIn): ?>
@@ -71,10 +82,10 @@ This is the My Profile Page.
                 </div>
 
                 <div id="profile-options">
-                    <button class="profile-btn">Change Username</button>
-                    <button class="profile-btn">Change Password</button>
-                    <button class="profile-btn">Change Personal Info</button>
-                    <button class="profile-btn-delete">Delete Profile</button>
+                    <button id="change-username-btn" class="profile-btn">Change Username</button>
+                    <button id="change-password-btn" class="profile-btn">Change Password</button>
+                    <button id="change-info-btn" class="profile-btn">Change Personal Info</button>
+                    <button id="delete-profile-btn" class="profile-btn-delete">Delete Profile</button>
                     <form id="bio-form" method="POST" action="updateBio.php">
                         <div id="bio-box">
                             <textarea id="bio-textarea" name="bio" placeholder="Write a short bio..."><?php
