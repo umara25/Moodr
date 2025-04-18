@@ -1,4 +1,6 @@
-
+#header{ 
+    width:100%;
+}
 input[type='file']:hover {
     cursor: pointer;
 }
@@ -96,7 +98,7 @@ input[type="range"] {
 #make-post-js input:hover {
     background-color: #9c88ff;
     /* Slightly darker purple variation */
-    transform: scale(1.025);
+    /* transform: scale(1.025); */
 }
 
 #make-post-button:hover {
@@ -209,7 +211,8 @@ input[type="range"] {
     transition: opacity 0.2s ease-in-out;
     /* Makes a nice animation */
     position: relative;
-    top: 12px
+    top: 12px;
+    /* opacity:0; */
 }
 
 .review-title {
@@ -268,6 +271,48 @@ input[type="range"] {
 
 }
 
+/* Hamburger nav start */
+
+#hamburger{ 
+    /* display:none; */
+    width:20%;
+    margin-left:auto;
+    text-align: right;
+    margin-right:10%;
+    display:none;
+
+}
+
+#hamburger a { 
+    display:block;
+}
+
+#hamburger img { 
+    cursor:pointer; 
+    width:45px;
+    height:45px;
+}
+
+#hamburger-content{ 
+   /* position:absolute; */
+    background-color:black;
+    border-radius:10px;
+    /* margin-left:auto; */
+    position:absolute;
+    /* pointer-events:auto; */
+    right:7%;
+    display:none;
+    overflow: hidden;
+    width:30%;
+}
+
+/* Used when drop-down covers element, stops events from firing */
+.covered{ 
+    pointer-events:none;
+}
+
+/* Hamburger nav end */
+
 @media (max-width:800px){ 
     .review-pfp{ 
         display:none;
@@ -286,6 +331,19 @@ input[type="range"] {
     .review-text p {
         font-size:16px;
     }
+
+
+}
+
+/* Enable hamburger nav */
+@media (max-width:680px){ 
+    .nav-links{
+        display:none;
+    }
+    #hamburger{
+        display:block;
+    }
+
 }
 
 @media(max-width:560px){ 
