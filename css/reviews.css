@@ -7,6 +7,10 @@ input[type = 'file']{
     width:25%;
 }
 
+#file-label{ 
+    cursor:pointer;
+}
+
 
 #reviews { 
     width:90%;
