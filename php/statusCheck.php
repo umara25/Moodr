@@ -14,16 +14,11 @@ function status_check($username,$role){
     if($row = $stmt->fetch()){ 
         // Able to select for a row 
 
-        if($row['role'] !== $role){ 
-            // Database role doesn't match session role 
+        if($row['role'] !==  $role || $row['status'] === 'inactive'){ 
+            // Database role doesn't match session role  or account inactive
             header('Location: login.php?status=1');  // Send back to login with status = 1
             session_destroy();                       // Destroy session
         }          
-        if($row['status'] === 'inactive'){ 
-            header('Location: login.php?status=1');  // Send back to login with status = 1
-            session_destroy();                       // Destroy session
-        } 
+
     }
-
-
 }
