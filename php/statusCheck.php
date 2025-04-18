@@ -2,7 +2,7 @@
 
 /** 
  * Takes username and role from $_SESSION and checks 
- * the database to see if role matches
+ * the database to see if role matches and if account is still valid
  */
 function status_check($username,$role){ 
     include "connect.php";
@@ -27,9 +27,3 @@ function status_check($username,$role){
 
 
 }
-
-
-
-// echo password_hash("img",PASSWORD_BCRYPT);
-// echo substr(str_shuffle(uniqid() . time()),0,10);
-// echo bin2hex(random_bytes(4));
