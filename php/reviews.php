@@ -92,7 +92,7 @@ This is the Review Page.
                                 <label for="review-title">Title:</label>
                                 <input type="text" id="review-title" name="post-title" placeholder="Enter review title... (30 chars max)" required maxlength="30">
 
-                                <label id = "file-label" for="album-cover" class="pfp-btn">Choose Image (.png, .jpg, .jpeg)</label>
+                                <label id="file-label" for="album-cover" class="pfp-btn">Choose Image (.png, .jpg, .jpeg)</label>
                                 <input type="file" id="album-cover" accept="image/png, image/jpg, image/jpeg">
 
                                 <label for="review-message">Review:</label>
@@ -112,8 +112,8 @@ This is the Review Page.
             ?>
             <div id="reviews">
 
-                <div id='error'></div>
-                
+                <div id='review-fail'class = 'error'></div>
+
                 <!-- <div class = "review"> 
                     <div class = "review-pfp"> 
                         <img src = "../images/defaultpfp.jpg">
@@ -183,56 +183,57 @@ This is the Review Page.
                 </div> -->
 
                 <?php
-                include "connect.php";
-                $cmd = "SELECT * FROM reviews ORDER BY `date` DESC LIMIT 10";
-                $stmt = $dbh->prepare($cmd);
-                $succ = $stmt->execute();
+                    include "connect.php";
 
-                while ($row = $stmt->fetch()) {
-                    //Grab each review 
+                    $cmd = "SELECT * FROM reviews ORDER BY `date` DESC LIMIT 10";
+                    $stmt = $dbh->prepare($cmd);
+                    $succ = $stmt->execute();
 
-                    echo "<div id = '$row[reviewID]' class = 'review'>";
+                    while ($row = $stmt->fetch()) {
+                        //Grab each review 
 
-                    // TEMPORARY PFP, REPLACE LATER
-                    echo "<div class = 'review-pfp'> 
+                        echo "<div id = '$row[reviewID]' class = 'review'>";
+
+                        // TEMPORARY PFP, REPLACE LATER
+                        echo "<div class = 'review-pfp'> 
                             <img src = '../images/defaultpfp.jpg'> 
                         </div>"; // Temporary PFP, REPLACE WITH ACTUAL LATER
 
-                    echo "<div class = 'triangle'></div>";
-                    echo "<div class = 'review-content'>";
+                        echo "<div class = 'triangle'></div>";
+                        echo "<div class = 'review-content'>";
 
-                    echo "<div class = 'review-title'>
+                        echo "<div class = 'review-title'>
                                         <h1> $row[title]  -  $row[username]
                                         <span class = 'timestamp'>$row[date]</span>
                                         </h1>";
-                    if($loggedIn){ 
-                        if($_SESSION["role"] === "admin"){  // Echo delete button if admin
-                            echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
+                        if ($loggedIn) {
+                            if ($_SESSION["role"] === "admin") {  // Echo delete button if admin
+                                echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
                                   </div>";
-                        }else{
+                            } else {
+                                echo "</div>";
+                            }
+                        } else {
                             echo "</div>";
                         }
-                    }else { 
-                        echo "</div>";
-                    }
 
-                    echo "<div class = 'review-body'>";
+                        echo "<div class = 'review-body'>";
 
-                    if ($row["img_path"] !== NULL && file_exists($row["img_path"])) {
-                        // Image was uploaded and exists in directory
-                        echo "<div class = 'review-img'>
+                        if ($row["img_path"] !== NULL && file_exists($row["img_path"])) {
+                            // Image was uploaded and exists in directory
+                            echo "<div class = 'review-img'>
                                             <img src =" . $row["img_path"] . ">
                                             </div>";
-                    }
+                        }
 
-                    echo "<div class = 'review-text'>
+                        echo "<div class = 'review-text'>
                                         <p>$row[text_body]</p>
                                         <p>Score: $row[score]/10</p>
                                     </div>";
 
-                    echo "</div></div></div>";
-                }
-
+                        echo "</div></div></div>";
+                    }
+                    // echo "<h1 class = 'error'>FAILED TO RETRIEVE REVIEWS, TRY AGAIN LATER</h1>";
                 ?>
 
             </div>
