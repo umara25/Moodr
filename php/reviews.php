@@ -22,6 +22,7 @@ This is the Review Page.
     <title>Moodr - Reviews</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/reviews.css">
+    <script src = "../js/nav.js"></script>
 
     <?php
     if ($loggedIn) {
@@ -46,6 +47,30 @@ This is the Review Page.
                 }
                 ?>
             </p>
+
+            <!-- Hamburger nav -->
+            <div id = "hamburger">
+                <img src="../images/hamburger.png">
+                <div id = "hamburger-content">
+                    <a href="index.php" class="nav">Dashboard</a>
+                    <a href="calendar.php" class="nav">Calendar</a>
+                    <a href="reviews.php" class="nav">Reviews</a>
+                    <?php // If admin, they will have a user management button.
+                    if ($loggedIn) {
+                        if ($_SESSION["role"] === "admin") {
+                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                        }
+                    }
+                    if (!$loggedIn) {
+                        echo "<a href='login.php' class='nav'>Log in</a>";
+                    } else {
+                        echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                        echo "<a href='logouthandler.php' class='nav'>Log out</a>";
+                    }
+                    ?>
+                </div>
+
+            </div>
             <div class="nav-links">
                 <a href="index.php" class="nav">Dashboard</a>
                 <a href="calendar.php" class="nav">Calendar</a>
@@ -107,16 +132,16 @@ This is the Review Page.
                         </div>
                     </div>
             <?php
-                }else{  // Not admin 
+                } else {  // Not admin 
                     echo "<h1 id = 'review-header'>Reviews</h1>";
                 }
-            }else{ // Not logged in 
+            } else { // Not logged in 
                 echo "<h1 id = 'review-header'>Reviews</h1>";
             }
             ?>
             <div id="reviews">
 
-                <div id='review-fail'class = 'error'></div>
+                <div id='review-fail' class='error'></div>
 
                 <!-- <div class = "review"> 
                     <div class = "review-pfp"> 
@@ -187,57 +212,57 @@ This is the Review Page.
                 </div> -->
 
                 <?php
-                    include "connect.php";
+                include "connect.php";
 
-                    $cmd = "SELECT * FROM reviews ORDER BY `date` DESC LIMIT 10";
-                    $stmt = $dbh->prepare($cmd);
-                    $succ = $stmt->execute();
+                $cmd = "SELECT * FROM reviews ORDER BY `date` DESC LIMIT 10";
+                $stmt = $dbh->prepare($cmd);
+                $succ = $stmt->execute();
 
-                    while ($row = $stmt->fetch()) {
-                        //Grab each review 
+                while ($row = $stmt->fetch()) {
+                    //Grab each review 
 
-                        echo "<div id = '$row[reviewID]' class = 'review'>";
+                    echo "<div id = '$row[reviewID]' class = 'review'>";
 
-                        // TEMPORARY PFP, REPLACE LATER
-                        echo "<div class = 'review-pfp'> 
+                    // TEMPORARY PFP, REPLACE LATER
+                    echo "<div class = 'review-pfp'> 
                             <img src = '../images/defaultpfp.jpg'> 
                         </div>"; // Temporary PFP, REPLACE WITH ACTUAL LATER
 
-                        echo "<div class = 'triangle'></div>";
-                        echo "<div class = 'review-content'>";
+                    echo "<div class = 'triangle'></div>";
+                    echo "<div class = 'review-content'>";
 
-                        echo "<div class = 'review-title'>
+                    echo "<div class = 'review-title'>
                                         <h1> $row[title]  -  $row[username]
                                         <span class = 'timestamp'>$row[date]</span>
                                         </h1>";
-                        if ($loggedIn) {
-                            if ($_SESSION["role"] === "admin") {  // Echo delete button if admin
-                                echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
+                    if ($loggedIn) {
+                        if ($_SESSION["role"] === "admin") {  // Echo delete button if admin
+                            echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
                                   </div>";
-                            } else {
-                                echo "</div>";
-                            }
                         } else {
                             echo "</div>";
                         }
+                    } else {
+                        echo "</div>";
+                    }
 
-                        echo "<div class = 'review-body'>";
+                    echo "<div class = 'review-body'>";
 
-                        if ($row["img_path"] !== NULL && file_exists($row["img_path"])) {
-                            // Image was uploaded and exists in directory
-                            echo "<div class = 'review-img'>
+                    if ($row["img_path"] !== NULL && file_exists($row["img_path"])) {
+                        // Image was uploaded and exists in directory
+                        echo "<div class = 'review-img'>
                                             <img src =" . $row["img_path"] . ">
                                             </div>";
-                        }
+                    }
 
-                        echo "<div class = 'review-text'>
+                    echo "<div class = 'review-text'>
                                         <p>$row[text_body]</p>
                                         <p>Score: $row[score]/10</p>
                                     </div>";
 
-                        echo "</div></div></div>";
-                    }
-                    // echo "<h1 class = 'error'>FAILED TO RETRIEVE REVIEWS, TRY AGAIN LATER</h1>";
+                    echo "</div></div></div>";
+                }
+                // echo "<h1 class = 'error'>FAILED TO RETRIEVE REVIEWS, TRY AGAIN LATER</h1>";
                 ?>
 
             </div>
