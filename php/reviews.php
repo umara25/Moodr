@@ -107,7 +107,11 @@ This is the Review Page.
                         </div>
                     </div>
             <?php
+                }else{  // Not admin 
+                    echo "<h1 id = 'review-header'>Reviews</h1>";
                 }
+            }else{ // Not logged in 
+                echo "<h1 id = 'review-header'>Reviews</h1>";
             }
             ?>
             <div id="reviews">

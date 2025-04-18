@@ -1,28 +1,32 @@
-input[type = 'file']:hover{
-    cursor:pointer;
+
+input[type='file']:hover {
+    cursor: pointer;
+}
+
+#review-header {
+    color: white;
+}
+
+input[type='file'] {
+    width: 25%;
+}
+
+#file-label {
+    cursor: pointer;
 }
 
 
-input[type = 'file']{ 
-    width:25%;
+#reviews {
+    width: 90%;
 }
 
-#file-label{ 
-    cursor:pointer;
+h1 {
+    margin-left: 0;
+    padding-left: 0;
 }
 
-
-#reviews { 
-    width:90%;
-}
-
-h1 { 
-    margin-left:0;
-    padding-left:0;
-}
-
-#make-post{
-    display:none;
+#make-post {
+    display: none;
     /* display:flex; */
     flex-direction: column;
     /* background-image: url("../images/close.png"); */
@@ -30,187 +34,269 @@ h1 {
     /* background-position: 98% 3%;
     background-repeat: no-repeat;
     background-size: 25px 25px; */
-
+    margin-left: auto;
+    margin-right: auto;
+    width: 86%;
 }
 
-#make-post-js{ 
-    display:flex;
-    width:100%;
+#make-review-form label {
+    margin-bottom: 10px;
 }
 
-#make-post-js h1{ 
-    color:white;
+#make-review-form input {
+    margin-bottom: 20px;
 }
 
-#make-post-js input { 
-    width:30%;
-    height:50px;
-    border-radius:15px;
-    margin-left:auto;
-    margin-right:auto;
+#make-review-form input[type="text"],
+input[type="range"] {
+    width: 90%;
+}
+
+#make-review-form input[type='range'] {
+    width: 30%;
+}
+
+#make-review-form textarea {
+    width: 90%;
+    resize: none;
+}
+
+
+
+
+#make-post-js {
+    display: flex;
+    width: 90%;
+    text-align: right;
+}
+
+#make-post-js h1 {
+    color: white;
+}
+
+#make-post-js input {
+    width: 90%;
+    /* height:50px; */
+    padding: 25px;
+    font-size: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    /* margin-right:auto; */
     background-image: url("../images/write.png");
     background-position: right top;
     background-repeat: no-repeat;
     background-size: contain;
+    background-color: #b3a3ff;
+    border-color: transparent;
+    word-wrap: break-word; 
+
 }
 
-#make-post-button{ 
-    font-size:100%;
+#make-post-js input:hover {
+    background-color: #9c88ff;
+    /* Slightly darker purple variation */
+    transform: scale(1.025);
 }
 
-#make-post-button:hover{ 
-   cursor:pointer;
+#make-post-button:hover {
+    cursor: pointer;
 }
 
 
-#close-post { 
-    width:90%;
-    margin:0;
-    padding:0;
+#close-post {
+    width: 90%;
+    margin: 0;
+    padding: 0;
 }
 
-#close-post img{ 
-    width:25px;
-    height:25px;
-    margin:0;
-    padding:0;
+#close-post img {
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
 }
 
-#close-post img:hover{ 
-    cursor:pointer;
+#close-post img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
-.review{ 
-    display:flex;
-    margin-left:auto;
-    margin-right:auto;
-    width:100%;
-    margin-bottom:20px;
+.review {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-bottom: 20px;
+    word-wrap: break-word; 
 }
 
-.review-pfp{
-    width:8%;
-    margin-right:3px;
+.review-pfp {
+    width: 8%;
+    margin-right: 3px;
 }
 
 .review-pfp img {
-    width:100%;
-    border-radius:10px;
+    width: 100%;
+    border-radius: 10px;
 }
 
-.review-content { 
+.review-content {
     background-color: white;
-    width:100%;
-    border-radius:10px;
+    width: 100%;
+    border-radius: 10px;
 }
 
-.review-title h1{ 
-    margin-left:5px;
-    font-size:30px;
-    margin-bottom:5px;
+.review-title h1 {
+    margin-left: 5px;
+    font-size: 30px;
+    margin-bottom: 5px;
 }
 
 
 .triangle {
     width: 0;
-	height: 0;
-	border-top: 12px solid transparent;
-	border-right: 20px solid white;
-	border-bottom: 12px solid transparent;
-    margin-top:25px;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-right: 20px solid white;
+    border-bottom: 12px solid transparent;
+    margin-top: 25px;
 }
 
-.review-body{ 
-    display:flex;
-    width:100%;
-    margin-bottom:5px;
+.review-body {
+    display: flex;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 
 .review-img {
-    width:25%;
-    margin-top:auto;
-    margin-bottom:auto;
-    margin-left:5px;
-}
-.review-img img{ 
-    width:90%;
+    width: 25%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
 }
 
-
-.review-text{
-    color:black;
-    width:100%;
-    margin-right:5px;
-    margin-left:5px;
+.review-img img {
+    width: 90%;
 }
 
-.review-text p { 
-    padding-left:0;
-    margin-left:0;
-    font-size:18px;
+
+.review-text {
+    color: black;
+    width: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
-.timestamp { 
-    font-size:18px;
+.review-text p {
+    padding-left: 0;
+    margin-left: 0;
+    font-size: 18px;
 }
 
-.trash-icon{
-    width:20px;
-    height:20px;
+.timestamp {
+    font-size: 18px;
+}
+
+.trash-icon {
+    width: 20px;
+    height: 20px;
     margin-left: auto;
-    cursor: pointer; /* Changes curser to seem clickable */
+    cursor: pointer;
+    /* Changes curser to seem clickable */
     opacity: 0.7;
-    transition: opacity 0.2s ease-in-out; /* Makes a nice animation */
+    transition: opacity 0.2s ease-in-out;
+    /* Makes a nice animation */
     position: relative;
     top: 12px
 }
 
-.review-title{ 
-    width:100%;
-    display:flex;
+.review-title {
+    width: 100%;
+    display: flex;
 }
 
-.review-title h1{ 
-    width:100%;
+.review-title h1 {
+    width: 100%;
 }
 
-.delete { 
-    width:100%;
-    margin-bottom:10px;
+.delete {
+    width: 100%;
+    margin-bottom: 10px;
     text-align: center;
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
 
 
 
-.confirm-button{ 
-    color:white;
-    width:30%;
-    padding:10px;
-    background-color:#4CAF50;
+.confirm-button {
+    color: white;
+    width: 30%;
+    padding: 10px;
+    background-color: #4CAF50;
     margin-right: 2px;
     border: solid black 2px;
-    border-radius:8px;
-    cursor:pointer;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.confirm-button:hover{
+.confirm-button:hover {
     background-color: #45A049;
 }
 
 
 
-.cancel-button{ 
-    color:white;
-    width:30%;
-    padding:10px;
+.cancel-button {
+    color: white;
+    width: 30%;
+    padding: 10px;
     background-color: #F44336;
     border: solid black 2px;
-    border-radius:8px;
-    cursor:pointer;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.cancel-button:hover{
+.cancel-button:hover {
     background-color: #D32F2F
+}
+
+
+.error {
+    text-align: center;
+    color: #FF4C4C;
+
+}
+
+@media (max-width:800px){ 
+    .review-pfp{ 
+        display:none;
+    }
+    #make-post-js input{ 
+        width:100%;
+        padding:15px;
+    }
+    .triangle{
+        display:none;
+    }
+
+    .review-title h1{ 
+        font-size:20px;
+    }
+    .review-text p {
+        font-size:16px;
+    }
+}
+
+@media(max-width:560px){ 
+    #make-post-js input{ 
+        background-image: none; /* Removes any background image */
+    }
+
+}
+
+@media (max-width:480px){ 
+    .review-img{
+        display:none;
+    }
 }
