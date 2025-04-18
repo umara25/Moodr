@@ -2,7 +2,7 @@
 
 /** 
  * Takes username and role from $_SESSION and checks 
- * the database to see if role matches
+ * the database to see if role matches and if account is still active
  */
 function status_check($username,$role){ 
     include "connect.php";
@@ -14,22 +14,11 @@ function status_check($username,$role){
     if($row = $stmt->fetch()){ 
         // Able to select for a row 
 
-        if($row['role'] !== $role){ 
-            // Database role doesn't match session role 
+        if($row['role'] !==  $role || $row['status'] === 'inactive'){ 
+            // Database role doesn't match session role  or account inactive
             header('Location: login.php?status=1');  // Send back to login with status = 1
             session_destroy();                       // Destroy session
         }          
-        if($row['status'] === 'inactive'){ 
-            header('Location: login.php?status=1');  // Send back to login with status = 1
-            session_destroy();                       // Destroy session
-        } 
+
     }
-
-
 }
-
-
-
-// echo password_hash("img",PASSWORD_BCRYPT);
-// echo substr(str_shuffle(uniqid() . time()),0,10);
-// echo bin2hex(random_bytes(4));
