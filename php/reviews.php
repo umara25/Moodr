@@ -184,7 +184,7 @@ This is the Review Page.
 
                 <?php
                 include "connect.php";
-                $cmd = "SELECT * FROM reviews ORDER BY date DESC LIMIT 10";
+                $cmd = "SELECT * FROM reviews ORDER BY `date` DESC LIMIT 10";
                 $stmt = $dbh->prepare($cmd);
                 $succ = $stmt->execute();
 
@@ -205,9 +205,13 @@ This is the Review Page.
                                         <h1> $row[title]  -  $row[username]
                                         <span class = 'timestamp'>$row[date]</span>
                                         </h1>";
-                    if($_SESSION["role"] === "admin"){  // Echo delete button if admin
-                        echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
-                             </div>";
+                    if($loggedIn){ 
+                        if($_SESSION["role"] === "admin"){  // Echo delete button if admin
+                            echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
+                                  </div>";
+                        }else{
+                            echo "</div>";
+                        }
                     }else { 
                         echo "</div>";
                     }
