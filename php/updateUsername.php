@@ -56,9 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                               WHERE username = ?");
         $stmt->execute([$newUsername, $currentUsername]);
         
-        $stmt = $dbh->prepare("UPDATE events SET username = ? WHERE username = ?");
-        $stmt->execute([$newUsername, $currentUsername]);
-        
         $tables_to_check = ['reviews', 'posts', 'likes', 'messages'];
         
         foreach ($tables_to_check as $table) {
