@@ -1,5 +1,7 @@
 <?php 
 
+$name = filter_input(INPUT_GET, "name" ,FILTER_SANITIZE_SPECIAL_CHARS);
+
 $primary = filter_input(INPUT_GET, "primary");
 
 $secondary = filter_input(INPUT_GET, "secondary");
@@ -16,9 +18,9 @@ $text = filter_input(INPUT_GET, "text");
 function validateHex($inp) {
     return preg_match('/^[0-9A-Fa-f]{6}$/', $inp);
 }
-$paramsok = $primary !== null && $pimary !== false && $secondary !== null &&$secondary !== false 
+$paramsok = $primary !== null && $primary !== false && $secondary !== null &&$secondary !== false 
             && $text!== null && $text!==false && validateHex($primary) && validateHex($secondary) 
-            && validateHex($text);
+            && validateHex($text) && $name !== null && $name !== "";
 
 
 if($paramsok){ 
@@ -36,17 +38,28 @@ if($paramsok){
         echo (-1);
         exit;
 
-    }else{ 
-
-        $cmd = "INSERT INTO styles (primary_colour,secondary_colour,textbox_colour,text_colour) VALUES (?,?,?,?)";
-        $stmt = $dbh->prepare($cmd);
-        $suc = $stmt->execute([$primary,$secondary,$textbox,$text]);
-
-        if($suc){ 
-            echo (1);
-        }
-
     }
+
+    $cmd = "SELECT * FROM styles WHERE `name` = ?";
+    $stmt = $dbh->prepare($cmd);
+    $succ = $stmt->execute([$name]);
+
+    if($row = $stmt->fetch()){
+        //Style name already exists 
+        echo (-1);
+        exit;
+    }
+
+
+    $cmd = "INSERT INTO styles (`name`,primary_colour,secondary_colour,textbox_colour,text_colour) VALUES (?,?,?,?,?)";
+    $stmt = $dbh->prepare($cmd);
+    $suc = $stmt->execute([$name,$primary,$secondary,$textbox,$text]);
+
+    if($suc){ 
+        echo (1);
+    }
+
+    
 }else{
     echo(-1);
 }

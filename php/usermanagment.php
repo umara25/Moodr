@@ -57,7 +57,7 @@ This is the User Managment Page.
                  <!-- ADD DELETING STYLES -->
                 <h1>Create Custom Styles</h1>
                 <div id="inputStyle">
-                    <input id="styleName" type="text" placeholder="Name">
+                    <input id="styleName" type="text" placeholder="Name" maxlength="20">
                     <input id = "primary" type = "color">Primary
                     <input id = "secondary" type = "color">Secondary
                     <input id = "text" type = "color">Text
