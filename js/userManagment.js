@@ -138,17 +138,21 @@ window.addEventListener("load", function (event) {
 
     //Styles
     let button = document.getElementById("confirmStyle");
+    let name =  document.getElementById("styleName");
     let primary = document.getElementById("primary");
     let secondary = document.getElementById("secondary");
     let textbox =  document.getElementById("textbox");
     let text = document.getElementById("text");
-
-
+    let body = document.body;
+    let headers = document.getElementsByTagName("h1");
+    let content = document.getElementById("content");
+    let table = document.getElementById("table");
+    let styleCreate = document.getElementById("styleCreate");
 
     button.addEventListener("click",function(event){ 
 
 
-        let url = "../php/storeStyle.php?primary="+primary.value.substring(1) + 
+        let url = "../php/storeStyle.php?name="+name.value+"&primary="+primary.value.substring(1) + 
         "&secondary="+secondary.value.substring(1)+"&text="+text.value.substring(1) 
         + "&textbox=" + textbox.value.substring(1); //Removes the #
 
@@ -163,15 +167,49 @@ window.addEventListener("load", function (event) {
     function success(text){ 
         console.log(text);
 
+        //resets all to original color
+        body.style["background-color"] = " #2b3137";
+        content.style["background-color"] = "#24292e";
+        table.style["background-color"] = "whitesmoke";
+        styleCreate.style["background-color"] = "whitesmoke";
+        table.style["color"] = "#181e23";
+        styleCreate.style["color"] = "#181e23";
+        for(var i = 0; i < headers.length; i++) {
+            headers[i].style.color = "#181e23";
+        }
+
         let res = document.getElementById("styleResult");
+        res.style["margin-left"] = "0px";
         if(text != -1){ 
             // Inserted correctly 
             res.innerHTML = "STYLE STORED SUCCESSFULLY";
+            res.style.color = "green";
         }else{
             // Wasn't able to insert
             res.innerHTML = "STYLE ALREADY EXISTS";
+            res.style.color = "orangered";
         }
     }
 
+    primary.addEventListener("change",function(event){
+        body.style["background-color"] = primary.value;
+    })
+
+    secondary.addEventListener("change",function(event){
+        content.style["background-color"] = secondary.value;
+    })
+
+    textbox.addEventListener("change",function(event){
+        table.style["background-color"] = textbox.value;
+        styleCreate.style["background-color"] = textbox.value;
+    })
+
+    text.addEventListener("change",function(event){
+        table.style["color"] = text.value;
+        styleCreate.style["color"] = text.value;
+        for(var i = 0; i < headers.length; i++) {
+            headers[i].style.color = text.value;
+        }
+    })
 
 });
