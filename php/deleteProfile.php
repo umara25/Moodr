@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     
-    $stmt = $dbh->prepare("SELECT password FROM users WHERE username = ?");
+    $stmt = $dbh->prepare("SELECT password, pfp_path FROM users WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
@@ -38,6 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     try {
         $dbh->beginTransaction();
+        
+        // Delete profile picture file if it exists
+        if (!empty($user['pfp_path']) && file_exists($user['pfp_path'])) {
+            unlink($user['pfp_path']);
+        }
         
         $dbh->exec('SET FOREIGN_KEY_CHECKS=0');
         
