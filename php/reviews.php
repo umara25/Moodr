@@ -22,7 +22,7 @@ This is the Review Page.
     <title>Moodr - Reviews</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/reviews.css">
-    <script src = "../js/nav.js"></script>
+    <script src="../js/nav.js"></script>
 
     <?php
     if ($loggedIn) {
@@ -49,9 +49,9 @@ This is the Review Page.
             </p>
 
             <!-- Hamburger nav -->
-            <div id = "hamburger">
+            <div id="hamburger">
                 <img src="../images/hamburger.png">
-                <div id = "hamburger-content">
+                <div id="hamburger-content">
                     <a href="index.php" class="nav">Dashboard</a>
                     <a href="calendar.php" class="nav">Calendar</a>
                     <a href="reviews.php" class="nav">Reviews</a>
@@ -213,20 +213,29 @@ This is the Review Page.
 
                 <?php
                 include "connect.php";
+                include "imageHandler.php"; // Using get_pfp_path()
 
+                // Select Reviews
                 $cmd = "SELECT * FROM reviews ORDER BY `date` DESC LIMIT 10";
                 $stmt = $dbh->prepare($cmd);
                 $succ = $stmt->execute();
+
 
                 while ($row = $stmt->fetch()) {
                     //Grab each review 
 
                     echo "<div id = '$row[reviewID]' class = 'review'>";
-
-                    // TEMPORARY PFP, REPLACE LATER
-                    echo "<div class = 'review-pfp'> 
-                            <img src = '../images/defaultpfp.jpg'> 
-                        </div>"; // Temporary PFP, REPLACE WITH ACTUAL LATER
+                    $pfp_path = get_pfp_path($row["username"]);
+                    if (file_exists($pfp_path)) {
+                        // pfp exists in directory
+                        echo "<div class = 'review-pfp'> 
+                                <img src = $pfp_path > 
+                            </div>";
+                    } else {
+                        echo "<div class = 'review-pfp'> 
+                                <img src = '../images/defaultpfp.jpg'> 
+                            </div>"; // Default pfp
+                    }
 
                     echo "<div class = 'triangle'></div>";
                     echo "<div class = 'review-content'>";
