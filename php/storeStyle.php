@@ -40,7 +40,7 @@ if($paramsok){
 
     }
 
-    $cmd = "SELECT * FROM styles WHERE `name` = ?";
+    $cmd = "SELECT * FROM styles WHERE `styleID` = ?";
     $stmt = $dbh->prepare($cmd);
     $succ = $stmt->execute([$name]);
 
@@ -51,7 +51,7 @@ if($paramsok){
     }
 
 
-    $cmd = "INSERT INTO styles (`name`,primary_colour,secondary_colour,textbox_colour,text_colour) VALUES (?,?,?,?,?)";
+    $cmd = "INSERT INTO styles (`styleID`,primary_colour,secondary_colour,textbox_colour,text_colour) VALUES (?,?,?,?,?)";
     $stmt = $dbh->prepare($cmd);
     $suc = $stmt->execute([$name,$primary,$secondary,$textbox,$text]);
 
