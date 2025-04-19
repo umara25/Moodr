@@ -9,7 +9,7 @@ This is the Calendar Page.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Moodr - Calendar</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/calendar.css">
 </head>
 
 <body>
