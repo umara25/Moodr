@@ -9,14 +9,27 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-$cmd = "SELECT pfp FROM users WHERE username = ?";
+$cmd = "SELECT pfp_path FROM users WHERE username = ?";
 $stmt = $dbh->prepare($cmd);
 $stmt->execute([$username]);
 
 if ($row = $stmt->fetch()) {
-    if ($row["pfp"]) {
-        header("Content-Type: image/jpeg");
-        echo $row["pfp"];
+    if ($row["pfp_path"] && file_exists($row["pfp_path"])) {
+        $file_extension = pathinfo($row["pfp_path"], PATHINFO_EXTENSION);
+        
+        switch($file_extension) {
+            case 'jpg':
+            case 'jpeg':
+                header("Content-Type: image/jpeg");
+                break;
+            case 'png':
+                header("Content-Type: image/png");
+                break;
+            default:
+                header("Content-Type: image/jpeg");
+        }
+        
+        readfile($row["pfp_path"]);
         exit();
     }
 }
