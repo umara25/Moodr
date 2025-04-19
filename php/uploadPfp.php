@@ -3,12 +3,18 @@ session_start();
 include "connect.php";
 include "imageHandler.php";
 
-if (!isset($_SESSION['username']) || !isset($_FILES['pfp'])) {
+if (!isset($_SESSION['username'])) {
     header("Location: myprofile.php");
     exit();
 }
 
 $username = $_SESSION['username'];
+
+if (!isset($_FILES['pfp']) || $_FILES['pfp']['error'] === UPLOAD_ERR_NO_FILE) {
+    $_SESSION['error'] = "You need to upload an image first";
+    header("Location: myprofile.php");
+    exit();
+}
 
 if ($_FILES['pfp']['error'] !== UPLOAD_ERR_OK) {
     $_SESSION['error'] = "Error uploading profile picture";

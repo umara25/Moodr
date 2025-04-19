@@ -460,3 +460,8 @@ li {
 .delete-btn:hover {
     background-color: #cc4c4c;
 }
+
+.button-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

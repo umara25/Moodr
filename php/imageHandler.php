@@ -79,4 +79,3 @@
         return $new_name;  // Unique name, so return it
     }
  }
-

@@ -14,6 +14,7 @@ This is the My Profile Page.
     <script src="../js/changepassword.js"></script>
     <script src="../js/changepersonalinfo.js"></script>
     <script src="../js/deleteprofile.js"></script>
+    <script src="../js/profilePicture.js"></script>
 </head>
 
 <body>
@@ -77,7 +78,7 @@ This is the My Profile Page.
                         <form id="pfp-form" action="uploadPfp.php" method="POST" enctype="multipart/form-data">
                             <label for="pfp-input" class="pfp-btn">Choose File</label>
                             <input type="file" name="pfp" id="pfp-input" accept="image/*">
-                            <button type="submit" class="pfp-btn">Change Profile Picture</button>
+                            <button type="submit" id="pfp-submit-btn" class="pfp-btn">Save</button>
                         </form>
                     <?php else: ?>
                         <div id="profile-image"></div>
@@ -92,7 +93,11 @@ This is the My Profile Page.
                     <form id="bio-form" method="POST" action="updateBio.php">
                         <div id="bio-box">
                             <textarea id="bio-textarea" name="bio" placeholder="Write a short bio..."><?php
-                                  echo isset($_SESSION['bio']) ? htmlspecialchars($_SESSION['bio']) : '';
+                                  if (isset($_SESSION['bio'])) {
+                                      echo htmlspecialchars($_SESSION['bio']);
+                                  } else {
+                                      echo '';
+                                  }
                                   ?></textarea>
                             <button type="submit" id="save-bio-btn">Save Bio</button>
                         </div>
