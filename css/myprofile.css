@@ -323,3 +323,140 @@ li {
 .pfp-btn:hover {
     background-color: #666;
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-content {
+    background-color: #24292e;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: popupopen 0.4s;
+}
+
+@keyframes popupopen {
+    from {opacity: 0; transform: scale(0.8);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.popup h2 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.warning-text {
+    color: #e75d5d;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+#delete-profile-form .form-group {
+    margin-bottom: 20px;
+}
+
+#delete-profile-form label {
+    display: block;
+    color: white;
+    margin-bottom: 8px;
+}
+
+#delete-profile-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #3a3f44;
+    background-color: #1e2226;
+    color: white;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.checkbox-group label {
+    flex: 1;
+}
+
+.form-error {
+    color: #e75d5d;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.cancel-btn {
+    background-color: #3a3f44;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #4b525a;
+}
+
+.delete-btn {
+    background-color: #e75d5d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: #cc4c4c;
+}
