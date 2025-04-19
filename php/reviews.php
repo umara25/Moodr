@@ -175,7 +175,7 @@ This is the Review Page.
 
                     </div>
             
-                </div>
+                </div> -->
 
                 <div class = "review"> 
                     <div class = "review-pfp"> 
@@ -203,13 +203,16 @@ This is the Review Page.
                                     Cupiditate molestias reiciendis velit doloremque quod!
                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, sequi doloribus, ducimus animi ex asperiores cumque aperiam quis iste labore adipisci, harum perferendis et amet? Minus delectus impedit harum officiis.
                                 </p>
+                                <p>Score: 10/10</p>
                             </div>
+
+
 
                         </div>
 
                     </div>
             
-                </div> -->
+                </div>
 
                 <?php
                 include "connect.php";
