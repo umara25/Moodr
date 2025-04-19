@@ -285,6 +285,9 @@ input[type="range"] {
 
 #hamburger a { 
     display:block;
+    padding:5px;
+    margin-bottom:5px;
+
 }
 
 #hamburger img { 
@@ -305,6 +308,7 @@ input[type="range"] {
     display:none;
     overflow: hidden;
     width:30%;
+    width:150px;
 }
 
 /* Used when drop-down covers element, stops events from firing */
@@ -361,4 +365,8 @@ input[type="range"] {
     .review-img{
         display:none;
     }
+    #make-post-js input{ 
+        font-size: 12px;
+    }
+  
 }

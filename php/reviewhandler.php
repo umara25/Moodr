@@ -24,7 +24,8 @@ if ($_SESSION["role"] === "admin") {
 
     if (
         $title !== null && $msg !== null && $score !== null && $score !== false
-        && strlen($title) <= 30 && strlen($msg) <= 400 && $score <= 10 && $score >= 0
+        && strlen($title) <= 30 && strlen($msg) <= 400 && strlen($title) > 0  && strlen($msg) > 0
+        && $score <= 10 && $score >= 0
     ) {
         //Params are ok 
         // Generate unique ID

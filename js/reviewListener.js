@@ -228,7 +228,7 @@ window.addEventListener("load",function(event){
             // Create confirm / cancel buttons 
             content.innerHTML = (
                 "<div class = 'delete'>"+
-                "<h1> Are you sure you want to delete this post?</h1>"+
+                "<h1> Are you sure you want to delete this review?</h1>"+
                 "<input class = 'confirm-button' type = 'button' value = 'Yes'>" + 
                 "<input class = 'cancel-button' type = 'button' value = 'No'>"+ 
                 "</div>"
