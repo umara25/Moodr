@@ -13,6 +13,7 @@ This is the My Profile Page.
     <script src="../js/changeusername.js"></script>
     <script src="../js/changepassword.js"></script>
     <script src="../js/changepersonalinfo.js"></script>
+    <script src="../js/deleteprofile.js"></script>
 </head>
 
 <body>
@@ -98,10 +99,39 @@ This is the My Profile Page.
                     </form>
                 </div>
             </div>
+            <div id="delete-profile" class="popup">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>Delete Profile</h2>
+                    <p class="warning-text">Warning: This action cannot be undone and all your data will be permanently deleted.</p>
+                    
+                    <form id="delete-profile-form" action="deleteProfile.php" method="POST">
+                        <div class="form-group">
+                            <label for="password">Enter Password:</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            <div id="password-error" class="form-error"></div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="confirmDelete" name="confirmDelete" required>
+                            <label for="confirmDelete">I understand that my account and all related data will be permanently deleted and cannot be recovered.</label>
+                            <div id="checkbox-error" class="form-error"></div>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="button" id="cancel-delete" class="cancel-btn">Cancel</button>
+                            <button type="submit" id="confirm-delete" class="delete-btn">Delete My Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
     </div>
-
 </body>
 
 </html>
