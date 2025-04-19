@@ -49,11 +49,13 @@ window.addEventListener("load",function(event){
         let uploadSize = 5 * (10**6);   // 5MB in bytes
 
         // Ensure file smaller than upload size
-        if(file.size > uploadSize){ 
-            let fileLabel = document.getElementById("file-label"); 
-            fileLabel.innerHTML = "<span style = 'color:red'> FILE TOO LARGE ; MUST BE LESS THAN 5MB</span>";
-            fileField.value = null;  // Clear current file;
-            return;
+        if(file){
+            if(file.size > uploadSize){
+                let fileLabel = document.getElementById("file-label"); 
+                fileLabel.innerHTML = "<span style = 'color:red'> FILE TOO LARGE ; MUST BE LESS THAN 5MB</span>";
+                fileField.value = null;  // Clear current file;
+                return;
+            }
         }
         // Used to store form data, so it can be sent using fetch
         // Important when using multipart type data
@@ -97,7 +99,8 @@ window.addEventListener("load",function(event){
      * Receives HTTP response from reviewhandler.php in form on object
      * Showcases new post if successsful, else displays error message
      * {username: user, title: review title, msg: review text, score: review score, 
-     *  date: date it was posted, img: img path,id: reviewID}
+     *  date: date it was posted, img: img path, pfp: pfp_path, id: reviewID}
+     *  Note: pfp only exists if a valid pfp is stored else it is empty
      * @param {Object} review 
      */ 
     function success(review){ 
@@ -119,7 +122,8 @@ window.addEventListener("load",function(event){
     /**
      * Render review inside element based on review object received
      * {username: user, title: review title, msg: review body, score: review score, 
-     * date: date review posted, img: img path, id: reviewID}
+     * date: date review posted, img: img path, pfp: pfp_path, id: reviewID}
+     * Note: pfp only exists if a valid pfp is stored else it is empty
      * @param {Object} review 
      * @param {HTML Element} element 
      */
@@ -173,7 +177,13 @@ window.addEventListener("load",function(event){
 
         // Start altering innerHTML 
 
-        reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";  //PLACEHOLDER PFP FOR NOW
+        if(review.pfp){ 
+            // Pfp exists 
+            reviewPfpDiv.innerHTML = "<img src =" + review.pfp + ">"; 
+        }else{  
+            // Pfp does not exist, use default
+            reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";  
+        }
 
         reviewTitleDiv.innerHTML =( 
             "<h1>" + review.title + " - " + review.username 

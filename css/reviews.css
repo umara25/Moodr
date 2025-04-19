@@ -98,7 +98,7 @@ input[type="range"] {
 #make-post-js input:hover {
     background-color: #9c88ff;
     /* Slightly darker purple variation */
-    /* transform: scale(1.025); */
+    transform: scale(1.025);
 }
 
 #make-post-button:hover {
@@ -343,6 +343,9 @@ input[type="range"] {
     }
     #hamburger{
         display:block;
+    }
+    #make-post-js input:hover {
+        transform: none;   
     }
 
 }
