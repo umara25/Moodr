@@ -177,7 +177,7 @@ This is the Review Page.
             
                 </div> -->
 
-                <div class = "review"> 
+                <!-- <div class = "review"> 
                     <div class = "review-pfp"> 
                         <img src = "../images/defaultpfp.jpg">
                     </div>
@@ -212,7 +212,7 @@ This is the Review Page.
 
                     </div>
             
-                </div>
+                </div> -->
 
                 <?php
                 include "connect.php";
