@@ -19,6 +19,7 @@ This is the splash page which users will first be greeted with. It holds announc
     }
     ?>
     <link rel="stylesheet" href="../css/index.css">
+    <script src="../js/style.js"></script> <!-- Remember to handle this for non-logged in users-->
 </head>
 
 <body>
