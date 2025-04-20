@@ -12,6 +12,12 @@ This is the User Managment Page.
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/usermanagment.css">
     <script src="../js/userManagment.js"></script>
+    <?php
+    //if user is logged in then apply their style
+    if(isset($_SESSION["username"])){
+        echo "<script src='../js/usermanagementStyle.js'></script>";
+    }
+    ?>
 </head>
 
 <body>

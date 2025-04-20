@@ -6,7 +6,7 @@
 }
 
 #review-header {
-    color: white;
+    color: whitesmoke;
 }
 
 input[type='file'] {
@@ -71,7 +71,7 @@ input[type="range"] {
 }
 
 #make-post-js h1 {
-    color: white;
+    color: whitesmoke;
 }
 
 #make-post-js input {
@@ -142,7 +142,7 @@ input[type="range"] {
 }
 
 .review-content {
-    background-color: white;
+    background-color: whitesmoke;
     width: 100%;
     border-radius: 10px;
 }
@@ -163,7 +163,7 @@ input[type="range"] {
     width: 0;
     height: 0;
     border-top: 12px solid transparent;
-    border-right: 20px solid white;
+    border-right: 20px solid whitesmoke;
     border-bottom: 12px solid transparent;
     margin-top: 25px;
 }

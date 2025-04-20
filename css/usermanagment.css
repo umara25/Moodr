@@ -34,6 +34,14 @@ table tr:hover {
     background-color: #ececec;
 }
 
+.user.odd-row{
+    background-color:whitesmoke;
+}
+
+.user.odd-row:hover {
+    background-color: #e0e0e0; /* A slightly darker hover effect */
+}
+
 button {
     padding: 5px 10px;
     background-color: #24292e;
@@ -95,3 +103,4 @@ input{
 #inputStyle{
     padding-left: 20px;
 }
+

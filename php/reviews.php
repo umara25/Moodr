@@ -31,6 +31,11 @@ This is the Review Page.
             echo "<script src = '../js/reviewListener.js'></script>";
         }
     }
+
+    //if user is logged in then apply their style
+    if(isset($_SESSION["username"])){
+        echo "<script src='../js/reviewsStyle.js'></script>";
+    }
     ?>
 </head>
 

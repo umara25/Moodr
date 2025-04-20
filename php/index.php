@@ -15,11 +15,16 @@ This is the splash page which users will first be greeted with. It holds announc
     if($_SESSION["role"]==="admin"){
         echo "<script src='../js/postListenerAdmin.js'></script>";
     }else{
-        echo "<script src='../js/postListenerUser.js'></script>";
+        echo "<script src='../js/postListenerUser.js'></script>";  
     }
     ?>
     <link rel="stylesheet" href="../css/index.css">
-    <script src="../js/style.js"></script> <!-- Remember to handle this for non-logged in users-->
+    <?php
+    //if user is logged in then apply their style
+    if(isset($_SESSION["username"])){
+        echo "<script src='../js/indexStyle.js'></script>";
+    }
+    ?>
 </head>
 
 <body>
