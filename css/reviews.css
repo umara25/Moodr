@@ -5,22 +5,21 @@
     z-index:1; /* Used for stacking*/
 }
 
-input[type='file']:hover {
-    cursor: pointer;
-}
-
 #review-header {
     color: white;
 }
 
 input[type='file'] {
-    width: 25%;
+    width: 100%;
+}
+
+input[type='file']:hover {
+    cursor: pointer;
 }
 
 #file-label {
     cursor: pointer;
 }
-
 
 #reviews {
     width: 90%;
@@ -33,13 +32,7 @@ h1 {
 
 #make-post {
     display: none;
-    /* display:flex; */
     flex-direction: column;
-    /* background-image: url("../images/close.png"); */
-    /* background-position: right top; */
-    /* background-position: 98% 3%;
-    background-repeat: no-repeat;
-    background-size: 25px 25px; */
     margin-left: auto;
     margin-right: auto;
     width: 86%;
@@ -67,8 +60,9 @@ input[type="range"] {
     resize: none;
 }
 
-
-
+#review-score:hover{
+    cursor:pointer;
+}
 
 #make-post-js {
     display: flex;
