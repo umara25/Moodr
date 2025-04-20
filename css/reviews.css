@@ -1,6 +1,10 @@
 #header{ 
     width:100%;
 }
+#content{ 
+    z-index:1; /* Used for stacking*/
+}
+
 input[type='file']:hover {
     cursor: pointer;
 }
@@ -153,6 +157,11 @@ input[type="range"] {
     margin-left: 5px;
     font-size: 30px;
     margin-bottom: 5px;
+
+    /* Ensures trash-icon doesn't escape div when page resized */
+    word-wrap: break-word;
+    overflow:hidden;
+    
 }
 
 
@@ -299,7 +308,7 @@ input[type="range"] {
 #hamburger-content{ 
    /* position:absolute; */
     background-color:black;
-    border-radius:10px;
+    border-radius:15px;
     /* margin-left:auto; */
     position:absolute;
     word-wrap: break-word;
@@ -308,15 +317,33 @@ input[type="range"] {
     display:none;
     overflow: hidden;
     width:30%;
-    width:150px;
+    width:200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 2; /* Ensures dropdown is above reviews*/
 }
 
-/* Used when drop-down covers element, stops events from firing */
-.covered{ 
-    pointer-events:none;
+#hamburger-content .nav {
+    padding: 12px 16px;
+    display: block;
 }
+
+#hamburger-content .nav:hover {
+    background-color: #444; /* Slight darkening on hover */
+}
+
+
 
 /* Hamburger nav end */
+
+/* Enable Hamburger nav */
+@media (max-width:880px){ 
+    .nav-links{
+        display:none;
+    }
+    #hamburger{
+        display:block;
+    }
+}
 
 @media (max-width:800px){ 
     .review-pfp{ 
@@ -337,21 +364,6 @@ input[type="range"] {
         font-size:16px;
     }
 
-
-}
-
-/* Enable hamburger nav */
-@media (max-width:680px){ 
-    .nav-links{
-        display:none;
-    }
-    #hamburger{
-        display:block;
-    }
-    #make-post-js input:hover {
-        transform: none;   
-    }
-
 }
 
 @media(max-width:560px){ 
@@ -368,5 +380,8 @@ input[type="range"] {
     #make-post-js input{ 
         font-size: 12px;
     }
-  
+    #hamburger-content{ 
+        width:180px;
+        font-size: 14px;
+    }
 }
