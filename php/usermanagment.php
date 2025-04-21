@@ -64,10 +64,10 @@ This is the User Managment Page.
                 <h1>Create Custom Styles</h1>
                 <div id="inputStyle">
                     <input id="styleName" type="text" placeholder="Name" maxlength="20">
-                    <input id = "primary" type = "color">Primary
-                    <input id = "secondary" type = "color">Secondary
-                    <input id = "text" type = "color">Text
-                    <input id = "textbox" type = "color">Textbox
+                    <input id = "primary" type = "color" value="#2b3137">Primary
+                    <input id = "secondary" type = "color" value="#24292e">Secondary
+                    <input id = "text" type = "color" value="#181e23">Text
+                    <input id = "textbox" type = "color" value="#f5f5f5">Textbox
                     <input id = "confirmStyle" type = "button" value = "submit">
                     <p id = "styleResult"></p>
                 </div>
