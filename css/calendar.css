@@ -45,6 +45,7 @@ body {
 
 #content {
     width: 95%;
+    background-color: #24292e;
     min-height: 85vh;
     padding: 0;
     display: flex;
