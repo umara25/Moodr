@@ -101,8 +101,8 @@ function default_style()
     $AA = [
         "primary" => "#2b3137",
         "secondary" => "#24292e",
-        "textbox" => "#FFFFFF",
-        "text" => "#000000"
+        "textbox" => "#f5f5f5",
+        "text" => "#181e23"
     ];
     return $AA;
 }
