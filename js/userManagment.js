@@ -136,6 +136,7 @@ window.addEventListener("load", function (event) {
             }
     });
 
+    
     //Styles
     let button = document.getElementById("confirmStyle");
     let name =  document.getElementById("styleName");
@@ -148,6 +149,20 @@ window.addEventListener("load", function (event) {
     let content = document.getElementById("content");
     let table = document.getElementById("table");
     let styleCreate = document.getElementById("styleCreate");
+
+    //stores theme colors
+    fetch("style.php")
+    .then(response => response.json())
+    .then(colors)
+    .catch(error => console.error("Fetch error:", error));
+
+    function colors(style){
+        primaryColor = style["primary"];
+        secondaryColor = style["secondary"];
+        textboxColor = style["textbox"];
+        textColor = style["text"];
+    }
+
 
     button.addEventListener("click",function(event){ 
 
@@ -167,15 +182,17 @@ window.addEventListener("load", function (event) {
     function success(text){ 
         console.log(text);
 
+        
+
         //resets all to original color
-        body.style["background-color"] = " #2b3137";
-        content.style["background-color"] = "#24292e";
-        table.style["background-color"] = "whitesmoke";
-        styleCreate.style["background-color"] = "whitesmoke";
-        table.style["color"] = "#181e23";
-        styleCreate.style["color"] = "#181e23";
+        body.style["background-color"] = primaryColor;
+        content.style["background-color"] = secondaryColor;
+        table.style["background-color"] = textboxColor;
+        styleCreate.style["background-color"] = textboxColor;
+        table.style["color"] = textColor;
+        styleCreate.style["color"] = textColor;
         for(var i = 0; i < headers.length; i++) {
-            headers[i].style.color = "#181e23";
+            headers[i].style.color = textColor;
         }
 
         let res = document.getElementById("styleResult");
