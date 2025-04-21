@@ -15,7 +15,6 @@ window.addEventListener("load", function (event) {
         let textbox3 = document.querySelectorAll(".triangle");
         let headers = document.getElementsByTagName("h1");
         let pars = document.getElementsByTagName("p");
-        let labels = document.getElementsByTagName("label");
         let links = document.getElementsByTagName("a");
 
         body.style["background-color"] = styleArr["primary"];
@@ -30,13 +29,10 @@ window.addEventListener("load", function (event) {
         for(var i = 0; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
         }
-        for(var i = 0; i < pars.length; i++) {
+        for(var i = 1; i < pars.length; i++) {
             pars[i].style.color = styleArr["text"];
         }
-        for(var i = 0; i < labels.length; i++) {
-            labels[i].style.color = styleArr["text"];
-        }
-        for(var i = 0; i < links.length; i++) {
+        for(var i = 12; i < links.length; i++) {
             links[i].style.color = styleArr["text"];
         }
     }

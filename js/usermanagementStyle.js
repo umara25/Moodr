@@ -33,13 +33,13 @@ window.addEventListener("load", function (event) {
         for(var i = 0; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
         }
-        for(var i = 0; i < pars.length; i++) {
+        for(var i = 1; i < pars.length; i++) {
             pars[i].style.color = styleArr["text"];
         }
         for(var i = 0; i < labels.length; i++) {
             labels[i].style.color = styleArr["text"];
         }
-        for(var i = 0; i < links.length; i++) {
+        for(var i = 6; i < links.length; i++) {
             links[i].style.color = styleArr["text"];
         }
     }

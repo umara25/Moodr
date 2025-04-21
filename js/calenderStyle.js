@@ -14,7 +14,6 @@ window.addEventListener("load", function (event) {
         let headers = document.getElementsByTagName("h2");
         let pars = document.getElementsByTagName("p");
         let labels = document.getElementsByTagName("label");
-        let links = document.getElementsByTagName("a");
 
         body.style["background-color"] = styleArr["primary"];
         content.style["background-color"] = styleArr["secondary"];
@@ -22,14 +21,11 @@ window.addEventListener("load", function (event) {
         for(var i = 0; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
         }
-        for(var i = 0; i < pars.length; i++) {
+        for(var i = 1; i < pars.length; i++) {
             pars[i].style.color = styleArr["text"];
         }
         for(var i = 0; i < labels.length; i++) {
             labels[i].style.color = styleArr["text"];
-        }
-        for(var i = 0; i < links.length; i++) {
-            links[i].style.color = styleArr["text"];
         }
     }
 });
