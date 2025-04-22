@@ -23,6 +23,7 @@ This is the Review Page.
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/reviews.css">
     <script src="../js/nav.js"></script>
+    <script src = "../js/scrollReviews.js"></script>
 
     <?php
     if ($loggedIn) {

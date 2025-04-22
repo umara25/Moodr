@@ -237,8 +237,8 @@ window.addEventListener("load",function(event){
             let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
             let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
 
-            console.log(cancel);
-            console.log(confirm);
+            // console.log(cancel);
+            // console.log(confirm);
 
             /** 
              * Delete review tied to this element 
