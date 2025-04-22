@@ -1,8 +1,10 @@
-#header{ 
-    width:100%;
+#header {
+    width: 100%;
 }
-#content{ 
-    z-index:1; /* Used for stacking*/
+
+#content {
+    z-index: 1;
+    /* Used for stacking*/
 }
 
 #review-header {
@@ -60,8 +62,8 @@ input[type="range"] {
     resize: none;
 }
 
-#review-score:hover{
-    cursor:pointer;
+#review-score:hover {
+    cursor: pointer;
 }
 
 #make-post-js {
@@ -89,7 +91,7 @@ input[type="range"] {
     background-size: contain;
     background-color: #b3a3ff;
     border-color: transparent;
-    word-wrap: break-word; 
+    word-wrap: break-word;
 
 }
 
@@ -128,7 +130,7 @@ input[type="range"] {
     margin-right: auto;
     width: 100%;
     margin-bottom: 20px;
-    word-wrap: break-word; 
+    word-wrap: break-word;
 }
 
 .review-pfp {
@@ -154,8 +156,8 @@ input[type="range"] {
 
     /* Ensures trash-icon doesn't escape div when page resized */
     word-wrap: break-word;
-    overflow:hidden;
-    
+    overflow: hidden;
+
 }
 
 
@@ -276,44 +278,45 @@ input[type="range"] {
 
 /* Hamburger nav start */
 
-#hamburger{ 
+#hamburger {
     /* display:none; */
-    width:20%;
-    margin-left:auto;
+    width: 20%;
+    margin-left: auto;
     text-align: right;
-    margin-right:10%;
-    display:none;
+    margin-right: 10%;
+    display: none;
 
 }
 
-#hamburger a { 
-    display:block;
-    padding:5px;
-    margin-bottom:5px;
+#hamburger a {
+    display: block;
+    padding: 5px;
+    margin-bottom: 5px;
 
 }
 
-#hamburger img { 
-    cursor:pointer; 
-    width:45px;
-    height:45px;
+#hamburger img {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
 }
 
-#hamburger-content{ 
-   /* position:absolute; */
-    background-color:black;
-    border-radius:15px;
+#hamburger-content {
+    /* position:absolute; */
+    background-color: black;
+    border-radius: 15px;
     /* margin-left:auto; */
-    position:absolute;
+    position: absolute;
     word-wrap: break-word;
     /* pointer-events:auto; */
-    right:7%;
-    display:none;
+    right: 7%;
+    display: none;
     overflow: hidden;
-    width:30%;
-    width:200px;
+    width: 30%;
+    width: 200px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    z-index: 2; /* Ensures dropdown is above reviews*/
+    z-index: 2;
+    /* Ensures dropdown is above reviews*/
 }
 
 #hamburger-content .nav {
@@ -322,60 +325,87 @@ input[type="range"] {
 }
 
 #hamburger-content .nav:hover {
-    background-color: #444; /* Slight darkening on hover */
+    background-color: #444;
+    /* Slight darkening on hover */
 }
 
 
 
 /* Hamburger nav end */
 
+/* Load icon https://www.w3schools.com/howto/howto_css_loader.asp */
+.load {
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
 /* Enable Hamburger nav */
-@media (max-width:880px){ 
-    .nav-links{
-        display:none;
+@media (max-width:880px) {
+    .nav-links {
+        display: none;
     }
-    #hamburger{
-        display:block;
+
+    #hamburger {
+        display: block;
     }
 }
 
-@media (max-width:800px){ 
-    .review-pfp{ 
-        display:none;
-    }
-    #make-post-js input{ 
-        width:100%;
-        padding:15px;
-    }
-    .triangle{
-        display:none;
+@media (max-width:800px) {
+    .review-pfp {
+        display: none;
     }
 
-    .review-title h1{ 
-        font-size:20px;
+    #make-post-js input {
+        width: 100%;
+        padding: 15px;
     }
+
+    .triangle {
+        display: none;
+    }
+
+    .review-title h1 {
+        font-size: 20px;
+    }
+
     .review-text p {
-        font-size:16px;
+        font-size: 16px;
     }
 
 }
 
-@media(max-width:560px){ 
-    #make-post-js input{ 
-        background-image: none; /* Removes any background image */
+@media(max-width:560px) {
+    #make-post-js input {
+        background-image: none;
+        /* Removes any background image */
     }
 
 }
 
-@media (max-width:480px){ 
-    .review-img{
-        display:none;
+@media (max-width:480px) {
+    .review-img {
+        display: none;
     }
-    #make-post-js input{ 
+
+    #make-post-js input {
         font-size: 12px;
     }
-    #hamburger-content{ 
-        width:180px;
+
+    #hamburger-content {
+        width: 180px;
         font-size: 14px;
     }
 }
