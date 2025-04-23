@@ -16,6 +16,8 @@ This is the User Managment Page.
     //if user is logged in then apply their style
     if(isset($_SESSION["username"])){
         echo "<script src='../js/usermanagementStyle.js'></script>";
+        include "statusCheck.php";
+        status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
     }
     ?>
 </head>

@@ -10,6 +10,8 @@ This is the My Profile Page.
     <meta name="viewport" content="width=device-width">
     <title>Moodr - My Profile</title>
     <link rel="stylesheet" href="../css/myprofile.css">
+    <link rel = "stylesheet" href = "../css/hamburger.css">
+    <script src="../js/nav.js"></script>
     <script src="../js/changeusername.js"></script>
     <script src="../js/changepassword.js"></script>
     <script src="../js/changepersonalinfo.js"></script>
@@ -31,6 +33,8 @@ This is the My Profile Page.
     // Checks if there is an Active Session
     if (isset($_SESSION["username"])) {
         $loggedIn = true;
+        include "statusCheck.php";
+        status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
     }
     ?>
     <div id="container">
@@ -45,6 +49,29 @@ This is the My Profile Page.
                 }
                 ?>
             </p>
+             <!-- Hamburger nav -->
+             <div id="hamburger">
+                <img src="../images/hamburger.png">
+                <div id="hamburger-content">
+                    <a href="index.php" class="nav">Dashboard</a>
+                    <a href="calendar.php" class="nav">Calendar</a>
+                    <a href="reviews.php" class="nav">Reviews</a>
+                    <?php // If admin, they will have a user management button.
+                    if ($loggedIn) {
+                        if ($_SESSION["role"] === "admin") {
+                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                        }
+                    }
+                    if (!$loggedIn) {
+                        echo "<a href='login.php' class='nav'>Log in</a>";
+                    } else {
+                        echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                        echo "<a href='logouthandler.php' class='nav'>Log out</a>";
+                    }
+                    ?>
+                </div>
+
+            </div>
             <div class="nav-links">
             <a href="index.php" class="nav">Dashboard</a>
                 <a href="calendar.php" class="nav">Calendar</a>
