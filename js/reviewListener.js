@@ -186,8 +186,8 @@ window.addEventListener("load",function(event){
         }
 
         reviewTitleDiv.innerHTML =( 
-            "<h1>" + review.title + " - " + review.username 
-            + "<span class = 'timestamp'>" + review.date +"</span></h1>"
+            "<h1> " + review.title + " - " + review.username 
+            + " <span class = 'timestamp'>" + review.date +"</span></h1>"
             + "<img class = 'trash-icon' src = '../images/trashicon.png'>"   
         ); // Render title 
 
