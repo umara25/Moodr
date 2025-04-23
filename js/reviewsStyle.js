@@ -11,11 +11,10 @@ window.addEventListener("load", function (event) {
         let body = document.body;
         let content = document.getElementById("content");
         let textbox1 = document.querySelectorAll(".review-content");
-        let textbox2 = document.getElementById("make-post");
+        //let textbox2 = document.getElementById("make-post");
         let textbox3 = document.querySelectorAll(".triangle");
         let headers = document.getElementsByTagName("h1");
         let pars = document.getElementsByTagName("p");
-        let links = document.getElementsByTagName("a");
 
         body.style["background-color"] = styleArr["primary"];
         content.style["background-color"] = styleArr["secondary"];
@@ -25,15 +24,13 @@ window.addEventListener("load", function (event) {
         textbox3.forEach(elm => {
             elm.style.borderRight = "20px solid " + styleArr["textbox"];
         });
-        textbox2.style["background-color"] = styleArr["textbox"];
-        for(var i = 0; i < headers.length; i++) {
+        //textbox2.style["background-color"] = styleArr["textbox"];
+        headers[0].style.color = styleArr["textbox"];
+        for(let i = 1; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
         }
-        for(var i = 1; i < pars.length; i++) {
+        for(let i = 1; i < pars.length; i++) {
             pars[i].style.color = styleArr["text"];
-        }
-        for(var i = 12; i < links.length; i++) {
-            links[i].style.color = styleArr["text"];
         }
     }
 });

@@ -1,5 +1,6 @@
 window.addEventListener("load", function (event) {
 
+
     fetch("style.php")
         .then(response => response.json())
         .then(success)
@@ -8,15 +9,21 @@ window.addEventListener("load", function (event) {
     function success(styleArr){
         let body = document.body;
         let content = document.getElementById("content");
-        let textbox1 = document.getElementById("user-intro");
-        let textbox3 = document.getElementById("announcments");
+        let textbox1 = document.querySelectorAll(".review-content");
+        let textbox2 = document.getElementById("make-post");
+        let textbox3 = document.querySelectorAll(".triangle");
         let headers = document.getElementsByTagName("h1");
         let pars = document.getElementsByTagName("p");
 
         body.style["background-color"] = styleArr["primary"];
         content.style["background-color"] = styleArr["secondary"];
-        textbox1.style["background-color"] = styleArr["textbox"];
-        textbox3.style["background-color"] = styleArr["textbox"];
+        textbox1.forEach(elm => {
+            elm.style["background-color"] = styleArr["textbox"];
+        });
+        textbox3.forEach(elm => {
+            elm.style.borderRight = "20px solid " + styleArr["textbox"];
+        });
+        textbox2.style["background-color"] = styleArr["textbox"];
         for(let i = 0; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
         }
@@ -24,6 +31,4 @@ window.addEventListener("load", function (event) {
             pars[i].style.color = styleArr["text"];
         }
     }
-
-
 });

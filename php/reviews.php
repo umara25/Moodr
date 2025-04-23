@@ -36,7 +36,12 @@ This is the Review Page.
 
     //if user is logged in then apply their style
     if(isset($_SESSION["username"])){
-        echo "<script src='../js/reviewsStyle.js'></script>";
+        if($_SESSION["role"]==="admin"){
+            echo "<script src='../js/reviewsStyleAdmin.js'></script>";
+            echo "<script src='../js/reviewsStyleRefresher.js'></script>";
+        }else{
+            echo "<script src='../js/reviewsStyle.js'></script>";
+        }
     }
     ?>
 </head>
@@ -134,7 +139,7 @@ This is the Review Page.
                                 <label for="review-score" id="score-field">Score: 0 / 10</label>
                                 <input id="review-score" type="range" min="0" max="10" placeholder="Score from 0-10" value="0" step="0.5">
 
-                                <button type="submit">Submit</button>
+                                <button id="submit" type="submit">Submit</button>
                             </form>
                         </div>
                     </div>

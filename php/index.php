@@ -22,7 +22,12 @@ This is the splash page which users will first be greeted with. It holds announc
     <?php
     //if user is logged in then apply their style
     if(isset($_SESSION["username"])){
-        echo "<script src='../js/indexStyle.js'></script>";
+        if($_SESSION["role"]==="admin"){
+            echo "<script src='../js/indexStyleAdmin.js'></script>";
+            echo "<script src='../js/indexStyleRefresher.js'></script>";
+        }else{
+            echo "<script src='../js/indexStyle.js'></script>";
+        }
     }
     ?>
 </head>
