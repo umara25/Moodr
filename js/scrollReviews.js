@@ -16,7 +16,9 @@ window.addEventListener("load", function (event) {
     function send_requests() {
 
         // Check if end of page and you aren't already loading data
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !loading) {
+        if ((window.innerHeight + window.scrollY >= document.body.offsetHeight && !loading) ||
+            (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight
+            && !loading) {
             let icon = create_load();
             let url = "../php/scrollReviewHandler.php";
             // console.log(url);
@@ -72,14 +74,14 @@ window.addEventListener("load", function (event) {
             for (let obj of arr) {
                 renderReview(obj, reviewField);
             }
-            remove_load(icon); 
+            remove_load(icon);
 
         } else { // No more reviews, so display error message
             icon.classList.remove("load");
             icon.classList.add("error");
             icon.innerHTML = "<h3><span style = 'color:white'>No more reviews..</span></h3>";
             // setTimeout(function () { remove_load(icon); }, 1000); // Timeout is to ensure they can read the message
-            window.removeEventListener("scroll",send_requests);  // Remove event listener, not constantly sending queries to DB
+            window.removeEventListener("scroll", send_requests);  // Remove event listener, not constantly sending queries to DB
         }
 
 
@@ -204,7 +206,7 @@ window.addEventListener("load", function (event) {
                 let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
                 fetch(url)
-                .then(confirm_delete);
+                    .then(confirm_delete);
             });
 
             /** 
@@ -220,16 +222,16 @@ window.addEventListener("load", function (event) {
              * Receives the response from deleteReviewHandler.php
              * @param {Int} response 
              */
-            function confirm_delete(response){ 
+            function confirm_delete(response) {
 
-                if(response == 1){ 
+                if (response == 1) {
                     // Successfully deleted
                     toDelete.remove();
-                }else{ 
+                } else {
                     content.innerHTML = temp;
                     content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
                     content.querySelector(".trash-icon")
-                    .addEventListener("click",deleteReview);
+                        .addEventListener("click", deleteReview);
                 }
             }
         }
