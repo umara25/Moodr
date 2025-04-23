@@ -1,7 +1,7 @@
 /** 
  * Handles making AJAX requests to scrollHandler.php for reviews page
  * i.e Implements infinite scrolling for reviews page
- * Does not include delete to new reviews
+ * Includes DELETE to new reviews
  */
 
 window.addEventListener("load", function (event) {
@@ -157,12 +157,12 @@ window.addEventListener("load", function (event) {
         reviewTitleDiv.innerHTML = (
             "<h1> " + review.title + " - " + review.username
             + " <span class = 'timestamp'>" + review.date + "</span></h1>"
-            // + "<img class = 'trash-icon' src = '../images/trashicon.png'>"
+            + "<img class = 'trash-icon' src = '../images/trashicon.png'>"
         ); // Render title 
 
         // Add delete event to trash icon 
-        // reviewTitleDiv.querySelector(".trash-icon")
-        //     .addEventListener("click", deleteReview);
+        reviewTitleDiv.querySelector(".trash-icon")
+            .addEventListener("click", deleteReview);
 
         reviewTextDiv.innerHTML = (
             "<p>" + review.msg + "</p>" +
@@ -175,69 +175,69 @@ window.addEventListener("load", function (event) {
          * Traverses DOM to delete review   
          * the trash icon is inside 
          */
-    // function deleteReview() {
-    //     let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
-    //     // This is the overarching review
+    function deleteReview() {
+        let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
+        // This is the overarching review
 
-    //     if (toDelete) {
-    //         // Node to delete exists   
-    //         let content = toDelete.querySelector(".review-title");    // Get review title
-    //         let temp = content.innerHTML;   // Store copy of the innerHTML 
+        if (toDelete) {
+            // Node to delete exists   
+            let content = toDelete.querySelector(".review-title");    // Get review title
+            let temp = content.innerHTML;   // Store copy of the innerHTML 
 
-    //         // Create confirm / cancel buttons 
-    //         content.innerHTML = (
-    //             "<div class = 'delete'>" +
-    //             "<h1> Are you sure you want to delete this review?</h1>" +
-    //             "<input class = 'confirm-button' type = 'button' value = 'Yes'>" +
-    //             "<input class = 'cancel-button' type = 'button' value = 'No'>" +
-    //             "</div>"
-    //         );
+            // Create confirm / cancel buttons 
+            content.innerHTML = (
+                "<div class = 'delete'>" +
+                "<h1> Are you sure you want to delete this review?</h1>" +
+                "<input class = 'confirm-button' type = 'button' value = 'Yes'>" +
+                "<input class = 'cancel-button' type = 'button' value = 'No'>" +
+                "</div>"
+            );
 
-    //         let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
-    //         let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
+            let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
+            let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
 
-    //         // console.log(cancel);
-    //         // console.log(confirm);
+            // console.log(cancel);
+            // console.log(confirm);
 
-    //         /** 
-    //          * Delete review tied to this element 
-    //          */
-    //         confirm.addEventListener("click", function (event) {
-    //             let id = toDelete.id;   // Get ID of parent node
-    //             let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
+            /** 
+             * Delete review tied to this element 
+             */
+            confirm.addEventListener("click", function (event) {
+                let id = toDelete.id;   // Get ID of parent node
+                let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
-    //             fetch(url)
-    //             .then(response=>response.text())
-    //             .then(confirm_delete);
-    //         });
+                fetch(url)
+                .then(response=>response.text())
+                .then(confirm_delete);
+            });
 
-    //         /** 
-    //          * Reset innerHTML and reset trash icon event listener
-    //          */
-    //         cancel.addEventListener("click", function (event) {
-    //             content.innerHTML = temp;
-    //             content.querySelector(".trash-icon")
-    //                 .addEventListener("click", deleteReview); // Re-add event listener
-    //         });
+            /** 
+             * Reset innerHTML and reset trash icon event listener
+             */
+            cancel.addEventListener("click", function (event) {
+                content.innerHTML = temp;
+                content.querySelector(".trash-icon")
+                    .addEventListener("click", deleteReview); // Re-add event listener
+            });
 
-    //         /**
-    //          * Receives the response from deleteReviewHandler.php
-    //          * @param {Int} response 
-    //          */
-    //         function confirm_delete(response) {
+            /**
+             * Receives the response from deleteReviewHandler.php
+             * @param {Int} response 
+             */
+            function confirm_delete(response) {
 
-    //             if (response == 1) {
-    //                 // Successfully deleted
-    //                 toDelete.remove();
-    //             } else {
-    //                 content.innerHTML = temp;
-    //                 content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
-    //                 content.querySelector(".trash-icon")
-    //                     .addEventListener("click", deleteReview);
-    //             }
-    //         }
-    //     }
-    // }
+                if (response == 1) {
+                    // Successfully deleted
+                    toDelete.remove();
+                } else {
+                    content.innerHTML = temp;
+                    content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
+                    content.querySelector(".trash-icon")
+                        .addEventListener("click", deleteReview);
+                }
+            }
+        }
+    }
 
 });
 
