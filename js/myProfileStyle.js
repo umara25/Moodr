@@ -13,7 +13,6 @@ window.addEventListener("load", function (event) {
         let pfpButtons = document.querySelectorAll(".pfp-btn");
         let mainButtons = document.querySelectorAll(".profile-btn");
         let bio = document.getElementById("bio-textarea");
-        let links = document.getElementsByTagName("a");
         let Bs = document.getElementsByTagName("b");
 
         body.style["background-color"] = styleArr["primary"];
@@ -31,9 +30,6 @@ window.addEventListener("load", function (event) {
         }
         for(var i = 0; i < Bs.length; i++) {
             Bs[i].style.color = styleArr["text"];
-        }
-        for(var i = 6; i < links.length; i++) {
-            links[i].style.color = styleArr["text"];
         }
     }
 });
