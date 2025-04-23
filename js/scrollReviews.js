@@ -206,7 +206,8 @@ window.addEventListener("load", function (event) {
                 let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
                 fetch(url)
-                    .then(confirm_delete);
+                .then(response=>response.text())
+                .then(confirm_delete);
             });
 
             /** 
