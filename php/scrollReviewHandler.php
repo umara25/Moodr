@@ -64,5 +64,7 @@ if(isset($_SESSION["rendered_reviews"]) && isset($_SESSION["review_date"])){
     
     sleep(1); // Add a little bit of a delay
     echo json_encode($arr);
+}else{ 
+    echo json_encode([]);
 }
 

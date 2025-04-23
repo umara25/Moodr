@@ -1,0 +1,75 @@
+#content{ 
+    z-index:1; /* Crucial to allow hamburger nav to go over content*/
+}
+
+
+#hamburger {
+    /* display:none; */
+    width: 20%;
+    margin-left: auto;
+    text-align: right;
+    margin-right: 10%;
+    display: none;
+
+}
+
+#hamburger a {
+    display: block;
+    padding: 5px;
+    margin-bottom: 5px;
+
+}
+
+#hamburger img {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+}
+
+#hamburger-content {
+    /* position:absolute; */
+    background-color: black;
+    border-radius: 15px;
+    /* margin-left:auto; */
+    position: absolute;
+    word-wrap: break-word;
+    /* pointer-events:auto; */
+    right: 7%;
+    display: none;
+    overflow: hidden;
+    width: 30%;
+    width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    /* Ensures dropdown is above reviews*/
+}
+
+#hamburger-content .nav {
+    padding: 12px 16px;
+    display: block;
+}
+
+#hamburger-content .nav:hover {
+    background-color: #444;
+    /* Slight darkening on hover */
+}
+
+/* Enable Hamburger nav */
+@media (max-width:880px) {
+    .nav-links {
+        display: none;
+    }
+
+    #hamburger {
+        display: block;
+    }
+}
+
+@media (max-width:480px) {
+
+    #hamburger-content {
+        width: 180px;
+        font-size: 14px;
+        right:3%;
+    }
+}

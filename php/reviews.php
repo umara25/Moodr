@@ -22,6 +22,7 @@ This is the Review Page.
     <title>Moodr - Reviews</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/reviews.css">
+    <link rel = "stylesheet" href = "../css/hamburger.css">
     <script src="../js/nav.js"></script>
     <script src = "../js/scrollReviews.js"></script>
 
