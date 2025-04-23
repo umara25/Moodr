@@ -99,7 +99,7 @@ This is the splash page which users will first be greeted with. It holds announc
                                 <label for="post-message">Message:</label>
                                 <textarea id="post-message" name="post-message" placeholder="Enter your message..." rows="5"
                                     required></textarea>
-                                <button type="submit">Submit</button>
+                                <button id = "submit" type="submit">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -124,7 +124,7 @@ This is the splash page which users will first be greeted with. It holds announc
                     while ($row = $stmt->fetch()) {
                         ?>
                         <span class="post">
-                            <img src="../images/defaultpfp.jpg" width="75px" height="75px">
+                            <img class="pfp" src="../images/defaultpfp.jpg" width="75px" height="75px">
                             <div class="textbox">
                                 <p><b><?= $row["username"] ?> - <?= $row["title"] ?> <span
                                             class='timestamp'><?= $row["date"] ?></span></b></p>

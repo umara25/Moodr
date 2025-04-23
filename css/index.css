@@ -72,14 +72,15 @@ body {
 
 h1 {
     color: #181e23;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     margin-left: 30px;
 }
 
 p,
 li {
     margin-left: 30px;
-    padding-left: 20px;
+    margin-right: 5px;
+    /* padding-left: 20px; */
 }
 
 #make-post {
@@ -104,7 +105,7 @@ li {
 }
 
 #make-post form {
-    width: 1040px;
+    width: 95%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -220,6 +221,10 @@ li {
     height: 600px;
 }
 
+img{
+    margin-top:5px;
+}
+
 /* Load icon https://www.w3schools.com/howto/howto_css_loader.asp */
 .load {
     border: 8px solid #f3f3f3;
@@ -238,3 +243,147 @@ li {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  /* Enable Hamburger nav */
+@media (max-width:880px) {
+    .nav-links {
+        display: none;
+    }
+
+    /* #hamburger {
+        display: block;
+    } */
+} 
+
+/* Roughly Tablet size */
+@media (max-width:800px) {
+    .pfp{
+        width:60px;
+        height:60px;
+    }
+    .textbox{
+        font-size:12px;
+    }
+    p{
+        margin-left:0px;
+    }
+
+    #announcments p{
+        margin-left:20px;
+    }
+
+    h1{
+        font-size: larger;
+        padding-left:0px;
+    }
+
+    #make-post h1{
+        margin-left:10px;
+    }
+
+    #make-post form{
+        width:90%;
+        margin-left:10px;
+    }
+
+    #make-post label{
+        font-size:small;
+    }
+
+    #make-post input[type="text"],
+    #make-post textarea {
+        font-size: 13px;
+    }
+
+    #user-intro h1{
+        margin-left:10px;
+    }
+
+    #user-intro p{
+        padding-left:10px;
+        font-size: small;
+    }
+
+    .trash-icon img{
+        width:15px;
+        height:15px;
+    }
+}
+
+/* Mobile */
+@media (max-width:480px) {
+
+    .pfp{
+        width:40px;
+        height:40px;
+    }
+
+    #content{
+        width:85%;
+    }
+
+    .post{
+        margin-left:10px;
+        margin-right:10px;
+    }
+
+    .textbox{
+        font-size:9px;
+        width:95%;
+    }
+
+    h1{
+        font-size: medium;
+        padding-left:0px;
+    }
+
+    #make-post h1{
+        margin-left:5px;
+    }
+
+    #make-post form{
+        width:95%;
+        margin-left:5px;
+    }
+
+    #make-post label{
+        font-size:smaller;
+    }
+
+    #make-post,
+    #user-intro{
+        margin-bottom: 15px;
+    }
+
+
+    #make-post input[type="text"],
+    #make-post textarea {
+        font-size: 13px;
+        padding:5px;
+    }
+
+    #make-post button{
+        font-size: 12px;
+        padding: 4px;
+        width: 50px;
+        border-radius: 4px;
+    }
+
+    #announcments p{
+        margin-left:15px;
+    }
+
+    #announcments h1{
+        margin-left:10px;
+    }
+
+    .trash-icon img{
+        width:12px;
+        height:12px;
+    }
+
+    /* #hamburger-content {
+        width: 180px;
+        font-size: 14px;
+    } */
+}
