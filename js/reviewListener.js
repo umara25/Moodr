@@ -248,6 +248,7 @@ window.addEventListener("load",function(event){
                 let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
                 fetch(url)
+                .then(response=>response.text())
                 .then(confirm_delete);
                 // .then(toDelete.remove()); // Delete node
 
@@ -269,6 +270,7 @@ window.addEventListener("load",function(event){
              * @param {Int} response 
              */
             function confirm_delete(response){ 
+                console.log(response);
 
                 if(response == 1){ 
                     // Successfully deleted
