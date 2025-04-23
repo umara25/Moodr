@@ -221,6 +221,7 @@ This is the Review Page.
                 </div> -->
 
                 <?php
+
                 include "connect.php";
                 include "imageHandler.php"; // Using get_pfp_path()
 
@@ -229,9 +230,12 @@ This is the Review Page.
                 $stmt = $dbh->prepare($cmd);
                 $succ = $stmt->execute();
 
+                $rendered_reviews = []; // Keep track of review ids that have been rendered
 
                 while ($row = $stmt->fetch()) {
                     //Grab each review 
+                    
+                    array_push($rendered_reviews,$row["reviewID"]); // Push reviewID to array
 
                     echo "<div id = '$row[reviewID]' class = 'review'>";
                     $pfp_path = get_pfp_path($row["username"]);
@@ -279,8 +283,9 @@ This is the Review Page.
                                     </div>";
 
                     echo "</div></div></div>";
+                    $_SESSION["review_date"] = $row["date"]; // Get last time-stamp, used for pulling new reviews
                 }
-                // echo "<h1 class = 'error'>FAILED TO RETRIEVE REVIEWS, TRY AGAIN LATER</h1>";
+                $_SESSION["rendered_reviews"] = $rendered_reviews; // Store rendered review ID's in session storage
                 ?>
 
             </div>

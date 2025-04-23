@@ -6,34 +6,26 @@
 window.addEventListener("load", function (event) {
 
     let loading = false;  // Ensures only 1 event fires at a time
- 
-    window.addEventListener("scroll", function (event) {
 
-        // Check if end of page
+    // Add scroll event listener
+    window.addEventListener("scroll", send_requests);
+
+    /**
+     * Sends AJAX requests once end of screen
+     */
+    function send_requests() {
+
+        // Check if end of page and you aren't already loading data
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !loading) {
-            // console.log("DHUSAHDUSAJD");
-
-            let reviews = document.querySelectorAll(".review");    // Get all reviews
-            let lastReview = reviews[reviews.length - 1];
-
-            // Make sure to encode to avoid issues with whitespace in URL
-            let lastTime = encodeURIComponent(lastReview.querySelector(".timestamp").innerHTML); // Get time of last review
-
             let icon = create_load();
-            let params = "table=reviews" + "&time=" + lastTime;
-            let url = "../php/scrollReviewHandler.php?" + params;
+            let url = "../php/scrollReviewHandler.php";
             // console.log(url);
 
             fetch(url)
-                .then(response => response.json())
-                .then(data=>success(data,icon));
-            // .then(d=>console.log(d));
-
-
+            .then(response => response.json())
+            .then(data => success(data, icon));
         }
-        // console.log(loading);
-
-    });
+    }
 
 
 
@@ -60,7 +52,7 @@ window.addEventListener("load", function (event) {
      */
     function remove_load(load) {
         load.remove();  // Remove load icon
-        loading = false ;   // Done rendering data, allow events
+        loading = false;   // Done rendering data, allow events
     }
 
 
@@ -70,23 +62,24 @@ window.addEventListener("load", function (event) {
      * @param {Array} arr 
      * @param {HTML Element} icon 
      */
-    function success(arr,icon) {
+    function success(arr, icon) {
         let reviewField = document.getElementById("reviews");
 
         // Empty array check
-        if(arr !== undefined && arr.length != 0){ 
-            // console.log(arr);
-    
-            for (let d of arr) {
-                renderReview(d, reviewField);
+        if (arr !== undefined && arr.length != 0) {
+
+            // Render each object in array
+            for (let obj of arr) {
+                renderReview(obj, reviewField);
             }
-            remove_load(icon);
-            
-        }else{ // No more reviews, so display error message
+            remove_load(icon); 
+
+        } else { // No more reviews, so display error message
             icon.classList.remove("load");
             icon.classList.add("error");
             icon.innerHTML = "<h3><span style = 'color:white'>No more reviews..</span></h3>";
-            setTimeout(function(){remove_load(icon);},750); // Timeout is to ensure they can read the message
+            // setTimeout(function () { remove_load(icon); }, 1000); // Timeout is to ensure they can read the message
+            window.removeEventListener("scroll",send_requests);  // Remove event listener, not constantly sending queries to DB
         }
 
 
@@ -159,8 +152,8 @@ window.addEventListener("load", function (event) {
         }
 
         reviewTitleDiv.innerHTML = (
-            "<h1>" + review.title + " - " + review.username
-            + "<span class = 'timestamp'>" + review.date + "</span></h1>"
+            "<h1> " + review.title + " - " + review.username
+            + " <span class = 'timestamp'>" + review.date + "</span></h1>"
             + "<img class = 'trash-icon' src = '../images/trashicon.png'>"
         ); // Render title 
 
@@ -227,7 +220,6 @@ window.addEventListener("load", function (event) {
 
 
         }
-        console.log(toDelete);
     }
 
 });
