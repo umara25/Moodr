@@ -129,8 +129,8 @@ window.addEventListener("load",function(event){
      */
     function renderReview(review,element){ 
         let reviewDiv = document.createElement("div");          // Create review div 
-        reviewDiv.classList.add("review");                      // Add it to class review
         reviewDiv.id = review.id;                               // Give it the unique reviewID
+        reviewDiv.classList.add("review");                      // Add it to class review
 
         let reviewPfpDiv = document.createElement("div");       // Create review-pfp div
         reviewPfpDiv.classList.add("review-pfp");               // Add it to class review-pfp
@@ -248,7 +248,8 @@ window.addEventListener("load",function(event){
                 let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
                 fetch(url)
-                .then(toDelete.remove()); // Delete node
+                .then(confirm_delete);
+                // .then(toDelete.remove()); // Delete node
 
             });
 
@@ -263,8 +264,27 @@ window.addEventListener("load",function(event){
 
 
 
+            /**
+             * Receives the response from deleteReviewHandler.php
+             * @param {Int} response 
+             */
+            function confirm_delete(response){ 
+
+                if(response == 1){ 
+                    // Successfully deleted
+                    toDelete.remove();
+                }else{ 
+                    content.innerHTML = temp;
+                    content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
+                    content.querySelector(".trash-icon")
+                    .addEventListener("click",deleteReview);
+                }
+
+
+            }
+
         }
-        console.log(toDelete);
+        // console.log(toDelete);
     }
 
 
