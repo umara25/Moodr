@@ -14,8 +14,6 @@ window.addEventListener("load", function (event) {
         let textbox2 = document.getElementById("table");
         let headers = document.getElementsByTagName("h1");
         let pars = document.getElementsByTagName("p");
-        let labels = document.getElementsByTagName("label");
-        let links = document.getElementsByTagName("a");
         let rows = document.querySelectorAll("table tr");
 
         rows.forEach((row, index) => {
@@ -30,17 +28,11 @@ window.addEventListener("load", function (event) {
         textbox2.style["background-color"] = styleArr["textbox"];
         textbox1.style["color"] = styleArr["text"];
         textbox2.style["color"] = styleArr["text"];
-        for(var i = 0; i < headers.length; i++) {
+        for(let i = 0; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
         }
-        for(var i = 1; i < pars.length; i++) {
+        for(let i = 1; i < pars.length; i++) {
             pars[i].style.color = styleArr["text"];
-        }
-        for(var i = 0; i < labels.length; i++) {
-            labels[i].style.color = styleArr["text"];
-        }
-        for(var i = 6; i < links.length; i++) {
-            links[i].style.color = styleArr["text"];
         }
     }
 });
