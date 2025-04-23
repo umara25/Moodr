@@ -24,25 +24,32 @@ This is the Review Page.
     <link rel="stylesheet" href="../css/reviews.css">
     <link rel = "stylesheet" href = "../css/hamburger.css">
     <script src="../js/nav.js"></script>
-    <script src = "../js/scrollReviews.js"></script>
 
     <?php
     if ($loggedIn) {
         if ($_SESSION["role"] === "admin") {
             //Include create review JS if admin
-            echo "<script src = '../js/reviewListener.js'></script>";
+            echo "<script src = '../js/reviewListener.js'></script>"; // Handle create review
+            echo "<script src='../js/reviewsStyleAdmin.js'></script>";
+            echo "<script src='../js/reviewsStyleRefresher.js'></script>";
+            echo "script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll
+        }else{ 
+            echo "<script src='../js/reviewsStyle.js'></script>";
+            echo "<script src = '../js/scrollReviews.js'></script>";
         }
+    }else { 
+        echo "<script src = '../js/scrollReviews.js'></script>"; // Normal infinite scroll
     }
 
     //if user is logged in then apply their style
-    if(isset($_SESSION["username"])){
-        if($_SESSION["role"]==="admin"){
-            echo "<script src='../js/reviewsStyleAdmin.js'></script>";
-            echo "<script src='../js/reviewsStyleRefresher.js'></script>";
-        }else{
-            echo "<script src='../js/reviewsStyle.js'></script>";
-        }
-    }
+    // if(isset($_SESSION["username"])){
+    //     if($_SESSION["role"]==="admin"){
+    //         echo "<script src='../js/reviewsStyleAdmin.js'></script>";
+    //         echo "<script src='../js/reviewsStyleRefresher.js'></script>";
+    //     }else{
+    //         echo "<script src='../js/reviewsStyle.js'></script>";
+    //     }
+    // }
     ?>
 </head>
 
