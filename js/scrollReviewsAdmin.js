@@ -7,6 +7,9 @@
 window.addEventListener("load", function (event) {
 
     let loading = false;  // Ensures only 1 event fires at a time
+    // const threshold = 200; // Helps with event firing
+    let debounce;
+    // const threshold = 200;
 
     // Add scroll event listener
     window.addEventListener("scroll", send_requests);
@@ -16,18 +19,25 @@ window.addEventListener("load", function (event) {
      */
     function send_requests() {
 
-        // Check if end of page and you aren't already loading data
-        if ((window.innerHeight + window.scrollY >= document.body.offsetHeight && !loading) ||
-            (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight
-            && !loading) {
-            let icon = create_load();
-            let url = "../php/scrollReviewHandler.php";
-            // console.log(url);
+        clearTimeout(debounce);
+        // Help with event firing issue, only do a check once you stop scrolling
+        // Scrolling causes the timeout to be reset, so it only does a check after you stop scrolling for 100ms
+        debounce = setTimeout(function () {
+            const threshold = 300;
+            // Check if end of page and you aren't already loading data
+            if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading) ||
+                (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight - threshold
+                && !loading) {
+                let icon = create_load();
+                let url = "../php/scrollReviewHandler.php";
+                // console.log(url);
 
-            fetch(url)
-            .then(response => response.json())
-            .then(data => success(data, icon));
-        }
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => success(data, icon));
+            }
+        }, 100);
+
     }
 
 
@@ -207,8 +217,8 @@ window.addEventListener("load", function (event) {
                 let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
                 fetch(url)
-                .then(response=>response.text())
-                .then(confirm_delete);
+                    .then(response => response.text())
+                    .then(confirm_delete);
             });
 
             /** 

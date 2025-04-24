@@ -1,33 +1,41 @@
 /** 
  * Handles making AJAX requests to scrollHandler.php for reviews page
  * i.e Implements infinite scrolling for reviews page
- * Does not include delete to new reviews
+ * Does not include DELETE to new reviews
  */
 
 window.addEventListener("load", function (event) {
 
     let loading = false;  // Ensures only 1 event fires at a time
+    let debounce;
 
     // Add scroll event listener
     window.addEventListener("scroll", send_requests);
 
     /**
-     * Sends AJAX requests once end of screen
-     */
+    * Sends AJAX requests once end of screen
+    */
     function send_requests() {
 
-        // Check if end of page and you aren't already loading data
-        if ((window.innerHeight + window.scrollY >= document.body.offsetHeight && !loading) ||
-            (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight
-            && !loading) {
-            let icon = create_load();
-            let url = "../php/scrollReviewHandler.php";
-            // console.log(url);
+        clearTimeout(debounce);
+        // Help with event firing issue, only do a check once you stop scrolling
+        // Scrolling causes the timeout to be reset, so it only does a check after you stop scrolling for 100ms
+        debounce = setTimeout(function () {
+            const threshold = 300;
+            // Check if end of page and you aren't already loading data
+            if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading) ||
+                (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight - threshold
+                && !loading) {
+                let icon = create_load();
+                let url = "../php/scrollReviewHandler.php";
+                // console.log(url);
 
-            fetch(url)
-            .then(response => response.json())
-            .then(data => success(data, icon));
-        }
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => success(data, icon));
+            }
+        }, 100);
+
     }
 
 
@@ -145,7 +153,6 @@ window.addEventListener("load", function (event) {
         reviewBodyDiv.appendChild(reviewTextDiv);
 
         // Start altering innerHTML 
-
         if (review.pfp) {
             // Pfp exists 
             reviewPfpDiv.innerHTML = "<img src =" + review.pfp + ">";
@@ -153,16 +160,10 @@ window.addEventListener("load", function (event) {
             // Pfp does not exist, use default
             reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";
         }
-
         reviewTitleDiv.innerHTML = (
             "<h1> " + review.title + " - " + review.username
             + " <span class = 'timestamp'>" + review.date + "</span></h1>"
-            // + "<img class = 'trash-icon' src = '../images/trashicon.png'>"
         ); // Render title 
-
-        // Add delete event to trash icon 
-        // reviewTitleDiv.querySelector(".trash-icon")
-        //     .addEventListener("click", deleteReview);
 
         reviewTextDiv.innerHTML = (
             "<p>" + review.msg + "</p>" +
@@ -171,73 +172,6 @@ window.addEventListener("load", function (event) {
 
     }
 
-    /**
-         * Traverses DOM to delete review   
-         * the trash icon is inside 
-         */
-    // function deleteReview() {
-    //     let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
-    //     // This is the overarching review
-
-    //     if (toDelete) {
-    //         // Node to delete exists   
-    //         let content = toDelete.querySelector(".review-title");    // Get review title
-    //         let temp = content.innerHTML;   // Store copy of the innerHTML 
-
-    //         // Create confirm / cancel buttons 
-    //         content.innerHTML = (
-    //             "<div class = 'delete'>" +
-    //             "<h1> Are you sure you want to delete this review?</h1>" +
-    //             "<input class = 'confirm-button' type = 'button' value = 'Yes'>" +
-    //             "<input class = 'cancel-button' type = 'button' value = 'No'>" +
-    //             "</div>"
-    //         );
-
-    //         let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
-    //         let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
-
-    //         // console.log(cancel);
-    //         // console.log(confirm);
-
-    //         /** 
-    //          * Delete review tied to this element 
-    //          */
-    //         confirm.addEventListener("click", function (event) {
-    //             let id = toDelete.id;   // Get ID of parent node
-    //             let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
-
-    //             fetch(url)
-    //             .then(response=>response.text())
-    //             .then(confirm_delete);
-    //         });
-
-    //         /** 
-    //          * Reset innerHTML and reset trash icon event listener
-    //          */
-    //         cancel.addEventListener("click", function (event) {
-    //             content.innerHTML = temp;
-    //             content.querySelector(".trash-icon")
-    //                 .addEventListener("click", deleteReview); // Re-add event listener
-    //         });
-
-    //         /**
-    //          * Receives the response from deleteReviewHandler.php
-    //          * @param {Int} response 
-    //          */
-    //         function confirm_delete(response) {
-
-    //             if (response == 1) {
-    //                 // Successfully deleted
-    //                 toDelete.remove();
-    //             } else {
-    //                 content.innerHTML = temp;
-    //                 content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
-    //                 content.querySelector(".trash-icon")
-    //                     .addEventListener("click", deleteReview);
-    //             }
-    //         }
-    //     }
-    // }
 
 });
 
