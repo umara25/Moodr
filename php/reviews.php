@@ -32,7 +32,7 @@ This is the Review Page.
             echo "<script src = '../js/reviewListener.js'></script>"; // Handle create review
             echo "<script src='../js/reviewsStyleAdmin.js'></script>";
             echo "<script src='../js/reviewsStyleRefresher.js'></script>";
-            echo "script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll
+            echo "<script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll
         }else{ 
             echo "<script src='../js/reviewsStyle.js'></script>";
             echo "<script src = '../js/scrollReviews.js'></script>";
