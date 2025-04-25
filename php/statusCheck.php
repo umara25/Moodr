@@ -18,6 +18,7 @@ function status_check($username,$role){
             // Database role doesn't match session role  or account inactive
             header('Location: login.php?status=1');  // Send back to login with status = 1
             session_destroy();                       // Destroy session
+            exit;
         }          
 
     }

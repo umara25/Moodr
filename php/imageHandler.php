@@ -93,8 +93,8 @@ function get_pfp_path($username)
     $cmd = "SELECT `pfp_path` FROM users WHERE `username` = ?";
     $stmt = $dbh->prepare($cmd);
     $suc = $stmt->execute([$username]);
-    if ($suc) {
-        return $stmt->fetch()["pfp_path"];
+    if ($row = $stmt->fetch()) {
+        return $row["pfp_path"];
     } else {
         return (-1);
     }
