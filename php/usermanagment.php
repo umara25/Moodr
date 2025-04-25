@@ -11,6 +11,8 @@ This is the User Managment Page.
     <title>Moodr - User Managment</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/usermanagment.css">
+    <link rel = "stylesheet" href = "../css/hamburger.css">
+    <script src="../js/nav.js"></script>
     <script src="../js/userManagment.js"></script>
     <?php
     //if user is logged in then apply their style
@@ -18,6 +20,9 @@ This is the User Managment Page.
         echo "<script src='../js/usermanagementStyle.js'></script>";
         include "statusCheck.php";
         status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
+        $loggedIn = true;
+    }else{ 
+        $loggedIn = false;
     }
     ?>
 </head>
@@ -48,6 +53,29 @@ This is the User Managment Page.
             <p id="moodr">M o o d r <?php if ($_SESSION["role"] === "admin") {
                 echo " A d m i n";
             } ?></p>
+            <!-- Hamburger nav -->
+            <div id="hamburger">
+                <img src="../images/hamburger.png">
+                <div id="hamburger-content">
+                    <a href="index.php" class="nav">Dashboard</a>
+                    <a href="calendar.php" class="nav">Calendar</a>
+                    <a href="reviews.php" class="nav">Reviews</a>
+                    <?php // If admin, they will have a user management button.
+                    if ($loggedIn) {
+                        if ($_SESSION["role"] === "admin") {
+                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                        }
+                    }
+                    if (!$loggedIn) {
+                        echo "<a href='login.php' class='nav'>Log in</a>";
+                    } else {
+                        echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                        echo "<a href='logouthandler.php' class='nav'>Log out</a>";
+                    }
+                    ?>
+                </div>
+
+            </div>
             <div class="nav-links">
                 <a href="index.php" class="nav">Dashboard</a>
                 <a href="calendar.php" class="nav">Calendar</a>
