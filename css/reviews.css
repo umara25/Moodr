@@ -3,6 +3,7 @@
 }
 
 #content {
+    padding-top: 0px;
     z-index: 1;
     /* Used for stacking*/
 }
@@ -28,6 +29,7 @@ input[type='file']:hover {
 }
 
 h1 {
+    font-size:30px;
     margin-left: 0;
     padding-left: 0;
 }
@@ -37,7 +39,12 @@ h1 {
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
+    margin-top:15px;
     width: 86%;
+}
+
+#make-post h1{
+    margin-left:20px;
 }
 
 #make-review-form label {
@@ -82,6 +89,7 @@ h1 {
     font-size: 100%;
     border-radius: 15px;
     margin-bottom: 15px;
+    margin-top:15px;
     margin-left: auto;
     /* margin-right:auto; */
     background-image: url("../images/write.png");
@@ -146,11 +154,13 @@ h1 {
     background-color: whitesmoke;
     width: 100%;
     border-radius: 10px;
+    padding: 5px;
 }
 
 .review-title h1 {
-    margin-left: 5px;
-    font-size: 30px;
+    width: 100%;
+    margin-left: 10px;
+    font-size: 24px;
     margin-bottom: 5px;
 
     /* Ensures trash-icon doesn't escape div when page resized */
@@ -177,14 +187,12 @@ h1 {
 
 
 .review-img {
-    width: 25%;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .review-img img {
-    width: 90%;
+    width: 80px;
+    height: 80px;
 }
 
 
@@ -192,20 +200,21 @@ h1 {
     color: black;
     width: 100%;
     margin-right: 5px;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .review-text p {
     padding-left: 0;
     margin-left: 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .timestamp {
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .trash-icon {
+    margin-right:5px;
     width: 20px;
     height: 20px;
     margin-left: auto;
@@ -222,10 +231,6 @@ h1 {
 .review-title {
     width: 100%;
     display: flex;
-}
-
-.review-title h1 {
-    width: 100%;
 }
 
 .delete {
@@ -276,7 +281,7 @@ h1 {
 }
 
 
-
+/* Roughly Tablet size */
 @media (max-width:800px) {
     .review-pfp {
         display: none;
@@ -309,13 +314,38 @@ h1 {
 
 }
 
+/* Mobile */
 @media (max-width:480px) {
-    .review-img {
-        display: none;
+    .review-title h1{
+        font-size: 16px;
     }
-
-    #make-post-js input {
+    #make-post{
+        width:90%;
+    }
+    #reviews {
+        width: 100%; 
+    }
+    .review-content{
+        width:98%;
+    }
+    .timestamp{
+        font-size:12px;
+    }
+    .review-text{
+        overflow: hidden;
+        word-wrap:break-word;
+        width:80%;
+    }
+    .review-body p{
         font-size: 12px;
     }
-
+    .review-img img{
+        width:55px;
+        height:55px;
+    }
+    .trash-icon{
+        margin-right:10px;
+        width: 15px;
+        height: 15px;
+    }
 }

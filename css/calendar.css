@@ -82,3 +82,33 @@ body {
     height: 700px;
     border-radius: 8px;
 } 
+
+
+/* Roughly Tablet size */
+@media (max-width:800px) {
+    .calendar-container h2{
+        font-size: larger;
+    }
+
+    .calendar-container iframe{
+        height: 550px;
+        width:93%;
+    }
+}
+
+/* Mobile */
+@media (max-width:480px) {
+    .calendar-container h2{
+        font-size: large;
+    }
+
+    .calendar-container iframe{
+        height: 350px;
+        width:90%;
+    }
+    
+    #content {
+        width: 98%;
+        min-height: 85vh;
+    }
+}
