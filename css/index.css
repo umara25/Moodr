@@ -244,17 +244,6 @@ img{
     100% { transform: rotate(360deg); }
   }
 
-  /* Enable Hamburger nav */
-@media (max-width:880px) {
-    .nav-links {
-        display: none;
-    }
-
-    /* #hamburger {
-        display: block;
-    } */
-} 
-
 /* Roughly Tablet size */
 @media (max-width:800px) {
     .pfp{
@@ -382,8 +371,4 @@ img{
         height:12px;
     }
 
-    /* #hamburger-content {
-        width: 180px;
-        font-size: 14px;
-    } */
 }
