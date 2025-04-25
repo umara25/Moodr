@@ -136,7 +136,7 @@ This is the Review Page.
 
                                 <label id="file-label" for="album-cover" class="pfp-btn">Choose Image (.png, .jpg, .jpeg)</label>
                                 <input type="file" id="album-cover" accept="image/png, image/jpg, image/jpeg">
-                                
+
                                 <label for="review-message">Review:</label>
                                 <textarea id="review-message" name="post-message" placeholder="Enter your review... (400 chars max)" rows="5"
                                     maxlength="400" required></textarea>
@@ -265,9 +265,9 @@ This is the Review Page.
                     echo "<div class = 'review-content'>";
 
                     echo "<div class = 'review-title'>
-                                        <h1> $row[title]  -  $row[username]
-                                        <span class = 'timestamp'>$row[date]</span>
-                                        </h1>";
+                            <h1> $row[title]  -  $row[username]
+                                <span class = 'timestamp'>$row[date]</span>
+                            </h1>";
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {  // Echo delete button if admin
                             echo "<img class = 'trash-icon' src = '../images/trashicon.png'>
@@ -284,8 +284,8 @@ This is the Review Page.
                     if ($row["img_path"] !== NULL && file_exists($row["img_path"])) {
                         // Image was uploaded and exists in directory
                         echo "<div class = 'review-img'>
-                                            <img src =" . $row["img_path"] . ">
-                                            </div>";
+                                <img src =" . $row["img_path"] . ">
+                            </div>";
                     }
 
                     echo "<div class = 'review-text'>

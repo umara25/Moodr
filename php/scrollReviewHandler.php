@@ -50,7 +50,7 @@ if(isset($_SESSION["rendered_reviews"]) && isset($_SESSION["review_date"])){
             "date" => $row["date"]
         ];
 
-        if ($pfp_path != -1) {
+        if (file_exists($pfp_path)){
             // Managed to retrieve a pfp, so add it
             $a["pfp"] = $pfp_path;
         }
