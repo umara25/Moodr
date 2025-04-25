@@ -33,11 +33,11 @@ This is the Review Page.
             echo "<script src='../js/reviewsStyleAdmin.js'></script>";
             echo "<script src='../js/reviewsStyleRefresher.js'></script>";
             echo "<script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll
-        }else{ 
+        }else{ // Not admin
             echo "<script src='../js/reviewsStyle.js'></script>";
             echo "<script src = '../js/scrollReviews.js'></script>";
         }
-    }else { 
+    }else { // Not logged in
         echo "<script src = '../js/scrollReviews.js'></script>"; // Normal infinite scroll
     }
 
@@ -79,12 +79,11 @@ This is the Review Page.
                         if ($_SESSION["role"] === "admin") {
                             echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                         }
+                        echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                        echo "<a href='logouthandler.php' class='nav'>Log out</a>";
                     }
                     if (!$loggedIn) {
                         echo "<a href='login.php' class='nav'>Log in</a>";
-                    } else {
-                        echo "<a href='myprofile.php' class='nav'>My Profile</a>";
-                        echo "<a href='logouthandler.php' class='nav'>Log out</a>";
                     }
                     ?>
                 </div>
@@ -99,12 +98,11 @@ This is the Review Page.
                     if ($_SESSION["role"] === "admin") {
                         echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                     }
+                    echo "<a href='myprofile.php' class='nav'>My Profile</a>";
+                    echo "<a href='logouthandler.php' class='nav'>Log out</a>";
                 }
                 if (!$loggedIn) {
                     echo "<a href='login.php' class='nav'>Log in</a>";
-                } else {
-                    echo "<a href='myprofile.php' class='nav'>My Profile</a>";
-                    echo "<a href='logouthandler.php' class='nav'>Log out</a>";
                 }
                 ?>
 
@@ -118,7 +116,7 @@ This is the Review Page.
             ?>
 
                     <div id="make-post-js">
-                        <input id='make-post-button' type="button" value="Click to write an album review">
+                        <input id='make-post-button' type="button" value="Click to write a music review">
                         <!-- <img id = "make-post-img" src = "../images/write.png"> -->
                     </div>
 
@@ -128,7 +126,7 @@ This is the Review Page.
                             <img id="close-post-img" src="../images/close.png">
                         </div>
 
-                        <h1>Write an Album Review</h1>
+                        <h1>Write a Music Review</h1>
 
                         <div class="make-post-container">
 
@@ -138,7 +136,7 @@ This is the Review Page.
 
                                 <label id="file-label" for="album-cover" class="pfp-btn">Choose Image (.png, .jpg, .jpeg)</label>
                                 <input type="file" id="album-cover" accept="image/png, image/jpg, image/jpeg">
-
+                                
                                 <label for="review-message">Review:</label>
                                 <textarea id="review-message" name="post-message" placeholder="Enter your review... (400 chars max)" rows="5"
                                     maxlength="400" required></textarea>
