@@ -48,8 +48,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-#make-review-form input[type="text"],
-input[type="range"] {
+#make-review-form input[type="text"]{
     width: 90%;
 }
 
