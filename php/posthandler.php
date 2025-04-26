@@ -1,5 +1,4 @@
 <?php
-
 /** 
  * Make a Post Processing
  * Checks if user is admin, then checks relevent parameters
@@ -22,9 +21,6 @@ if ($loggedIn) {
     if ($_SESSION["role"] === "admin") {
         $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_SPECIAL_CHARS);
         $message = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_SPECIAL_CHARS);
-        if (strlen($title) <= 0 || strlen($title) > 30) {
-            exit;
-        }
     }
 } else {
     session_destroy();
@@ -33,18 +29,17 @@ if ($loggedIn) {
 }
 
 
-$cmd = "INSERT INTO announcements (`username`, `title`, `message`) VALUES (?,?,?)";
+$cmd = "INSERT INTO announcements (username, title, message) VALUES (?,?,?)";
 $stmt = $dbh->prepare($cmd);
 $success = $stmt->execute([$_SESSION["username"], $title, $message]);
 if (!$success) {
     echo "Error: Failed to insert into database.";
-    exit;
 }
 // Get the ID of the newly inserted post
 $postId = $dbh->lastInsertId();
 
 $pfp_path = get_pfp_path($_SESSION["username"]);
-echo "<div id = $postId class='post'><div class = 'post-pfp'>";
+echo "<span class='post'><div class = 'post-pfp'>";
 if (file_exists($pfp_path)) {
     echo "<img src = $pfp_path>"; // pfp exists in directory
 } else {
@@ -57,4 +52,4 @@ echo "<p><b>$_SESSION[username] - $title </b></p></div>";
 echo "<div class='post-text'><p>$message</p></div></div>";
 echo "<div class='trash-icon' id='$postId'>";
 echo "<img src='../images/trashicon.png' width='20px' height='20px'>";
-echo "</div></div></div>";
+echo "</div></div></span>";

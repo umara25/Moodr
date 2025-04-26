@@ -81,10 +81,9 @@ window.addEventListener("load", function (event) {
 
             // Render each object in array
             for (let obj of arr) {
-                renderPost(obj, postField);
+                renderReview(obj, postField);
             }
             remove_load(icon);
-            updateCSS();
 
         } else { // No more posts, so display error message
             icon.classList.remove("load");
@@ -97,46 +96,63 @@ window.addEventListener("load", function (event) {
 
     }
 
+
     /**
-     * Render posts based on object returned form scrollIndexHandler.php
-     * {id: post id, username: username, title: post title, msg: post text, 
-     * date: date, pfp: profile photo path}
-     * @param {*} post 
-     * @param {*} element 
-     */
+         * Render post inside element based on post object received
+         * {username: user, title: post title, msg: post body, score: post score, 
+         * date: date post posted, img: img path, pfp: pfp_path, id: postID}
+         * Note: pfp only exists if a valid pfp is stored else it is empty
+         * Note: This is slightly modified compared to the one in postListener.js
+         * @param {Object} post 
+         * @param {HTML Element} element 
+         */
     function renderPost(post, element) {
-        // console.log(post);
-        let postDiv = document.createElement("div");
-        postDiv.id = post.id;
-        postDiv.classList.add("post");
+        let postDiv = document.createElement("div");          // Create post div 
+        postDiv.id = post.id;                               // Give it the unique postID
+        postDiv.classList.add("post");                      // Add it to class post
 
-        let postPfpDiv = document.createElement("div");
-        postPfpDiv.classList.add("post-pfp");
+        // PFP not applied:
+        let postPfpDiv = document.createElement("div");       // Create postpfp div
+        postPfpDiv.classList.add("post-pfp");               // Add it to class pfp
 
-        let textBoxDiv = document.createElement("div");
-        textBoxDiv.classList.add("textbox");
+        let postContentDiv = document.createElement("div");   // Create post-content Div
+        postContentDiv.classList.add("textbox");
 
-        let postTitleDiv = document.createElement("div");
+        let postTitleDiv = document.createElement("div");     // Create post-title div
         postTitleDiv.classList.add("post-title");
 
-        let postTextDiv = document.createElement("div");
+        // Not needed for post:
+        // let reviewBodyDiv = document.createElement("div");      // Create review Body div
+        // reviewBodyDiv.classList.add("review-body");
+
+        let postTextDiv = document.createElement("div");      // Create post-text div
         postTextDiv.classList.add("post-text");
 
 
-        // Construct DOM tree
-
-        element.appendChild(postDiv);
-        postDiv.append
+        // Construct DOM Tree
+        element.appendChild(postDiv); // Add to end
 
         postDiv.appendChild(postPfpDiv);
-        postDiv.appendChild(textBoxDiv);
+        // postDiv.appendChild(triangleDiv);
+        postDiv.appendChild(postContentDiv);
 
-        textBoxDiv.appendChild(postTitleDiv);
-        textBoxDiv.appendChild(postTextDiv);
+        postContentDiv.appendChild(postTitleDiv);
+        // postContentDiv.appendChild(postBodyDiv);
 
 
-        // Alter innerHTML
+        // Not needed for announcement page:
+        // Check if an image was uploaded with review
+        // if (review.img !== null && review.img !== undefined) {
+        //     let reviewImgDiv = document.createElement("div");       // Create review image div
+        //     reviewImgDiv.classList.add("review-img");
+        //     reviewBodyDiv.appendChild(reviewImgDiv);
+        //     reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
+        //     // console.log(review.img);
+        // }
 
+        // reviewBodyDiv.appendChild(reviewTextDiv);
+
+        // Start altering innerHTML 
         if (post.pfp) {
             // Pfp exists 
             postPfpDiv.innerHTML = "<img src =" + post.pfp + ">";
@@ -144,48 +160,17 @@ window.addEventListener("load", function (event) {
             // Pfp does not exist, use default
             postPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";
         }
-
         postTitleDiv.innerHTML = (
-            "<p><b>" + post.username + " - " + post.title +
-            "<span class = 'timestamp'> " + post.date + " </span></b></p>"
-        );
+            "<h1> " + post.title + " - " + post.username
+            + " <span class = 'timestamp'>" + post.date + "</span></h1>"
+        ); // Render title 
 
-        postTextDiv.innerHTML = "<p>" + post.msg + "</p>";
-
-    }
-
-    /**
-     * Update CSS of new posts with users custom theme
-     */
-    function updateCSS() {
-        fetch("style.php")
-            .then(response => response.json())
-            .then(success)
-            .catch(error => console.error("Fetch error:", error));
-
-            function success(styleArr) {
-                if(styleArr != -1){ 
-                    let textbox1 = document.querySelectorAll(".review-content");
-                    let textbox3 = document.querySelectorAll(".triangle");
-                    let headers = document.getElementsByTagName("h1");
-                    let pars = document.getElementsByTagName("p");
-
-                    textbox1.forEach(elm => {
-                        elm.style["background-color"] = styleArr["textbox"];
-                    });
-                    textbox3.forEach(elm => {
-                        elm.style.borderRight = "20px solid " + styleArr["textbox"];
-                    });
-                    for(let i = 0; i < headers.length; i++) {
-                        headers[i].style.color = styleArr["text"];
-                    }
-                    for(let i = 1; i < pars.length; i++) {
-                        pars[i].style.color = styleArr["text"];
-                    }
-                }
-            }
+        postTextDiv.innerHTML = (
+            "<p>" + post.msg + "</p>"
+        ); // Render text
 
     }
+
 
 });
 
