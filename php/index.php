@@ -18,15 +18,15 @@ and important information about the club.
     <script src="../js/nav.js"></script>
     <?php
     
-    //if user is logged in then apply their style
-    // if(isset($_SESSION["username"])){
-    //     if($_SESSION["role"]==="admin"){
-    //         echo "<script src='../js/reviewsStyleAdmin.js'></script>";
-    //         echo "<script src='../js/reviewsStyleRefresher.js'></script>";
-    //     }else{
-    //         echo "<script src='../js/reviewsStyle.js'></script>";
-    //     }
-    // }
+    // if user is logged in then apply their style
+    if(isset($_SESSION["username"])){
+        if($_SESSION["role"]==="admin"){
+            echo "<script src='../js/reviewsStyleAdmin.js'></script>";
+            echo "<script src='../js/reviewsStyleRefresher.js'></script>";
+        }else{
+            echo "<script src='../js/reviewsStyle.js'></script>";
+        }
+    }
     
     if ($_SESSION["role"] === "admin") {
         echo "<script src='../js/postListenerAdmin.js'></script>";
