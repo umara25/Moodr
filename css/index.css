@@ -17,6 +17,21 @@ body {
     margin-left: 10px;
 }
 
+#noposts {
+    text-align: center;
+    color: #181e23;
+}
+
+.post-pfp {
+    width: 8%;
+    margin-right: 3px;
+}
+
+.post-pfp img {
+    width: 100%;
+    border-radius: 10px;
+}
+
 .nav-links {
     margin-right: 20px;
 }
