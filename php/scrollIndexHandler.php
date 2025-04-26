@@ -23,7 +23,8 @@ if(isset($_SESSION["rendered_posts"]) && isset($_SESSION["post_date"])){
     $args = array_merge([$_SESSION["post_date"]],$_SESSION["rendered_posts"]);   // Create array of arguments
 
     include "connect.php";
-    $cmd = "SELECT * FROM `announcements` WHERE `date` <= ? AND `postId` NOT IN ($placeholders) ORDER BY `date` DESC LIMIT 5";
+    $cmd = "SELECT * FROM `announcements` WHERE `date` <= ? AND 
+    `postId` NOT IN ($placeholders) ORDER BY `date` DESC LIMIT 10";
     // $cmd = "SELECT * FROM `announcements` ORDER BY `date` DESC LIMIT 5";
     $stmt = $dbh->prepare($cmd);
     $suc = $stmt->execute($args);

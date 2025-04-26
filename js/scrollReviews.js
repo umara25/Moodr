@@ -11,7 +11,6 @@ window.addEventListener("load", function (event) {
 
     // Add scroll event listener
     window.addEventListener("scroll", send_requests);
-    window.addEventListener("scroll", updateCSS);
 
     /**
     * Sends AJAX requests once end of screen
@@ -85,6 +84,7 @@ window.addEventListener("load", function (event) {
                 renderReview(obj, reviewField);
             }
             remove_load(icon);
+            updateCSS();
 
         } else { // No more reviews, so display error message
             icon.classList.remove("load");
@@ -173,30 +173,35 @@ window.addEventListener("load", function (event) {
 
     }
 
+    /**
+     * Update CSS of new posts with users custom theme
+     */
     function updateCSS() {
         fetch("style.php")
-        .then(response => response.json())
-        .then(success)
-        .catch(error => console.error("Fetch error:", error));
+            .then(response => response.json())
+            .then(success)
+            .catch(error => console.error("Fetch error:", error));
 
         function success(styleArr) {
-            console.log("Got Here");
-            let textbox1 = document.querySelectorAll(".review-content");
-            let textbox3 = document.querySelectorAll(".triangle");
-            let headers = document.getElementsByTagName("h1");
-            let pars = document.getElementsByTagName("p");
+            if(styleArr != -1){ 
+                // console.log("Got Here");
+                let textbox1 = document.querySelectorAll(".review-content");
+                let textbox3 = document.querySelectorAll(".triangle");
+                let headers = document.getElementsByTagName("h1");
+                let pars = document.getElementsByTagName("p");
 
-            textbox1.forEach(elm => {
-                elm.style["background-color"] = styleArr["textbox"];
-            });
-            textbox3.forEach(elm => {
-                elm.style.borderRight = "20px solid " + styleArr["textbox"];
-            });
-            for(let i = 1; i < headers.length; i++) {
-                headers[i].style.color = styleArr["text"];
-            }
-            for(let i = 1; i < pars.length; i++) {
-                pars[i].style.color = styleArr["text"];
+                textbox1.forEach(elm => {
+                    elm.style["background-color"] = styleArr["textbox"];
+                });
+                textbox3.forEach(elm => {
+                    elm.style.borderRight = "20px solid " + styleArr["textbox"];
+                });
+                for (let i = 0; i < headers.length; i++) {
+                    headers[i].style.color = styleArr["text"];
+                }
+                for (let i = 1; i < pars.length; i++) {
+                    pars[i].style.color = styleArr["text"];
+                }
             }
         }
     }
