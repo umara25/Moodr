@@ -104,8 +104,7 @@ window.addEventListener("load", function (event) {
      * @param {*} post 
      * @param {*} element 
      */
-    function renderPost(post, element) {
-        // console.log(post);
+    function renderPost(post,element){ 
         let postDiv = document.createElement("div");
         postDiv.id = post.id;
         postDiv.classList.add("post");
@@ -122,6 +121,9 @@ window.addEventListener("load", function (event) {
         let postTextDiv = document.createElement("div");
         postTextDiv.classList.add("post-text");
 
+        let postTrashDiv = document.createElement("div");
+        postTrashDiv.classList.add("trash-icon");
+        postTrashDiv.id = post.id;
 
         // Construct DOM tree
 
@@ -134,6 +136,7 @@ window.addEventListener("load", function (event) {
         textBoxDiv.appendChild(postTitleDiv);
         textBoxDiv.appendChild(postTextDiv);
 
+        postDiv.appendChild(postTrashDiv);
 
         // Alter innerHTML
 
@@ -146,11 +149,89 @@ window.addEventListener("load", function (event) {
         }
 
         postTitleDiv.innerHTML = (
-            "<p><b>" + post.username + " - " + post.title +
+            "<p><b>" + post.username + " - " + post.title + 
             "<span class = 'timestamp'> " + post.date + " </span></b></p>"
         );
 
         postTextDiv.innerHTML = "<p>" + post.msg + "</p>";
+
+        postTrashDiv.innerHTML = "<img src='../images/trashicon.png' width='20px' height='20px'>";
+
+        postDiv.querySelector(".trash-icon")
+        .addEventListener("click", deletePost);
+
+
+    }
+
+    function deletePost(){ 
+        let toDelete = this.closest(".post"); // Get ancenstor of trash-icon 
+
+        if (toDelete) {
+            // Node to delete exists   
+            let content = toDelete.querySelector(".post-title");    // Get review title
+            let temp = content.innerHTML;   // Store copy of the innerHTML 
+
+            // Create confirm / cancel buttons 
+            content.innerHTML = (
+                "<div class = 'delete'>" +
+                "<h1> Are you sure you want to delete this post?</h1>" +
+                "<input class = 'confirm-button' type = 'button' value = 'Yes'>" +
+                "<input class = 'cancel-button' type = 'button' value = 'No'>" +
+                "</div>"
+            );
+
+            let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
+            let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
+
+            // console.log(cancel);
+            // console.log(confirm);
+
+            /** 
+             * Delete review tied to this element 
+             */
+            confirm.addEventListener("click", function (event) {
+                let id = toDelete.id;   // Get ID of parent node
+                let url = "../php/deleteposthandler.php" // Handles deleting from Databse
+
+                let params = "postId=" + id;
+                let config = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: params,
+                };
+
+                fetch(url,config)
+                    .then(response => response.text())
+                    .then(confirm_delete);
+            });
+
+            /** 
+             * Reset innerHTML and reset trash icon event listener
+             */
+            cancel.addEventListener("click", function (event) {
+                content.innerHTML = temp;
+                toDelete.querySelector(".trash-icon")
+                .addEventListener("click", deletePost); // Re-add event listener
+            });
+
+            /**
+             * Receives the response from deletePostHandler.php
+             * @param {Int} response 
+             */
+            function confirm_delete(response) {
+
+                if (response == 1) {
+                    // Successfully deleted
+                    toDelete.remove();
+                } else {
+                    content.innerHTML = temp;
+                    content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
+                    toDelete.querySelector(".trash-icon")
+                    .addEventListener("click", deletePost);
+                }
+            }
+        }
+
 
     }
 
@@ -163,27 +244,33 @@ window.addEventListener("load", function (event) {
             .then(success)
             .catch(error => console.error("Fetch error:", error));
 
-            function success(styleArr) {
-                if(styleArr != -1){ 
-                    let textbox1 = document.querySelectorAll(".review-content");
-                    let textbox3 = document.querySelectorAll(".triangle");
+            function success(styleArr){
+                if(styleArr != -1){
+                    let body = document.body;
+                    let content = document.getElementById("content");
+                    let textbox1 = document.getElementById("user-intro");
+                    let textbox2 = document.getElementById("make-post");
+                    let textbox3 = document.getElementById("announcments");
                     let headers = document.getElementsByTagName("h1");
                     let pars = document.getElementsByTagName("p");
-
-                    textbox1.forEach(elm => {
-                        elm.style["background-color"] = styleArr["textbox"];
-                    });
-                    textbox3.forEach(elm => {
-                        elm.style.borderRight = "20px solid " + styleArr["textbox"];
-                    });
+                    let labels = document.getElementsByTagName("label");
+            
+                    body.style["background-color"] = styleArr["primary"];
+                    content.style["background-color"] = styleArr["secondary"];
+                    textbox1.style["background-color"] = styleArr["textbox"];
+                    textbox2.style["background-color"] = styleArr["textbox"];
+                    textbox3.style["background-color"] = styleArr["textbox"];
                     for(let i = 0; i < headers.length; i++) {
                         headers[i].style.color = styleArr["text"];
                     }
                     for(let i = 1; i < pars.length; i++) {
                         pars[i].style.color = styleArr["text"];
                     }
-                }
+                    for(let i = 0; i < labels.length; i++) {
+                        labels[i].style.color = styleArr["text"];
+                    }
             }
+        }
 
     }
 

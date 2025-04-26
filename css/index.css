@@ -255,6 +255,49 @@ li {
     100% { transform: rotate(360deg); }
   }
 
+  .confirm-button {
+    color: white;
+    width: 30%;
+    padding: 10px;
+    background-color: #4CAF50;
+    margin-right: 2px;
+    border: solid black 2px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.confirm-button:hover {
+    background-color: #45A049;
+}
+
+
+
+.cancel-button {
+    color: white;
+    width: 30%;
+    padding: 10px;
+    background-color: #F44336;
+    border: solid black 2px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #D32F2F
+}
+
+.error {
+    text-align: center;
+    color: #FF4C4C;
+}
+
+.delete {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
 /* Roughly Tablet size */
 @media (max-width:800px) {
     .post-pfp img{

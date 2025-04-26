@@ -69,7 +69,7 @@ This is the My Profile Page.
                     <?php // If admin, they will have a user management button.
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {
-                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                            echo "<a href='usermanagment.php' class='nav'>Administration</a>";
                         }
                     }
                     if (!$loggedIn) {
@@ -89,7 +89,7 @@ This is the My Profile Page.
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                        echo "<a href='usermanagment.php' class='nav'>Administration</a>";
                     }
                 }
                 if (!$loggedIn) {
