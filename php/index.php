@@ -75,7 +75,7 @@ and important information about the club.
                     <?php // If admin, they will have a user management button.
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {
-                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                            echo "<a href='usermanagment.php' class='nav'>Administration</a>";
                         }
                     }
                     if (!$loggedIn) {
@@ -95,7 +95,7 @@ and important information about the club.
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                        echo "<a href='usermanagment.php' class='nav'>Administration</a>";
                     }
                 }
                 if (!$loggedIn) {
