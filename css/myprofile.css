@@ -58,6 +58,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 30px;
 }
 
 #error-message {
@@ -135,6 +136,7 @@ li {
     background-image: url('../images/defaultpfp.jpg');
     background-size: cover;
     background-position: center;
+    border: 2px solid #000;
 }
 
 #change-pfp-btn {
@@ -466,15 +468,56 @@ li {
     cursor: not-allowed;
 }
 
-#profile{
+#profile {
     width: 95%;
     background-color: #f5f5f5;
     color: #181e23;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
+    min-height: 70vh;
 }
 
 b{
     color: #181e23;
+}
+
+#theme-form {
+    width: 100%;
+    max-width: 100%;
+    min-height: 70vh;
+    padding: 30px;
+}
+
+#style-preview {
+    display: flex;
+    margin: 25px 0;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.color-preview {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.color-label {
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    color: #181e23;
+}
+
+.style-success {
+    color: green;
+    margin-top: 10px;
+}
+
+.style-error {
+    color: red;
+    margin-top: 10px;
 }
