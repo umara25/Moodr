@@ -14,23 +14,9 @@ and important information about the club.
     <title>Moodr</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hamburger.css">
+    <script src = "../js/scrollIndex.js"></script>
     <script src="../js/nav.js"></script>
     <?php
-    // if ($loggedIn) {
-    echo "<script src = '../js/scrollIndex.js'></script>";
-    //     if ($_SESSION["role"] === "admin") {
-    //         //Include create review JS if admin
-    //         echo "<script src = '../js/reviewListener.js'></script>"; // Handle create review
-    //         echo "<script src='../js/reviewsStyleAdmin.js'></script>";
-    //         echo "<script src='../js/reviewsStyleRefresher.js'></script>";
-    //         echo "<script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll
-    //     } else { // Not admin
-    //         echo "<script src='../js/reviewsStyle.js'></script>";
-    //         echo "<script src = '../js/scrollReviews.js'></script>";
-    //     }
-    // } else { // Not logged in
-    //     echo "<script src = '../js/scrollReviews.js'></script>"; // Normal infinite scroll
-    // }
     
     //if user is logged in then apply their style
     // if(isset($_SESSION["username"])){
@@ -175,7 +161,6 @@ and important information about the club.
                     
                     while ($row = $stmt->fetch()) {
                         array_push($rendered_posts, $row["postId"]); // Push postID to array
-                    
                         ?>
                         <span class="post">
                             <?php 

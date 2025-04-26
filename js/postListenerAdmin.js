@@ -1,5 +1,4 @@
 window.addEventListener("load", function (event) {
-    /*Thumbs down and up reactions?*/
     let myForm = document.getElementById("make-post-form");
     let announcments = document.getElementById("posts");
 
