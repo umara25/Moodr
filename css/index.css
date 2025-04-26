@@ -27,15 +27,16 @@ body {
     margin-right: 3px;
 }
 
-.textbox{ 
-    width:90%;
-}
-
 .post-pfp img {
-    width: 100%;
-    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
+img{
+    margin-top: 5px;
+}
 .nav-links {
     margin-right: 20px;
 }
@@ -240,10 +241,6 @@ li {
     height: 600px;
 }
 
-img{
-    margin-top:5px;
-}
-
 /* Load icon https://www.w3schools.com/howto/howto_css_loader.asp */
 .load {
     border: 8px solid #f3f3f3;
@@ -263,54 +260,11 @@ img{
     100% { transform: rotate(360deg); }
   }
 
-  .confirm-button {
-    color: white;
-    width: 30%;
-    padding: 10px;
-    background-color: #4CAF50;
-    margin-right: 2px;
-    border: solid black 2px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.confirm-button:hover {
-    background-color: #45A049;
-}
-
-
-
-.cancel-button {
-    color: white;
-    width: 30%;
-    padding: 10px;
-    background-color: #F44336;
-    border: solid black 2px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.cancel-button:hover {
-    background-color: #D32F2F
-}
-
-.error {
-    text-align: center;
-    color: #FF4C4C;
-}
-
-.delete {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
 /* Roughly Tablet size */
 @media (max-width:800px) {
-    .pfp{
-        width:60px;
-        height:60px;
+    .post-pfp img{
+        width:45px;
+        height:45px;
     }
     .textbox{
         font-size:12px;
@@ -364,9 +318,15 @@ img{
 /* Mobile */
 @media (max-width:480px) {
 
-    .pfp{
+    .post-pfp img{
         width:40px;
         height:40px;
+        margin-top:5px;
+        border-radius: 3px;
+    }
+
+    .post-pfp{
+        
     }
 
     #content{

@@ -1,5 +1,6 @@
 window.addEventListener("load", function (event) {
     let myForm = document.getElementById("make-post-form");
+    let announcments = document.getElementById("posts");
 
     myForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -14,10 +15,7 @@ window.addEventListener("load", function (event) {
         function success(text) {
             let announcments = document.getElementById("posts");
             announcments.innerHTML = text + announcments.innerHTML + "";
-            let post = announcments.querySelector(".post");
-            post.querySelector(".trash-icon").addEventListener("click",deletePost);
-            // console.log(text); //debug
-            myForm.reset();
+            console.log(text); //debug
         }
 
         let params = "title=" + title + "&msg=" + msg;
@@ -111,11 +109,5 @@ window.addEventListener("load", function (event) {
                     .addEventListener("click", deletePost);
                 }
             }
-        }
-
-
-
-
-    }
 
 });

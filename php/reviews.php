@@ -77,7 +77,7 @@ This is the Review Page.
                     <?php // If admin, they will have a user management button.
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {
-                            echo "<a href='usermanagment.php' class='nav'>Administration</a>";
+                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                         }
                         echo "<a href='myprofile.php' class='nav'>My Profile</a>";
                         echo "<a href='logouthandler.php' class='nav'>Log out</a>";
@@ -96,7 +96,7 @@ This is the Review Page.
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<a href='usermanagment.php' class='nav'>Administration</a>";
+                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                     }
                     echo "<a href='myprofile.php' class='nav'>My Profile</a>";
                     echo "<a href='logouthandler.php' class='nav'>Log out</a>";

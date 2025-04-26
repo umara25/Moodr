@@ -55,7 +55,7 @@ This is the Calendar Page.
                     <?php // If admin, they will have a user management button.
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {
-                            echo "<a href='usermanagment.php' class='nav'>Administration</a>";
+                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                         }
                     }
                     if (!$loggedIn) {
@@ -75,7 +75,7 @@ This is the Calendar Page.
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<a href='usermanagment.php' class='nav'>Administration</a>";
+                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                     }
                 }
                 if (!$loggedIn) {
