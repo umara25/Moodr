@@ -8,7 +8,6 @@ session_start();
 include "connect.php";
 
 $loggedIn = false;
-//test
 // Checks if there is an Active Session
 if (isset($_SESSION["username"])) {
     $loggedIn = true;
