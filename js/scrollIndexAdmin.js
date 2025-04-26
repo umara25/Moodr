@@ -1,22 +1,20 @@
 /** 
- * Handles making AJAX requests to scrollHandler.php for reviews page
- * i.e Implements infinite scrolling for reviews page
- * Includes DELETE to new reviews
+ * Handles making AJAX requests to scrollHandler.php for posts page
+ * i.e Implements infinite scrolling for posts page
+ * Does not include DELETE to new posts
  */
 
 window.addEventListener("load", function (event) {
 
     let loading = false;  // Ensures only 1 event fires at a time
-    // const threshold = 200; // Helps with event firing
     let debounce;
-    // const threshold = 200;
 
     // Add scroll event listener
     window.addEventListener("scroll", send_requests);
 
     /**
-     * Sends AJAX requests once end of screen
-     */
+    * Sends AJAX requests once end of screen
+    */
     function send_requests() {
 
         clearTimeout(debounce);
@@ -29,7 +27,7 @@ window.addEventListener("load", function (event) {
                 (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight - threshold
                 && !loading) {
                 let icon = create_load();
-                let url = "../php/scrollReviewHandler.php";
+                let url = "../php/scrollIndexHandler.php";
                 // console.log(url);
 
                 fetch(url)
@@ -51,9 +49,9 @@ window.addEventListener("load", function (event) {
         let load = document.createElement("div");           // Create div for loader to go inside
         load.classList.add("load");                         // Add it to load class
 
-        let reviews = document.getElementById("reviews");   // Get reviews div
+        let posts = document.getElementById("posts");   // Get posts div
 
-        reviews.appendChild(load);
+        posts.appendChild(load);
         loading = true; // Pulling data from db, don't allow any events to fire
         return load;
     }
@@ -70,28 +68,27 @@ window.addEventListener("load", function (event) {
 
 
     /**
-     * Receives Array of objects representing reviews to render 
+     * Receives Array of objects representing posts to render 
      * And HTML element corresponding to load div
      * @param {Array} arr 
      * @param {HTML Element} icon 
      */
     function success(arr, icon) {
-        let reviewField = document.getElementById("reviews");
+        let postField = document.getElementById("posts");
 
         // Empty array check
         if (arr !== undefined && arr.length != 0) {
 
             // Render each object in array
             for (let obj of arr) {
-                renderReview(obj, reviewField);
+                renderPost(obj, postField);
             }
             remove_load(icon);
-            updateCSS();        // Update new posts CSS
 
-        } else { // No more reviews, so display error message
+        } else { // No more posts, so display error message
             icon.classList.remove("load");
             icon.classList.add("error");
-            icon.innerHTML = "<h3><span style = 'color:white'>No more reviews..</span></h3>";
+            icon.innerHTML = "<h3 id='noposts'><span>No more posts..</span></h3>";
             // setTimeout(function () { remove_load(icon); }, 1000); // Timeout is to ensure they can read the message
             window.removeEventListener("scroll", send_requests);  // Remove event listener, not constantly sending queries to DB
         }
@@ -99,105 +96,84 @@ window.addEventListener("load", function (event) {
 
     }
 
-
     /**
-         * Render review inside element based on review object received
-         * {username: user, title: review title, msg: review body, score: review score, 
-         * date: date review posted, img: img path, pfp: pfp_path, id: reviewID}
-         * Note: pfp only exists if a valid pfp is stored else it is empty
-         * Note: This is slightly modified compared to the one in reviewListener.js
-         * @param {Object} review 
-         * @param {HTML Element} element 
-         */
-    function renderReview(review, element) {
-        let reviewDiv = document.createElement("div");          // Create review div 
-        reviewDiv.id = review.id;                               // Give it the unique reviewID
-        reviewDiv.classList.add("review");                      // Add it to class review
+     * Render posts based on object returned form scrollIndexHandler.php
+     * {id: post id, username: username, title: post title, msg: post text, 
+     * date: date, pfp: profile photo path}
+     * @param {*} post 
+     * @param {*} element 
+     */
+    function renderPost(post,element){ 
+        let postDiv = document.createElement("div");
+        postDiv.id = post.id;
+        postDiv.classList.add("post");
 
-        let reviewPfpDiv = document.createElement("div");       // Create review-pfp div
-        reviewPfpDiv.classList.add("review-pfp");               // Add it to class review-pfp
+        let postPfpDiv = document.createElement("div");
+        postPfpDiv.classList.add("post-pfp");
 
-        let triangleDiv = document.createElement("div");        // Create triangle div (Gives speech bubble effect)
-        triangleDiv.classList.add("triangle");
+        let textBoxDiv = document.createElement("div");
+        textBoxDiv.classList.add("textbox");
 
-        let reviewContentDiv = document.createElement("div");   // Create review-content Div
-        reviewContentDiv.classList.add("review-content");
+        let postTitleDiv = document.createElement("div");
+        postTitleDiv.classList.add("post-title");
 
-        let reviewTitleDiv = document.createElement("div");     // Create review-title div
-        reviewTitleDiv.classList.add("review-title");
+        let postTextDiv = document.createElement("div");
+        postTextDiv.classList.add("post-text");
 
-        let reviewBodyDiv = document.createElement("div");      // Create review Body div
-        reviewBodyDiv.classList.add("review-body");
+        let postTrashDiv = document.createElement("div");
+        postTrashDiv.classList.add("trash-icon");
+        postTrashDiv.id = post.id;
 
-        let reviewTextDiv = document.createElement("div");      // Create review-text div
-        reviewTextDiv.classList.add("review-text");
+        // Construct DOM tree
 
+        element.appendChild(postDiv);
+        postDiv.append
 
-        // Construct DOM Tree
-        element.appendChild(reviewDiv); // Add to end
+        postDiv.appendChild(postPfpDiv);
+        postDiv.appendChild(textBoxDiv);
 
-        reviewDiv.appendChild(reviewPfpDiv);
-        reviewDiv.appendChild(triangleDiv);
-        reviewDiv.appendChild(reviewContentDiv);
+        textBoxDiv.appendChild(postTitleDiv);
+        textBoxDiv.appendChild(postTextDiv);
 
-        reviewContentDiv.appendChild(reviewTitleDiv);
-        reviewContentDiv.appendChild(reviewBodyDiv);
+        postDiv.appendChild(postTrashDiv);
 
+        // Alter innerHTML
 
-        // Check if an image was uploaded with review
-        if (review.img !== null && review.img !== undefined) {
-            let reviewImgDiv = document.createElement("div");       // Create review image div
-            reviewImgDiv.classList.add("review-img");
-            reviewBodyDiv.appendChild(reviewImgDiv);
-            reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
-            // console.log(review.img);
-        }
-
-        reviewBodyDiv.appendChild(reviewTextDiv);
-
-        // Start altering innerHTML 
-
-        if (review.pfp) {
+        if (post.pfp) {
             // Pfp exists 
-            reviewPfpDiv.innerHTML = "<img src =" + review.pfp + ">";
+            postPfpDiv.innerHTML = "<img src =" + post.pfp + ">";
         } else {
             // Pfp does not exist, use default
-            reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";
+            postPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";
         }
 
-        reviewTitleDiv.innerHTML = (
-            "<h1> " + review.title + " - " + review.username
-            + " <span class = 'timestamp'>" + review.date + "</span></h1>"
-            + "<img class = 'trash-icon' src = '../images/trashicon.png'>"
-        ); // Render title 
+        postTitleDiv.innerHTML = (
+            "<p><b>" + post.username + " - " + post.title + 
+            "<span class = 'timestamp'" + post.date + "</span></b></p>"
+        );
 
-        // Add delete event to trash icon 
-        reviewTitleDiv.querySelector(".trash-icon")
-            .addEventListener("click", deleteReview);
+        postTextDiv.innerHTML = "<p>" + post.msg + "</p>";
 
-        reviewTextDiv.innerHTML = (
-            "<p>" + review.msg + "</p>" +
-            "<p>Score: " + review.score + "/10</p>"
-        ); // Render text
+        postTrashDiv.innerHTML = "<img src='../images/trashicon.png' width='20px' height='20px'>";
+
+        postDiv.querySelector(".trash-icon")
+        .addEventListener("click", deletePost);
+
 
     }
 
-    /**
-    * Traverses DOM to delete review the trash icon is inside 
-    */
-    function deleteReview() {
-        let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
-        // This is the overarching review
+    function deletePost(){ 
+        let toDelete = this.closest(".post"); // Get ancenstor of trash-icon 
 
         if (toDelete) {
             // Node to delete exists   
-            let content = toDelete.querySelector(".review-title");    // Get review title
+            let content = toDelete.querySelector(".post-title");    // Get review title
             let temp = content.innerHTML;   // Store copy of the innerHTML 
 
             // Create confirm / cancel buttons 
             content.innerHTML = (
                 "<div class = 'delete'>" +
-                "<h1> Are you sure you want to delete this review?</h1>" +
+                "<h1> Are you sure you want to delete this post?</h1>" +
                 "<input class = 'confirm-button' type = 'button' value = 'Yes'>" +
                 "<input class = 'cancel-button' type = 'button' value = 'No'>" +
                 "</div>"
@@ -214,9 +190,16 @@ window.addEventListener("load", function (event) {
              */
             confirm.addEventListener("click", function (event) {
                 let id = toDelete.id;   // Get ID of parent node
-                let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
+                let url = "../php/deleteposthandler.php" // Handles deleting from Databse
 
-                fetch(url)
+                let params = "postId=" + id;
+                let config = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: params,
+                };
+
+                fetch(url,config)
                     .then(response => response.text())
                     .then(confirm_delete);
             });
@@ -226,12 +209,12 @@ window.addEventListener("load", function (event) {
              */
             cancel.addEventListener("click", function (event) {
                 content.innerHTML = temp;
-                content.querySelector(".trash-icon")
-                    .addEventListener("click", deleteReview); // Re-add event listener
+                toDelete.querySelector(".trash-icon")
+                .addEventListener("click", deletePost); // Re-add event listener
             });
 
             /**
-             * Receives the response from deleteReviewHandler.php
+             * Receives the response from deletePostHandler.php
              * @param {Int} response 
              */
             function confirm_delete(response) {
@@ -242,13 +225,18 @@ window.addEventListener("load", function (event) {
                 } else {
                     content.innerHTML = temp;
                     content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
-                    content.querySelector(".trash-icon")
-                        .addEventListener("click", deleteReview);
+                    toDelete.querySelector(".trash-icon")
+                    .addEventListener("click", deletePost);
                 }
             }
         }
+
+
     }
 
+    /**
+     * Update CSS of new posts if they have custom theme
+     */
     function updateCSS() {
         fetch("style.php")
             .then(response => response.json())
@@ -278,6 +266,7 @@ window.addEventListener("load", function (event) {
             }
         }
     }
+
 
 
 });

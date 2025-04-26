@@ -18,19 +18,16 @@ if ($loggedIn) {
     if ($_SESSION["role"] === "admin") {
         $postId = filter_input(INPUT_POST, "postId", FILTER_VALIDATE_INT);
 
-        if (!$postId) {
-            echo "Error: Invalid post ID.";
-            exit();
-        }
+        if($postId !== null && $postId !== false){ 
 
-        $cmd = "DELETE FROM announcements WHERE postId=?";
-        $stmt = $dbh->prepare($cmd);
-        $success = $stmt->execute([$postId]);
-        if (!$success) {
-            echo "Error: Failed to insert into database.";
-        }
-        else {
-            echo "$postId";
+            $cmd = "DELETE FROM announcements WHERE postId=?";
+            $stmt = $dbh->prepare($cmd);
+            $success = $stmt->execute([$postId]);
+            if($success){ 
+                echo (1);
+            }else{ 
+                echo(-1);
+            }
         }
     }
 } else {

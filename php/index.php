@@ -14,7 +14,6 @@ and important information about the club.
     <title>Moodr</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hamburger.css">
-    <script src = "../js/scrollIndex.js"></script>
     <script src="../js/nav.js"></script>
     <?php
     
@@ -23,17 +22,23 @@ and important information about the club.
         if($_SESSION["role"]==="admin"){
             echo "<script src='../js/indexStyleAdmin.js'></script>";
             echo "<script src='../js/indexStyleRefresher.js'></script>";
+            echo "<script src='../js/scrollIndexAdmin.js'></script>";
+            echo "<script src='../js/postListenerAdmin.js'></script>";
         }else{
             echo "<script src='../js/indexStyle.js'></script>";
+            echo "<script src='../js/scrollIndex.js'></script>";
+            // echo "<script src='../js/postListenerUser.js'></script>";
         }
+    }else{ 
+        echo "<script src='../js/scrollIndex.js'></script>";
     }
     
-    if ($_SESSION["role"] === "admin") {
-        echo "<script src='../js/postListenerAdmin.js'></script>";
-    } else {
-        echo "<script src='../js/postListenerUser.js'></script>";
-    }
-    ?>
+    // if ($_SESSION["role"] === "admin") {
+    //     echo "<script src='../js/postListenerAdmin.js'></script>";
+    // } else {
+    //     echo "<script src='../js/postListenerUser.js'></script>";
+    // }
+    // ?>
 </head>
 
 <body>
@@ -146,6 +151,24 @@ and important information about the club.
             <div id="announcments">
                 <h1>Latest Announcements</h1>
                 <div id="posts">
+                    <div id = 1 class = "post"> 
+                        <div class = "post-pfp"> 
+                            <img src = "../ProfileImgs/defaultpfp.jpg">
+                         </div>
+                         <div class="textbox">
+                                <div class="post-title">
+                                    <p><b>Kiwi - Title here 
+                                        <span class='timestamp'>2025-04-26 12:50:25</span></b></p>
+                                </div>
+                                <div class="post-text">
+                                    <p>This is the post text</p>
+                                </div>
+                            </div>
+                            <div class="trash-icon" id="<?= $row["postId"] ?>">
+                                    <img src="../images/trashicon.png" width="20px" height="20px">
+                            </div>
+                    </div>
+                    
                     <?php
                     include "imageHandler.php"; // Using get_pfp_path()
                     
@@ -161,9 +184,10 @@ and important information about the club.
                     
                     while ($row = $stmt->fetch()) {
                         array_push($rendered_posts, $row["postId"]); // Push postID to array
-                        ?>
-                        <span class="post">
-                            <?php 
+
+                        $_SESSION["post_date"] = $row["date"]; // Ensure get last date
+
+                        echo "<div id = '$row[postId]' class = 'post'>";
                             $pfp_path = get_pfp_path($row["username"]);
                             echo "<div class = 'post-pfp'>";
                             if (file_exists($pfp_path)) {
@@ -190,11 +214,16 @@ and important information about the club.
                                 </div>
                                 <?php
                                 }
-                                $_SESSION["rendered_posts"] = $rendered_posts; // Store rendered post ID's in session storage
+                                // $_SESSION["rendered_posts"] = $rendered_posts; // Store rendered post ID's in session storage
                                 ?>
 
-                        </span>
-                    <?php } ?>
+                        </div>
+                        
+                    <?php 
+                        } 
+                        $_SESSION["rendered_posts"] = $rendered_posts; 
+                    
+                    ?>
                 </div>
             </div>
         </div>

@@ -213,8 +213,7 @@ window.addEventListener("load",function(event){
     }
 
     /**
-     * Traverses DOM to delete review   
-     * the trash icon is inside 
+     * Traverses DOM to delete review the trash icon is inside 
      */
     function deleteReview(){ 
         let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
