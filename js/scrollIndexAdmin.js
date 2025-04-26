@@ -150,7 +150,7 @@ window.addEventListener("load", function (event) {
 
         postTitleDiv.innerHTML = (
             "<p><b>" + post.username + " - " + post.title + 
-            "<span class = 'timestamp'" + post.date + "</span></b></p>"
+            "<span class = 'timestamp'> " + post.date + " </span></b></p>"
         );
 
         postTextDiv.innerHTML = "<p>" + post.msg + "</p>";
