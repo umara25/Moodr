@@ -151,7 +151,7 @@ and important information about the club.
             <div id="announcments">
                 <h1>Latest Announcements</h1>
                 <div id="posts">
-                    <div id = 1 class = "post"> 
+                    <!-- <div id = 1 class = "post"> 
                         <div class = "post-pfp"> 
                             <img src = "../ProfileImgs/defaultpfp.jpg">
                          </div>
@@ -167,7 +167,7 @@ and important information about the club.
                             <div class="trash-icon" id="<?= $row["postId"] ?>">
                                     <img src="../images/trashicon.png" width="20px" height="20px">
                             </div>
-                    </div>
+                    </div> -->
                     
                     <?php
                     include "imageHandler.php"; // Using get_pfp_path()
