@@ -270,7 +270,6 @@ window.addEventListener("load",function(event){
              * @param {Int} response 
              */
             function confirm_delete(response){ 
-                console.log(response);
 
                 if(response == 1){ 
                     // Successfully deleted

@@ -31,30 +31,83 @@ window.addEventListener("load", function (event) {
     });
 
     
-    // Event listener for trash icon clicks
-    announcments.addEventListener("click", function (event) {
-        let trashIcon = event.target.closest(".trash-icon");
-        if (trashIcon) { // Checks if the trash icon was clicked
+    // DELETION
+    let deleteIcons = document.querySelectorAll(".trash-icon")
 
-            // Perform an AJAX request to delete the post
-            let params = "postId=" + trashIcon.id;
-            let config = {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: params,
-            };
+    for(let e of deleteIcons){ 
+        e.addEventListener("click",deletePost);
+    }
 
-            fetch("deleteposthandler.php", config)
-                .then(response => response.text())
-                .then(data => {
-                    // Remove the post from the DOM
-                    let postElement = event.target.closest(".post"); // Finds the nearest post class that was clicked
-                    if (postElement) {
-                        postElement.remove();
-                    }
-                })
-                .catch(error => console.error("Fetch error:", error));
-        }
-    });
+
+    /**
+     * Traverses DOM to delete post the trash icon is inside 
+     */
+    function deletePost(){ 
+        let toDelete = this.closest(".post"); // Get ancenstor of trash-icon 
+
+        if (toDelete) {
+            // Node to delete exists   
+            let content = toDelete.querySelector(".post-title");    // Get review title
+            let temp = content.innerHTML;   // Store copy of the innerHTML 
+
+            // Create confirm / cancel buttons 
+            content.innerHTML = (
+                "<div class = 'delete'>" +
+                "<h1> Are you sure you want to delete this post?</h1>" +
+                "<input class = 'confirm-button' type = 'button' value = 'Yes'>" +
+                "<input class = 'cancel-button' type = 'button' value = 'No'>" +
+                "</div>"
+            );
+
+            let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
+            let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
+
+            // console.log(cancel);
+            // console.log(confirm);
+
+            /** 
+             * Delete review tied to this element 
+             */
+            confirm.addEventListener("click", function (event) {
+                let id = toDelete.id;   // Get ID of parent node
+                let url = "../php/deleteposthandler.php" // Handles deleting from Databse
+
+                let params = "postId=" + id;
+                let config = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: params,
+                };
+
+                fetch(url,config)
+                    .then(response => response.text())
+                    .then(confirm_delete);
+            });
+
+            /** 
+             * Reset innerHTML and reset trash icon event listener
+             */
+            cancel.addEventListener("click", function (event) {
+                content.innerHTML = temp;
+                toDelete.querySelector(".trash-icon")
+                .addEventListener("click", deletePost); // Re-add event listener
+            });
+
+            /**
+             * Receives the response from deletePostHandler.php
+             * @param {Int} response 
+             */
+            function confirm_delete(response) {
+
+                if (response == 1) {
+                    // Successfully deleted
+                    toDelete.remove();
+                } else {
+                    content.innerHTML = temp;
+                    content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
+                    toDelete.querySelector(".trash-icon")
+                    .addEventListener("click", deletePost);
+                }
+            }
 
 });

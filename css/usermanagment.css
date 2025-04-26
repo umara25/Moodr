@@ -108,7 +108,11 @@ input{
     visibility: hidden;
 }
 
-
+@media(max-width:1250px){ 
+    .editCol button{
+        margin-bottom:5px;
+    }
+}
 
 /* Roughly Tablet size */
 @media (max-width:800px) {
