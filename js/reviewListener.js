@@ -81,7 +81,6 @@ window.addEventListener("load",function(event){
         // Initiate AJAX request
         fetch("../php/reviewhandler.php",config)
         .then(response=>response.json())
-        // .then(d =>console.log(d))
         .then(success);
 
     });

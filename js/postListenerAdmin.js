@@ -15,6 +15,7 @@ window.addEventListener("load", function (event) {
             let announcments = document.getElementById("posts");
             announcments.innerHTML = text + announcments.innerHTML + "";
             console.log(text); //debug
+            myForm.reset();
         }
 
         let params = "title=" + title + "&msg=" + msg;
