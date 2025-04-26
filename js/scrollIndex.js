@@ -105,7 +105,7 @@ window.addEventListener("load", function (event) {
      * @param {*} element 
      */
     function renderPost(post, element) {
-        console.log(post);
+        // console.log(post);
         let postDiv = document.createElement("div");
         postDiv.id = post.id;
         postDiv.classList.add("post");

@@ -27,6 +27,10 @@ body {
     margin-right: 3px;
 }
 
+.textbox{ 
+    width:90%;
+}
+
 .post-pfp img {
     width: 100%;
     border-radius: 10px;
