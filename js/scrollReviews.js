@@ -173,6 +173,9 @@ window.addEventListener("load", function (event) {
 
     }
 
+    /**
+     * Update CSS of new posts with users custom theme
+     */
     function updateCSS() {
         fetch("style.php")
             .then(response => response.json())

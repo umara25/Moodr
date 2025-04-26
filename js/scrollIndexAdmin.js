@@ -84,6 +84,7 @@ window.addEventListener("load", function (event) {
                 renderPost(obj, postField);
             }
             remove_load(icon);
+            updateCSS();
 
         } else { // No more posts, so display error message
             icon.classList.remove("load");
@@ -235,7 +236,7 @@ window.addEventListener("load", function (event) {
     }
 
     /**
-     * Update CSS of new posts if they have custom theme
+     * Update CSS of new posts with users custom theme
      */
     function updateCSS() {
         fetch("style.php")
@@ -243,31 +244,35 @@ window.addEventListener("load", function (event) {
             .then(success)
             .catch(error => console.error("Fetch error:", error));
 
-        function success(styleArr) {
-            if(styleArr != -1){ 
-                // console.log("Got Here");
-                let textbox1 = document.querySelectorAll(".review-content");
-                let textbox3 = document.querySelectorAll(".triangle");
-                let headers = document.getElementsByTagName("h1");
-                let pars = document.getElementsByTagName("p");
-
-                textbox1.forEach(elm => {
-                    elm.style["background-color"] = styleArr["textbox"];
-                });
-                textbox3.forEach(elm => {
-                    elm.style.borderRight = "20px solid " + styleArr["textbox"];
-                });
-                for (let i = 0; i < headers.length; i++) {
-                    headers[i].style.color = styleArr["text"];
-                }
-                for (let i = 1; i < pars.length; i++) {
-                    pars[i].style.color = styleArr["text"];
-                }
+            function success(styleArr){
+                if(styleArr != -1){
+                    let body = document.body;
+                    let content = document.getElementById("content");
+                    let textbox1 = document.getElementById("user-intro");
+                    let textbox2 = document.getElementById("make-post");
+                    let textbox3 = document.getElementById("announcments");
+                    let headers = document.getElementsByTagName("h1");
+                    let pars = document.getElementsByTagName("p");
+                    let labels = document.getElementsByTagName("label");
+            
+                    body.style["background-color"] = styleArr["primary"];
+                    content.style["background-color"] = styleArr["secondary"];
+                    textbox1.style["background-color"] = styleArr["textbox"];
+                    textbox2.style["background-color"] = styleArr["textbox"];
+                    textbox3.style["background-color"] = styleArr["textbox"];
+                    for(let i = 0; i < headers.length; i++) {
+                        headers[i].style.color = styleArr["text"];
+                    }
+                    for(let i = 1; i < pars.length; i++) {
+                        pars[i].style.color = styleArr["text"];
+                    }
+                    for(let i = 0; i < labels.length; i++) {
+                        labels[i].style.color = styleArr["text"];
+                    }
             }
         }
+
     }
-
-
 
 });
 
