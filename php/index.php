@@ -21,10 +21,9 @@ and important information about the club.
     // if user is logged in then apply their style
     if(isset($_SESSION["username"])){
         if($_SESSION["role"]==="admin"){
-            echo "<script src='../js/reviewsStyleAdmin.js'></script>";
-            echo "<script src='../js/reviewsStyleRefresher.js'></script>";
+            echo "<script src='../js/indexStyleAdmin.js'></script>";
         }else{
-            echo "<script src='../js/reviewsStyle.js'></script>";
+            echo "<script src='../js/indexStyle.js'></script>";
         }
     }
     
