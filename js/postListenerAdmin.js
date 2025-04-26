@@ -14,7 +14,9 @@ window.addEventListener("load", function (event) {
         function success(text) {
             let announcments = document.getElementById("posts");
             announcments.innerHTML = text + announcments.innerHTML + "";
-            console.log(text); //debug
+            let post = announcments.querySelector(".post");
+            post.querySelector(".trash-icon").addEventListener("click",deletePost);
+            // console.log(text); //debug
             myForm.reset();
         }
 
@@ -71,6 +73,7 @@ window.addEventListener("load", function (event) {
             confirm.addEventListener("click", function (event) {
                 let id = toDelete.id;   // Get ID of parent node
                 let url = "../php/deleteposthandler.php" // Handles deleting from Databse
+                console.log(toDelete);
 
                 let params = "postId=" + id;
                 let config = {

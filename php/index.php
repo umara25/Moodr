@@ -134,7 +134,8 @@ and important information about the club.
 
                             <form id="make-post-form" action="posthandler.php" method="POST">
                                 <label for="post-title">Title:</label>
-                                <input type="text" id="post-title" name="post-title" placeholder="Enter post title..." required>
+                                <input type="text" id="post-title" name="post-title" placeholder="Enter post title... (30 Chars max)"
+                                maxlength = "30" required>
                                 <label for="post-message">Message:</label>
                                 <textarea id="post-message" name="post-message" placeholder="Enter your message..." rows="5"
                                     required></textarea>
