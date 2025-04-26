@@ -8,6 +8,11 @@ window.addEventListener("load", function(event) {
     saveButton.classList.add("button-disabled");
     
     let originalImageSrc = profileImage.src;
+    let hasCustomImage = profileImage.src.indexOf("getPfp.php") > -1;
+    
+    if (hasCustomImage) {
+        profileImage.classList.add("custom-image");
+    }
     
     fileInput.addEventListener("change", function() {
         let file = this.files[0];
@@ -30,11 +35,16 @@ window.addEventListener("load", function(event) {
             let objectURL = URL.createObjectURL(file);
             
             profileImage.src = objectURL;
+            profileImage.classList.add("custom-image");
         } else {
             saveButton.disabled = true;
             saveButton.classList.add("button-disabled");
             
             profileImage.src = originalImageSrc;
+            
+            if (!hasCustomImage) {
+                profileImage.classList.remove("custom-image");
+            }
         }
     });
     
