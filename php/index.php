@@ -14,31 +14,26 @@ and important information about the club.
     <title>Moodr</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hamburger.css">
+    <script src="../js/scrollIndex.js"></script>
+    <script src="../js/socialButtons.js"></script>
     <script src="../js/nav.js"></script>
     <?php
-    
+
     // if user is logged in then apply their style
-    if(isset($_SESSION["username"])){
-        if($_SESSION["role"]==="admin"){
+    if (isset($_SESSION["username"])) {
+        if ($_SESSION["role"] === "admin") {
             echo "<script src='../js/indexStyleAdmin.js'></script>";
             echo "<script src='../js/indexStyleRefresher.js'></script>";
             echo "<script src='../js/scrollIndexAdmin.js'></script>";
             echo "<script src='../js/postListenerAdmin.js'></script>";
-        }else{
+        } else {
             echo "<script src='../js/indexStyle.js'></script>";
             echo "<script src='../js/scrollIndex.js'></script>";
-            // echo "<script src='../js/postListenerUser.js'></script>";
         }
-    }else{ 
+    } else {
         echo "<script src='../js/scrollIndex.js'></script>";
     }
-    
-    // if ($_SESSION["role"] === "admin") {
-    //     echo "<script src='../js/postListenerAdmin.js'></script>";
-    // } else {
-    //     echo "<script src='../js/postListenerUser.js'></script>";
-    // }
-    // ?>
+    ?>
 </head>
 
 <body>
@@ -75,7 +70,7 @@ and important information about the club.
                     <?php // If admin, they will have a user management button.
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {
-                            echo "<a href='usermanagment.php' class='nav'>Administration</a>";
+                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                         }
                     }
                     if (!$loggedIn) {
@@ -95,7 +90,7 @@ and important information about the club.
                 <?php // If admin, they will have a user management button.
                 if ($loggedIn) {
                     if ($_SESSION["role"] === "admin") {
-                        echo "<a href='usermanagment.php' class='nav'>Administration</a>";
+                        echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
                     }
                 }
                 if (!$loggedIn) {
@@ -124,6 +119,23 @@ and important information about the club.
                 ?>
             </div>
 
+            <div id="about-us">
+                <h1>About Us</h1>
+                <p>Mac's very own music listening community! Join us for weekly listening parties, album discussions,
+                    record store runs, concert outings, and more!</p>
+
+                <p>Want to make an <i>Album Suggestion</i>? <a
+                        href="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAWZ3hKneWsGEg7usLBhnX5lvzuHhFQyhzgqokE-0nKnnSUA/viewform?pli=1"
+                        target="_blank">Click
+                        Here!</a></p>
+
+                <div id="social-icons">
+                    <input type="image" src="../images/insta_icon.png" id="insta-button" alt="Our Instagram Page!" width="20" height="20">
+                    <input type="image" src="../images/discord_icon.png" id="discord-button" alt="Our Discord Server!" width="20"
+                        height="20">
+                </div>
+            </div>
+
             <?php // If admin, they can post.
             if ($loggedIn) {
                 if ($_SESSION["role"] === "admin") {
@@ -134,8 +146,7 @@ and important information about the club.
 
                             <form id="make-post-form" action="posthandler.php" method="POST">
                                 <label for="post-title">Title:</label>
-                                <input type="text" id="post-title" name="post-title" placeholder="Enter post title... (30 Chars max)"
-                                maxlength = "30" required>
+                                <input type="text" id="post-title" name="post-title" placeholder="Enter post title..." required>
                                 <label for="post-message">Message:</label>
                                 <textarea id="post-message" name="post-message" placeholder="Enter your message..." rows="5"
                                     required></textarea>
@@ -152,24 +163,6 @@ and important information about the club.
             <div id="announcments">
                 <h1>Latest Announcements</h1>
                 <div id="posts">
-                    <!-- <div id = 1 class = "post"> 
-                        <div class = "post-pfp"> 
-                            <img src = "../ProfileImgs/defaultpfp.jpg">
-                         </div>
-                         <div class="textbox">
-                                <div class="post-title">
-                                    <p><b>Kiwi - Title here 
-                                        <span class='timestamp'>2025-04-26 12:50:25</span></b></p>
-                                </div>
-                                <div class="post-text">
-                                    <p>This is the post text</p>
-                                </div>
-                            </div>
-                            <div class="trash-icon" id="<?= $row["postId"] ?>">
-                                    <img src="../images/trashicon.png" width="20px" height="20px">
-                            </div>
-                    </div> -->
-                    
                     <?php
                     include "imageHandler.php"; // Using get_pfp_path()
                     
@@ -185,10 +178,9 @@ and important information about the club.
                     
                     while ($row = $stmt->fetch()) {
                         array_push($rendered_posts, $row["postId"]); // Push postID to array
-
-                        $_SESSION["post_date"] = $row["date"]; // Ensure get last date
-
-                        echo "<div id = '$row[postId]' class = 'post'>";
+                        ?>
+                        <span class="post">
+                            <?php
                             $pfp_path = get_pfp_path($row["username"]);
                             echo "<div class = 'post-pfp'>";
                             if (file_exists($pfp_path)) {
@@ -215,16 +207,11 @@ and important information about the club.
                                 </div>
                                 <?php
                                 }
-                                // $_SESSION["rendered_posts"] = $rendered_posts; // Store rendered post ID's in session storage
+                                $_SESSION["rendered_posts"] = $rendered_posts; // Store rendered post ID's in session storage
                                 ?>
 
-                        </div>
-                        
-                    <?php 
-                        } 
-                        $_SESSION["rendered_posts"] = $rendered_posts; 
-                    
-                    ?>
+                        </span>
+                    <?php } ?>
                 </div>
             </div>
         </div>
