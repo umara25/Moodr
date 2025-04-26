@@ -22,15 +22,15 @@ and important information about the club.
     if(isset($_SESSION["username"])){
         if($_SESSION["role"]==="admin"){
             echo "<script src='../js/indexStyleAdmin.js'></script>";
+            echo "<script src='../js/indexStyleRefresher.js'></script>";
+            echo "<script src='../js/scrollIndexAdmin.js'></script>";
+            echo "<script src='../js/postListenerAdmin.js'></script>";
         }else{
             echo "<script src='../js/indexStyle.js'></script>";
+            echo "<script src='../js/scrollIndex.js'></script>";
         }
-    }
-    
-    if ($_SESSION["role"] === "admin") {
-        echo "<script src='../js/postListenerAdmin.js'></script>";
-    } else {
-        echo "<script src='../js/postListenerUser.js'></script>";
+    }else{ 
+        echo "<script src='../js/scrollIndex.js'></script>";
     }
     ?>
 </head>
