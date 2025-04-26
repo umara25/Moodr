@@ -73,7 +73,6 @@ window.addEventListener("load", function (event) {
             confirm.addEventListener("click", function (event) {
                 let id = toDelete.id;   // Get ID of parent node
                 let url = "../php/deleteposthandler.php" // Handles deleting from Databse
-                console.log(toDelete);
 
                 let params = "postId=" + id;
                 let config = {
