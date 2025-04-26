@@ -9,6 +9,7 @@ window.addEventListener("load", function (event) {
         let body = document.body;
         let content = document.getElementById("content");
         let textbox1 = document.getElementById("user-intro");
+        let textbox2 = document.getElementById("about-us");
         let textbox3 = document.getElementById("announcments");
         let headers = document.getElementsByTagName("h1");
         let pars = document.getElementsByTagName("p");
@@ -16,6 +17,7 @@ window.addEventListener("load", function (event) {
         body.style["background-color"] = styleArr["primary"];
         content.style["background-color"] = styleArr["secondary"];
         textbox1.style["background-color"] = styleArr["textbox"];
+        textbox2.style["background-color"] = styleArr["textbox"];
         textbox3.style["background-color"] = styleArr["textbox"];
         for(let i = 0; i < headers.length; i++) {
             headers[i].style.color = styleArr["text"];
