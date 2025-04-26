@@ -139,6 +139,11 @@ li {
     border: 2px solid #000;
 }
 
+#profile-image.custom-image {
+    background-image: none;
+    object-fit: contain;
+}
+
 #change-pfp-btn {
     padding: 10px 20px;
     background-color: #3a3f44;
