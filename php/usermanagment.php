@@ -103,6 +103,8 @@ This is the User Managment Page.
                 </div>
             </div>
 
+            
+
             <div id="table">
                 <h1>User Management</h1>
                 <div id="resetbutton">
@@ -142,6 +144,10 @@ This is the User Managment Page.
                         <?php }} ?>
                     </tbody>
                 </table>
+            </div>
+
+            <div id="noTable">
+                <h2 id="noTableText">User table not available on mobile</h2>
             </div>
 
         </div>

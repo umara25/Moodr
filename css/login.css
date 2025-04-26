@@ -90,3 +90,21 @@ p.warning,p.create {
     left:20px;
     color:whitesmoke;
 }
+
+
+
+/* Mobile */
+@media (max-width:480px) {
+    #loginform{
+        width:80%;
+    }
+    h1{
+        font-size: 22px;
+    }
+    a{
+        font-size:small;
+    }
+    #loginform input{
+        padding:5px;
+    }
+}
