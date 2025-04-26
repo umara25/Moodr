@@ -63,7 +63,7 @@ This is the User Managment Page.
                     <?php // If admin, they will have a user management button.
                     if ($loggedIn) {
                         if ($_SESSION["role"] === "admin") {
-                            echo "<a href='usermanagment.php' class='nav'>User Managment</a>";
+                            echo "<a href='usermanagment.php' class='nav'>Administration</a>";
                         }
                     }
                     if (!$loggedIn) {
@@ -80,7 +80,7 @@ This is the User Managment Page.
                 <a href="index.php" class="nav">Dashboard</a>
                 <a href="calendar.php" class="nav">Calendar</a>
                 <a href="reviews.php" class="nav">Reviews</a>
-                <a href="usermanagment.php" class="nav">User Managment</a>
+                <a href="usermanagment.php" class="nav">Administration</a>
                 <a href="myprofile.php" class="nav">My Profile</a>
                 <a href="logouthandler.php" class="nav">Log out</a>
             </div>
