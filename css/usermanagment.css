@@ -104,3 +104,40 @@ input{
     padding-left: 20px;
 }
 
+#noTable{
+    visibility: hidden;
+}
+
+
+
+/* Roughly Tablet size */
+@media (max-width:800px) {
+    #table{
+        display:none;
+    }
+    #noTable{
+        visibility: visible;
+    }
+    #noTableText{
+        font-size: large;
+    }
+}
+
+/* Mobile */
+@media (max-width:480px) {
+    input{
+        width:100%;
+        margin:0px;
+        margin-top:5px;
+        margin-bottom:2px;        
+    }
+    #inputStyle{
+        padding-left: 0%;
+    }
+    h1{
+        margin-left:0px;
+    }
+    #styleCreate{
+        width:90%;
+    }
+}

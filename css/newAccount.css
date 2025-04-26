@@ -87,3 +87,25 @@ a:hover{
     margin:5px;
     text-align: left;
 }
+
+/* Mobile */
+@media (max-width:480px) {
+    #newAccountForm{
+        width:80%;
+    }
+    h1{
+        font-size: 22px;
+    }
+    a{
+        font-size:small;
+    }
+    #newAccountForm input{
+        padding:5px;
+    }
+    #showpas{
+        font-size:small;
+    }
+    #showpas input{
+        padding:3px;
+    }
+}
