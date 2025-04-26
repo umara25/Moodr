@@ -14,22 +14,23 @@ and important information about the club.
     <title>Moodr</title>
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hamburger.css">
-    <script src = "../js/scrollIndex.js"></script>
+    <script src="../js/scrollIndex.js"></script>
+    <script src="../js/socialButtons.js"></script>
     <script src="../js/nav.js"></script>
     <?php
-    
+
     // if user is logged in then apply their style
-    if(isset($_SESSION["username"])){
-        if($_SESSION["role"]==="admin"){
+    if (isset($_SESSION["username"])) {
+        if ($_SESSION["role"] === "admin") {
             echo "<script src='../js/indexStyleAdmin.js'></script>";
             echo "<script src='../js/indexStyleRefresher.js'></script>";
             echo "<script src='../js/scrollIndexAdmin.js'></script>";
             echo "<script src='../js/postListenerAdmin.js'></script>";
-        }else{
+        } else {
             echo "<script src='../js/indexStyle.js'></script>";
             echo "<script src='../js/scrollIndex.js'></script>";
         }
-    }else{ 
+    } else {
         echo "<script src='../js/scrollIndex.js'></script>";
     }
     ?>
@@ -118,6 +119,23 @@ and important information about the club.
                 ?>
             </div>
 
+            <div id="about-us">
+                <h1>About Us</h1>
+                <p>Mac's very own music listening community! Join us for weekly listening parties, album discussions,
+                    record store runs, concert outings, and more!</p>
+
+                <p>Want to make an <i>Album Suggestion</i>? <a
+                        href="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAWZ3hKneWsGEg7usLBhnX5lvzuHhFQyhzgqokE-0nKnnSUA/viewform?pli=1"
+                        target="_blank">Click
+                        Here!</a></p>
+
+                <div id="social-icons">
+                    <input type="image" src="../images/insta_icon.png" id="insta-button" alt="Our Instagram Page!" width="20" height="20">
+                    <input type="image" src="../images/discord_icon.png" id="discord-button" alt="Our Discord Server!" width="20"
+                        height="20">
+                </div>
+            </div>
+
             <?php // If admin, they can post.
             if ($loggedIn) {
                 if ($_SESSION["role"] === "admin") {
@@ -162,7 +180,7 @@ and important information about the club.
                         array_push($rendered_posts, $row["postId"]); // Push postID to array
                         ?>
                         <span class="post">
-                            <?php 
+                            <?php
                             $pfp_path = get_pfp_path($row["username"]);
                             echo "<div class = 'post-pfp'>";
                             if (file_exists($pfp_path)) {
