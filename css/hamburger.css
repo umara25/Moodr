@@ -72,4 +72,14 @@
         font-size: 14px;
         right:3%;
     }
+    #hamburger img {
+        width: 30px;
+        height: 30px;
+    }
+    #hamburger {
+        margin-right: 5%;
+    }
+    img{
+        margin-top: 0px;
+    }
 }
