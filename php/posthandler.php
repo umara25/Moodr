@@ -34,22 +34,9 @@ $stmt = $dbh->prepare($cmd);
 $success = $stmt->execute([$_SESSION["username"], $title, $message]);
 if (!$success) {
     echo "Error: Failed to insert into database.";
+    exit();
 }
-// Get the ID of the newly inserted post
-$postId = $dbh->lastInsertId();
 
-$pfp_path = get_pfp_path($_SESSION["username"]);
-echo "<span class='post'><div class = 'post-pfp'>";
-if (file_exists($pfp_path)) {
-    echo "<img src = $pfp_path>"; // pfp exists in directory
-} else {
-    echo "<img src = '../images/defaultpfp.jpg'>"; // Default pfp
-}
-echo "</div>";
-
-echo "<div class='textbox'><div class='post-title'>";
-echo "<p><b>$_SESSION[username] - $title </b></p></div>";
-echo "<div class='post-text'><p>$message</p></div></div>";
-echo "<div class='trash-icon' id='$postId'>";
-echo "<img src='../images/trashicon.png' width='20px' height='20px'>";
-echo "</div></div></span>";
+// Redirect back to index page after successful post creation
+header('Location: index.php');
+exit();
