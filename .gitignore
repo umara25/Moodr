@@ -1,1 +1,38 @@
+# Database configuration
 connect.php
+
+# User-uploaded content
+ProfileImgs/
+ReviewImgs/
+
+# Keep the directories but ignore the contents
+!ProfileImgs/.gitkeep
+!ReviewImgs/.gitkeep
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+error_log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+
+# Environment variables
+.env
+.env.local
