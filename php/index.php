@@ -11,10 +11,9 @@ and important information about the club.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Moodr</title>
+    <title>Moodr</title>    
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hamburger.css">
-    <script src="../js/scrollIndex.js"></script>
     <script src="../js/socialButtons.js"></script>
     <script src="../js/nav.js"></script>
     <?php
@@ -142,13 +141,11 @@ and important information about the club.
                     ?>
                     <div id="make-post">
                         <h1>Make a Post</h1>
-                        <div class="make-post-container">
-
-                            <form id="make-post-form" action="posthandler.php" method="POST">
-                                <label for="post-title">Title:</label>
-                                <input type="text" id="post-title" name="post-title" placeholder="Enter post title..." required>
-                                <label for="post-message">Message:</label>
-                                <textarea id="post-message" name="post-message" placeholder="Enter your message..." rows="5"
+                        <div class="make-post-container">                            <form id="make-post-form" action="posthandler.php" method="POST">
+                                <label for="title">Title:</label>
+                                <input type="text" id="title" name="title" placeholder="Enter post title..." required>
+                                <label for="msg">Message:</label>
+                                <textarea id="msg" name="msg" placeholder="Enter your message..." rows="5"
                                     required></textarea>
                                 <button id="submit" type="submit">Submit</button>
                             </form>
