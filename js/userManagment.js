@@ -1,14 +1,19 @@
+// Wait for the entire page to load before setting up user management functionality
 window.addEventListener("load", function (event) {
+    // Get reference to the users table for event delegation
     let users = document.getElementById("table");
 
-    
-    // Event listener for trash icon clicks
+    // Use event delegation to handle clicks on dynamically loaded user management buttons
     users.addEventListener("click", function (event) {
-        let deleteUser = event.target.closest(".delete-user");
-        if (deleteUser) { // Checks if the trash icon was clicked
-            let sure = confirm("Are you sure you want to delete " + deleteUser.id+"?");
-            if(sure){
-                // Perform an AJAX request to delete the post
+        
+        // USER DELETION FUNCTIONALITY
+        let deleteUser = event.target.closest(".delete-user"); // Check for delete button click
+        if (deleteUser) { // Delete button was clicked
+            // Show confirmation dialog with username
+            let sure = confirm("Are you sure you want to delete " + deleteUser.id + "?");
+            
+            if(sure){ // User confirmed deletion
+                // Prepare AJAX request parameters
                 let params = "user=" + deleteUser.id;
                 let config = {
                     method: "POST",
@@ -16,29 +21,34 @@ window.addEventListener("load", function (event) {
                     body: params,
                 };
 
+                // Send deletion request to server
                 fetch("deleteUserHandler.php", config)
-                    .then(response => response.text())
+                    .then(response => response.text()) // Parse response as text
                     .then(data => {
-                        console.log(data);
-                        if(data!=(-1)){
-                            //remove the user from the DOM
-                            let userElement = event.target.closest(".user"); //finds the nearest user class that was clicked
+                        console.log(data); // Debug output
+                        
+                        if(data != (-1)){ // Deletion successful
+                            // Remove user from the DOM display
+                            let userElement = event.target.closest(".user"); // Find user container
                             if (userElement) {
-                                userElement.remove();
+                                userElement.remove(); // Remove from display
                             }
-                        }else{
-                            alert("Admins cannot be deleted.")
+                        } else { // Deletion failed
+                            alert("Admins cannot be deleted."); // Show error message
                         }
                     })
-                    .catch(error => console.error("Fetch error:", error));
+                    .catch(error => console.error("Fetch error:", error)); // Log network errors
             }
         }
 
-        let makeAdmin = event.target.closest(".make-admin");
-        if (makeAdmin) { // Checks if the trash icon was clicked
+        // ADMIN PROMOTION FUNCTIONALITY
+        let makeAdmin = event.target.closest(".make-admin"); // Check for make admin button click
+        if (makeAdmin) { // Make admin button was clicked
+            // Show confirmation dialog for admin promotion
             let sure = confirm("Are you sure you want to make " + makeAdmin.id + " an admin?");
-            if(sure){
-                //perform an AJAX request to make admin
+            
+            if(sure){ // User confirmed admin promotion
+                // Perform AJAX request to promote user to admin
                 let params = "user=" + makeAdmin.id;
                 let config = {
                     method: "POST",
@@ -67,11 +77,13 @@ window.addEventListener("load", function (event) {
         }
 
 
-        let banUser = event.target.closest(".ban-user");
-        if (banUser) { // Checks if the trash icon was clicked
+        // USER BANNING FUNCTIONALITY
+        let banUser = event.target.closest(".ban-user"); // Check for ban user button click
+        if (banUser) { // Ban user button was clicked
+            // Show confirmation dialog for ban/unban action
             let sure = confirm("Are you sure you want to ban/unban " + banUser.id + "?");
             if(sure){
-                //perform an AJAX request to make ban user
+                //perform an AJAX request to ban or unban user
                 let params = "user=" + banUser.id;
                 let config = {
                     method: "POST",

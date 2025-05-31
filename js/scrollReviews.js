@@ -1,42 +1,41 @@
-/** 
- * Handles making AJAX requests to scrollHandler.php for reviews page
- * i.e Implements infinite scrolling for reviews page
- * Does not include DELETE to new reviews
- */
-
+// Wait for the entire page to load before setting up infinite scroll functionality
 window.addEventListener("load", function (event) {
 
-    let loading = false;  // Ensures only 1 event fires at a time
-    let debounce;
+    let loading = false;  // Flag to ensure only one AJAX request fires at a time
+    let debounce;         // Timeout variable for debouncing scroll events
 
-    // Add scroll event listener
-    window.addEventListener("scroll", send_requests);
-    window.addEventListener("scroll", updateCSS);
+    // Add scroll event listeners for both content loading and theme updates
+    window.addEventListener("scroll", send_requests); // Handle infinite scrolling
+    window.addEventListener("scroll", updateCSS);     // Update theme styling for new content
 
     /**
-    * Sends AJAX requests once end of screen
-    */
+     * Handles scroll events and initiates AJAX requests when user reaches bottom of page
+     * Uses debouncing to prevent excessive API calls during rapid scrolling
+     */
     function send_requests() {
 
-        clearTimeout(debounce);
-        // Help with event firing issue, only do a check once you stop scrolling
-        // Scrolling causes the timeout to be reset, so it only does a check after you stop scrolling for 100ms
+        clearTimeout(debounce); // Clear previous timeout
+        
+        // Debounce mechanism: only check scroll position after user stops scrolling for 100ms
+        // This prevents constant API calls during active scrolling
         debounce = setTimeout(function () {
-            const threshold = 300;
-            // Check if end of page and you aren't already loading data
+            const threshold = 300; // Pixels from bottom to trigger loading
+            
+            // Check if user is near end of page and not already loading data
+            // Uses two different methods for cross-browser compatibility
             if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading) ||
                 (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight - threshold
                 && !loading) {
-                let icon = create_load();
-                let url = "../php/scrollReviewHandler.php";
-                // console.log(url);
-
+                
+                let icon = create_load(); // Show loading indicator
+                let url = "../php/scrollReviewHandler.php"; // Server endpoint for more reviews
+                
+                // Fetch additional reviews from server
                 fetch(url)
-                    .then(response => response.json())
-                    .then(data => success(data, icon));
+                    .then(response => response.json()) // Parse JSON response
+                    .then(data => success(data, icon)); // Handle successful response
             }
-        }, 100);
-
+        }, 100); // 100ms debounce delay
     }
 
 
@@ -47,8 +46,8 @@ window.addEventListener("load", function (event) {
      * returns div containing the load element
      */
     function create_load() {
-        let load = document.createElement("div");           // Create div for loader to go inside
-        load.classList.add("load");                         // Add it to load class
+        let load = document.createElement("div");           // Create container div for loader
+        load.classList.add("load");                         // Add CSS class for loading styling
 
         let reviews = document.getElementById("reviews");   // Get reviews div
 
@@ -173,6 +172,10 @@ window.addEventListener("load", function (event) {
 
     }
 
+    /**
+     * Fetches and applies the latest theme styles from the server
+     * to ensure newly loaded reviews match the current theme
+     */
     function updateCSS() {
         fetch("style.php")
         .then(response => response.json())
@@ -186,12 +189,15 @@ window.addEventListener("load", function (event) {
             let headers = document.getElementsByTagName("h1");
             let pars = document.getElementsByTagName("p");
 
+            // Apply background color to review content boxes
             textbox1.forEach(elm => {
                 elm.style["background-color"] = styleArr["textbox"];
             });
+            // Apply border color to speech bubble triangles
             textbox3.forEach(elm => {
                 elm.style.borderRight = "20px solid " + styleArr["textbox"];
             });
+            // Update header and paragraph text colors
             for(let i = 1; i < headers.length; i++) {
                 headers[i].style.color = styleArr["text"];
             }
