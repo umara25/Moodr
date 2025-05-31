@@ -14,26 +14,31 @@ if (isset($_SESSION["username"])) {
     $loggedIn = true;
 }
 
-
+// Only allow logged in admin users to delete other users
 if ($loggedIn) {
     if ($_SESSION["role"] === "admin") {
+        // Sanitize the username input
         $user = filter_input(INPUT_POST, "user", FILTER_SANITIZE_SPECIAL_CHARS);
 
+        // Validate username input
         if ($user===null || $user === "") {
             echo "Error: Invalid user.";
             exit();
         }
 
+        // Check the target user's role before deletion
         $cmd = "SELECT `role` FROM users WHERE username=?";
         $stmt = $dbh->prepare($cmd);
         $success = $stmt->execute([$user]);
         $row = $stmt->fetch();
 
+        // Prevent deletion of admin users
         if (!$success || $row["role"] === "admin") {
             echo (-1);
             exit();
         }
 
+        // Delete regular user account
         if($row["role"]==="user"){
             $cmd = "DELETE FROM users WHERE username=?";
             $stmt = $dbh->prepare($cmd);

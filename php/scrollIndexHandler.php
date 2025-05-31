@@ -1,34 +1,38 @@
 <?php
-
 /** 
- * Implement infinite scrolling: 
- * $_SESSION["rendered_posts"] stores postID's of the posts already on the page
- * $_SESSIOn["post_date"] stores the timestamp of the last post's timestamp
- * Script pulls 10 more posts from posts table such that date is before last post and the 
- * ID is not one of the currently rendered ID's.
- * Creates array of Associative Arrays and JSON encodes it so javascript can treat response as objects
- * Easier to render that way
+ * Index Page Infinite Scroll Handler
+ * Implements infinite scrolling for announcement posts on the main dashboard
+ * 
+ * Uses session variables to track:
+ * - $_SESSION["rendered_posts"]: Array of postIDs already displayed
+ * - $_SESSION["post_date"]: Timestamp of the last post to determine pagination
+ * 
+ * Retrieves next batch of posts excluding already rendered ones
+ * Returns JSON array for frontend JavaScript consumption
  */
-session_start();    // Used to access $_SESSION["rendered_posts] to see what posts are already rendered
+
+session_start();    // Access session to track already rendered posts
 header('Content-Type: application/json');
 
-// Check if rendered posts, and post_date are set
+// Verify session variables are set for pagination
 if(isset($_SESSION["rendered_posts"]) && isset($_SESSION["post_date"])){
-    include "imageHandler.php";     // Using get_pfp_path function to retrieve pfp paths
+    include "imageHandler.php";     // Import pfp path retrieval function
 
-    // Create string of comma separated "?,?,?,?..." placeholders for SQL command
-    // # of placeholders = length of rendered_posts array
+    // Generate SQL placeholders for excluding already rendered posts
+    // Creates "?,?,?,?..." string matching the number of rendered posts
     $placeholders = implode(",", array_fill(0, count($_SESSION["rendered_posts"]), "?"));
 
-    $args = array_merge([$_SESSION["post_date"]],$_SESSION["rendered_posts"]);   // Create array of arguments
+    // Combine timestamp and rendered post IDs for SQL query parameters
+    $args = array_merge([$_SESSION["post_date"]],$_SESSION["rendered_posts"]);
 
     include "connect.php";
+    
+    // Get next 5 posts that are older than last displayed post and not already shown
     $cmd = "SELECT * FROM `announcements` WHERE `date` <= ? AND `postId` NOT IN ($placeholders) ORDER BY `date` DESC LIMIT 5";
-    // $cmd = "SELECT * FROM `announcements` ORDER BY `date` DESC LIMIT 5";
     $stmt = $dbh->prepare($cmd);
     $suc = $stmt->execute($args);
 
-    $arr = [];
+    $arr = []; // Array to hold formatted post data
     $new_posts = [];  // Store ID's of new posts
 
     while ($row = $stmt->fetch()) {

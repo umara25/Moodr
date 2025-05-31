@@ -1,30 +1,36 @@
 <?php
+/**
+ * Username Update Handler
+ * Allows users to change their username
+ * Validates password and checks username availability before updating
+ */
+
 session_start();
 include "connect.php";
 
-// Only process if the user is logged in
+// Ensure user is logged in before allowing username change
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// Check if form is submitted
+// Process username change request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get current username from session
     $currentUsername = $_SESSION['username'];
     
-    // Get form data
+    // Retrieve form data
     $newUsername = $_POST['newUsername'];
     $confirmPassword = $_POST['confirmPassword'];
     
-    // Validate inputs
+    // Validate that all fields are provided
     if (empty($newUsername) || empty($confirmPassword)) {
         $_SESSION['error'] = "All fields are required";
         header("Location: myprofile.php");
         exit();
     }
     
-    // Check if new username already exists
+    // Check if new username is already taken by another user
     $stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND username != ?");
     $stmt->execute([$newUsername, $currentUsername]);
     
@@ -34,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     
-    // Verify password
+    // Verify the provided password matches the current user's password
     $stmt = $dbh->prepare("SELECT password FROM users WHERE username = ?");
     $stmt->execute([$currentUsername]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -81,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $dbh->commit();
         
-        // Update session
+        // Update session with new username
         $_SESSION['username'] = $newUsername;
         $_SESSION['success'] = "Username successfully updated";
     } catch(PDOException $e) {
@@ -96,4 +102,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect back to profile page
 header("Location: myprofile.php");
 exit();
-?> 
+?>

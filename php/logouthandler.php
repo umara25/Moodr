@@ -2,9 +2,10 @@
 
 /** 
  * Logout Handler
- * If the user/admin wants to log out, they are directed to
- * this page which will clear their session variables.
+ * Handles user logout by destroying the current session
+ * Clears all session variables and redirects to login page
  */
+
 session_start();
-session_destroy();  // Destroy the session
-header('Location: login.php');
+session_destroy();  // Clear all session data
+header('Location: login.php'); // Redirect to login page

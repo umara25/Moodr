@@ -1,38 +1,44 @@
 <?php
+/**
+ * Password Update Handler
+ * Allows users to change their account password
+ * Validates current password and ensures new password meets requirements
+ */
+
 session_start();
 include "connect.php";
 
-// Only process if the user is logged in
+// Ensure user is logged in before allowing password change
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
-// Check if form is submitted
+// Process password change request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get current username from session
     $username = $_SESSION['username'];
     
-    // Get form data
+    // Retrieve form data
     $newPassword = $_POST['newPassword'];
     $confirmNewPassword = $_POST['confirmNewPassword'];
     $currentPassword = $_POST['currentPassword'];
     
-    // Validate inputs
+    // Validate that all fields are provided
     if (empty($newPassword) || empty($confirmNewPassword) || empty($currentPassword)) {
         $_SESSION['error'] = "All fields are required";
         header("Location: myprofile.php");
         exit();
     }
     
-    // Verify passwords match (double-check even though we have JS validation)
+    // Verify new passwords match (double-check client-side validation)
     if ($newPassword !== $confirmNewPassword) {
         $_SESSION['error'] = "New passwords do not match";
         header("Location: myprofile.php");
         exit();
     }
     
-    // Check password strength (optional)
+    // Enforce password strength requirements
     if (strlen($newPassword) < 8) {
         $_SESSION['error'] = "Password must be at least 8 characters long";
         header("Location: myprofile.php");
@@ -66,4 +72,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Redirect back to profile page
 header("Location: myprofile.php");
 exit();
-?> 
+?>

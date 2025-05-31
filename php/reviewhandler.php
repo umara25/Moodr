@@ -1,43 +1,42 @@
 <?php
+/**
+ * Review Creation Handler
+ * Processes review submissions from admin users
+ * Handles review data validation, image uploads, and database storage
+ */
+
 session_start();
 header('Content-Type: application/json');
 date_default_timezone_set('America/New_York');
-/** 
- * Handle storing reviews in database based on data sent from 
- * HTTP request initialized from reviewListener.js 
- */
 
-//  var_dump($_FILES);
-
+// Only admin users can create reviews
 if ($_SESSION["role"] === "admin") {
-    //They are an admin 
     include "connect.php";
     include "imageHandler.php"; // Used for file uploading and verification and pfp pulling
 
-    // Receive POST params
+    // Receive and sanitize POST parameters
     $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_SPECIAL_CHARS);
     $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_SPECIAL_CHARS);
     $score = filter_input(INPUT_POST, "score", FILTER_VALIDATE_FLOAT);
-    $date = date('Y-m-d H:i:s');
+    $date = date('Y-m-d H:i:s'); // Current timestamp
 
-
-
+    // Validate all required parameters and their constraints
     if (
         $title !== null && $msg !== null && $score !== null && $score !== false
         && strlen($title) <= 30 && strlen($msg) <= 400 && strlen($title) > 0  && strlen($msg) > 0
         && $score <= 10 && $score >= 0
     ) {
-        //Params are ok 
-        // Generate unique ID
-        $id = bin2hex(random_bytes(4));     // Generates 4 random bytes, then gets their hexadecimal rep
-        // Should generate a 8 char unique string, used for reviewID
+        // Parameters are valid - proceed with review creation
+        
+        // Generate unique review ID
+        $id = bin2hex(random_bytes(4));     // Generates 4 random bytes, converts to 8-char hex string
 
-        // Uniqueness check
+        // Check if generated ID already exists in database
         $cmd = "SELECT * FROM reviews WHERE reviewID = ?";
         $stmt = $dbh->prepare($cmd);
         $suc = $stmt->execute([$id]);
 
-        // Keep generating new ID until no more collisions 
+        // Keep generating new IDs until we find a unique one
         while ($row = $stmt->fetch()) {
             $id = bin2hex(random_bytes(4));
             $suc = $stmt->execute([$id]);
