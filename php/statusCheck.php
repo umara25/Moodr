@@ -1,25 +1,28 @@
 <?php 
 
 /** 
- * Takes username and role from $_SESSION and checks 
- * the database to see if role matches and if account is still active
+ * User Status Verification Function
+ * Validates that the current user session matches database records
+ * Checks both user role and account status (active/inactive)
+ * Logs out users if their account has been banned or role changed
  */
+
 function status_check($username,$role){ 
     include "connect.php";
 
+    // Query database for current user role and status
     $cmd = "SELECT `role`,`status` FROM users WHERE `username` = ?";
     $stmt = $dbh->prepare($cmd);
     $succ = $stmt->execute([$username]);
 
     if($row = $stmt->fetch()){ 
-        // Able to select for a row 
-
+        // User found in database - verify session data matches
+        
         if($row['role'] !==  $role || $row['status'] === 'inactive'){ 
-            // Database role doesn't match session role  or account inactive
-            header('Location: login.php?status=1');  // Send back to login with status = 1
-            session_destroy();                       // Destroy session
+            // Session role doesn't match database role OR account has been banned
+            header('Location: login.php?status=1');  // Redirect to login with status flag
+            session_destroy();                       // Clear invalid session
             exit;
         }          
-
     }
 }

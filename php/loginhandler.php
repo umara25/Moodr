@@ -1,44 +1,47 @@
 <?php
 
 /** 
- * Password verification 
- * Checks if user exists in database, and if they do 
- * checks if the password matches
+ * Login Authentication Handler
+ * Processes login form submissions and validates user credentials
+ * Sets up user session on successful authentication
+ * Handles account status checking (active/inactive)
  */
+
 session_start();
 include "connect.php";
-//preventing xss attacks
+
+// Sanitize input data to prevent XSS attacks
 $username = filter_input(INPUT_POST, "user", FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, "password");
 
-
+// Validate that both username and password were provided
 if ($username !== null && $password !== null && $username !== false) {
 
-    /** 
-     * Prepare SELECT command to see if they exist
-     */
+    // Check if user exists in database
     $cmd = "SELECT * FROM users WHERE `username` = ?";
     $stmt = $dbh->prepare($cmd);
     $success = $stmt->execute([$username]);
 
-    //Check if user found
+    // Process login if user found
     if ($row = $stmt->fetch()) {
 
+        // Verify password using password_verify for security
         if (password_verify($password, $row["password"])) {
+            
+            // Check if account is banned/inactive
             if ($row['status'] === 'inactive') {
-                // Account was banned
-                //Set session as failed login
+                // Set session flag for banned account
                 $_SESSION["inactive"] = true;
-                //Sends you back to login
+                // Redirect back to login with error
                 header('Location: login.php');
                 exit;
             } else {
-                //Access granted
-                //Set SESSION variables
+                // Successful login - set up user session
                 $_SESSION["username"] = $row["username"];
                 $_SESSION["role"] = $row["role"];
                 $_SESSION["bio"] = $row["bio"];
 
+                // Load user's custom style preferences
                 $style = get_style($row["styleID"]);
                 if ($style !== false) {
                     $_SESSION["style"] = $style;
@@ -46,25 +49,23 @@ if ($username !== null && $password !== null && $username !== false) {
                     $_SESSION["style"] = default_style();
                 }
 
+                // Redirect to main dashboard
                 header('Location: index.php');
                 exit;
             }
         } else {
-            //Set session as failed login
+            // Invalid password - redirect to login with error
             $_SESSION["loginFail"] = true;
-            //Sends you back to login
             header('Location: login.php');
             exit;
         }
-    } else { //User does not exist 
-
-        //Set session as failed login
+    } else {
+        // User not found - redirect to login with error
         $_SESSION["loginFail"] = true;
-        //Sends you back to login
         header('Location: login.php');
+        exit;
     }
 }
-
 
 /** 
  * Takes a username and gets the style the user has set 

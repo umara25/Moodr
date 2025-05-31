@@ -1,4 +1,11 @@
-<?php session_start();?>
+<?php 
+/**
+ * New Account Registration Page
+ * Handles user registration form display and processing
+ * Validates input data and creates new user accounts
+ */
+session_start();
+?>
 <!doctype html>
 <!--
 Allows users to make a new account
@@ -7,42 +14,48 @@ Allows users to make a new account
 <script src="../js/newAccount.js"></script>
 
 <?php
+// Sanitize and validate form inputs for security
 $username = filter_input(INPUT_POST,"user", FILTER_SANITIZE_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST,"email", FILTER_SANITIZE_SPECIAL_CHARS);
 $confirm = filter_input(INPUT_POST,"confirm", FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST,"password");
-$passwordHash = password_hash($password, PASSWORD_BCRYPT);
+$passwordHash = password_hash($password, PASSWORD_BCRYPT); // Hash password for security
+
+// Initialize validation flags
 $userExists = false;
 $emailExists = false;
 $paramsok = false;
-$load = true;
+$load = true; // Flag to determine if form should be displayed
 
 include "connect.php";
 
+// Check if all required form fields were submitted
 if ($username !== null && $password !== null && $email !== null && $confirm !== null
     && $email !== false && $confirm !== false){
     $load = false;
     $paramsok = true;
 }
 
-
-
+// Process account creation if form was submitted
 if ($paramsok) {
+    // Check if username or email already exists in database
     $cmd = "SELECT * FROM users WHERE username=? OR email=? LIMIT 1";
     $stmt = $dbh->prepare($cmd);
     $stmt->execute([$username,$email]);
     $row = $stmt->fetch();
+    
     if($row){
-        $userExists = true;
+        $userExists = true; // User already exists
     }else{
+        // Create new user account
         $cmd = "INSERT INTO `users`(`username`, `email`, `role`, `password`) VALUES (?,?,?,?)";
         $stmt = $dbh->prepare($cmd);
         $stmt->execute([$username,$email,"user",$passwordHash]);
-        $_SESSION["newUser"]= true;
-        header('Location:login.php');
+        $_SESSION["newUser"]= true; // Set flag for successful registration
+        header('Location:login.php'); // Redirect to login page
     }
     if($row["email"] === $email){
-        $emailExists = true;
+        $emailExists = true; // Email already in use
     }
 }
 

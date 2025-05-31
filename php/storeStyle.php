@@ -1,31 +1,33 @@
 <?php 
+/**
+ * Custom Style Storage Handler
+ * Allows users to create and save custom color themes
+ * Validates color inputs and prevents duplicate styles
+ */
 
+// Sanitize and retrieve form inputs
 $name = filter_input(INPUT_GET, "name" ,FILTER_SANITIZE_SPECIAL_CHARS);
-
 $primary = filter_input(INPUT_GET, "primary");
-
 $secondary = filter_input(INPUT_GET, "secondary");
-
 $textbox = filter_input(INPUT_GET,"textbox");
-
 $text = filter_input(INPUT_GET, "text");
 
-
 /** 
- * Takes an input, and returns true if it is a hexadecimal
- * string 6 characters in length
+ * Hex Color Validation Function
+ * Validates that input is a proper 6-character hexadecimal color code
+ * Returns true if valid, false otherwise
  */
 function validateHex($inp) {
     return preg_match('/^[0-9A-Fa-f]{6}$/', $inp);
 }
+
+// Validate all required parameters and color format
 $paramsok = $primary !== null && $primary !== false && $secondary !== null &&$secondary !== false 
             && $text!== null && $text!==false && validateHex($primary) && validateHex($secondary) 
             && validateHex($text) && $name !== null && $name !== "";
 
-
 if($paramsok){ 
-    //CHECK IF STYLE EXISTS
-
+    // Check if this exact color combination already exists
     include "connect.php";
 
     $cmd = "SELECT * FROM styles WHERE primary_colour = ? AND secondary_colour = ? AND textbox_colour = ?
@@ -34,10 +36,9 @@ if($paramsok){
     $succ = $stmt->execute([$primary,$secondary,$textbox,$text]);
 
     if($row = $stmt->fetch()){
-        //Style already exists 
+        // Style already exists - return error
         echo (-1);
         exit;
-
     }
 
     $cmd = "SELECT * FROM styles WHERE `styleID` = ?";
@@ -45,7 +46,7 @@ if($paramsok){
     $succ = $stmt->execute([$name]);
 
     if($row = $stmt->fetch()){
-        //Style name already exists 
+        // Style name already exists - return error
         echo (-1);
         exit;
     }
@@ -61,6 +62,7 @@ if($paramsok){
 
     
 }else{
+    // Invalid parameters - return error
     echo(-1);
 }
 

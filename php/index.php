@@ -1,5 +1,13 @@
-<?php session_start();
-error_reporting(0); ?>
+<?php 
+/**
+ * Main Dashboard/Index Page
+ * The main landing page for Moodr application
+ * Displays announcements and provides navigation to other sections
+ * Includes role-based content and styling for regular users vs admins
+ */
+session_start();
+error_reporting(0); 
+?>
 
 <!doctype html>
 <!--
@@ -17,19 +25,21 @@ and important information about the club.
     <script src="../js/socialButtons.js"></script>
     <script src="../js/nav.js"></script>
     <?php
-
-    // if user is logged in then apply their style
+    // Load appropriate JavaScript based on user role and login status
     if (isset($_SESSION["username"])) {
         if ($_SESSION["role"] === "admin") {
+            // Admin-specific scripts for post management and styling
             echo "<script src='../js/indexStyleAdmin.js'></script>";
             echo "<script src='../js/indexStyleRefresher.js'></script>";
             echo "<script src='../js/scrollIndexAdmin.js'></script>";
             echo "<script src='../js/postListenerAdmin.js'></script>";
         } else {
+            // Regular user scripts
             echo "<script src='../js/indexStyle.js'></script>";
             echo "<script src='../js/scrollIndex.js'></script>";
         }
     } else {
+        // Guest user scripts
         echo "<script src='../js/scrollIndex.js'></script>";
     }
     ?>
@@ -40,11 +50,11 @@ and important information about the club.
     include "connect.php";
     $loggedIn = false;
 
-    // Checks if there is an Active Session
+    // Check if there is an active user session
     if (isset($_SESSION["username"])) {
         $loggedIn = true;
         include "statusCheck.php";
-        status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
+        status_check($_SESSION["username"], $_SESSION["role"]); // Verify user status and permissions
     }
     ?>
     <div id="container">

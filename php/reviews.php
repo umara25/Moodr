@@ -1,13 +1,19 @@
-<?php session_start();
+<?php 
+/**
+ * Reviews Page
+ * Displays mood/experience reviews with infinite scroll
+ * Provides different functionality for admins (can create/delete) vs regular users (view only)
+ */
+session_start();
 error_reporting(0);
 
 $loggedIn = false;
 
-// Checks if there is an Active Session
+// Check if there is an active user session
 if (isset($_SESSION["username"])) {
     $loggedIn = true;
     include "statusCheck.php";
-    status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
+    status_check($_SESSION["username"], $_SESSION["role"]); // Verify user status and permissions
 }
 ?>
 <!doctype html>
@@ -26,19 +32,22 @@ This is the Review Page.
     <script src="../js/nav.js"></script>
 
     <?php
+    // Load appropriate JavaScript based on user role
     if ($loggedIn) {
         if ($_SESSION["role"] === "admin") {
-            //Include create review JS if admin
-            echo "<script src = '../js/reviewListener.js'></script>"; // Handle create review
+            // Admin users can create and manage reviews
+            echo "<script src = '../js/reviewListener.js'></script>"; // Handle review creation
             echo "<script src='../js/reviewsStyleAdmin.js'></script>";
             echo "<script src='../js/reviewsStyleRefresher.js'></script>";
-            echo "<script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll
-        }else{ // Not admin
+            echo "<script src = '../js/scrollReviewsAdmin.js'></script>"; // Admin infinite scroll with delete options
+        }else{ 
+            // Regular users can only view reviews
             echo "<script src='../js/reviewsStyle.js'></script>";
             echo "<script src = '../js/scrollReviews.js'></script>";
         }
-    }else { // Not logged in
-        echo "<script src = '../js/scrollReviews.js'></script>"; // Normal infinite scroll
+    }else { 
+        // Non-logged in users can only view reviews
+        echo "<script src = '../js/scrollReviews.js'></script>"; // Standard infinite scroll
     }
 
     //if user is logged in then apply their style

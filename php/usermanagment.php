@@ -1,4 +1,12 @@
-<?php session_start();?>
+<?php 
+/**
+ * User Management Page
+ * Admin-only interface for managing user accounts and creating custom styles
+ * Provides functionality to ban/unban users, promote to admin, delete accounts,
+ * and create custom color themes for the application
+ */
+session_start();
+?>
 <!doctype html>
 <!--
 This is the User Managment Page.
@@ -15,11 +23,11 @@ This is the User Managment Page.
     <script src="../js/nav.js"></script>
     <script src="../js/userManagment.js"></script>
     <?php
-    //if user is logged in then apply their style
+    // Load user-specific styling and status checking if logged in
     if(isset($_SESSION["username"])){
         echo "<script src='../js/usermanagementStyle.js'></script>";
         include "statusCheck.php";
-        status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
+        status_check($_SESSION["username"], $_SESSION["role"]); // Verify user status and admin permissions
         $loggedIn = true;
     }else{ 
         $loggedIn = false;
@@ -31,15 +39,15 @@ This is the User Managment Page.
     <?php
     include "connect.php";
 
-    // Checks if there is an Active Session
+    // Restrict access to admin users only
     if (!isset($_SESSION["username"]) || $_SESSION["role"] !== "admin") {
-        //Sends you back to login
+        // Redirect non-admin users to login
         session_destroy();
         header('Location: login.php');
         exit;
     }
 
-    //fetching all users from the database
+    // Fetch all users from database for admin management
     if($_SESSION["role"]==="admin"){
         $cmd = "SELECT * FROM users";
         $stmt = $dbh->prepare($cmd);

@@ -1,4 +1,11 @@
-<?php session_start();?>
+<?php 
+/** 
+ * Calendar Page
+ * Displays a calendar interface for users to view their mood entries
+ * Includes navigation and user authentication
+ */
+session_start();
+?>
 <!doctype html>
 <!--
 This is the Calendar Page.
@@ -13,7 +20,7 @@ This is the Calendar Page.
     <link rel = "stylesheet" href = "../css/hamburger.css">
     <script src="../js/nav.js"></script>
     <?php
-    //if user is logged in then apply their style
+    // If user is logged in, apply their custom styling
     if(isset($_SESSION["username"])){
         echo "<script src='../js/calenderStyle.js'></script>";
     }
@@ -25,11 +32,11 @@ This is the Calendar Page.
     include "connect.php";
     $loggedIn = false;
 
-    // Checks if there is an Active Session
+    // Check if there is an active user session
     if (isset($_SESSION["username"])) {
         $loggedIn = true;
         include "statusCheck.php";
-        status_check($_SESSION["username"], $_SESSION["role"]); // Check users status
+        status_check($_SESSION["username"], $_SESSION["role"]); // Verify user status and permissions
     }
 
     ?>
@@ -38,6 +45,7 @@ This is the Calendar Page.
 
             <p id="moodr">M o o d r 
             <?php 
+            // Display admin indicator if user is admin
             if($loggedIn){
                 if ($_SESSION["role"] === "admin") {
                     echo " A d m i n";
@@ -45,7 +53,7 @@ This is the Calendar Page.
             }
             ?>
             </p>
-             <!-- Hamburger nav -->
+             <!-- Hamburger navigation menu for mobile -->
              <div id="hamburger">
                 <img src="../images/hamburger.png">
                 <div id="hamburger-content">
