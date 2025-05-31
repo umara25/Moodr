@@ -49,9 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dbh->beginTransaction();
         
         $dbh->exec('SET FOREIGN_KEY_CHECKS=0');
-        
-        $stmt = $dbh->prepare("INSERT INTO users (username, email, role, password, bio, pfp) 
-                              SELECT ?, email, role, password, bio, pfp 
+          $stmt = $dbh->prepare("INSERT INTO users (username, email, role, password, bio, pfp_path) 
+                              SELECT ?, email, role, password, bio, pfp_path 
                               FROM users 
                               WHERE username = ?");
         $stmt->execute([$newUsername, $currentUsername]);
