@@ -7,6 +7,7 @@
  */
 session_start();
 include "connect.php";
+//preventing xss attacks
 $username = filter_input(INPUT_POST, "user", FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, "password");
 

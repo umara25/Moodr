@@ -1,231 +1,229 @@
+// Wait for the entire page to load before setting up review functionality
 window.addEventListener("load",function(event){ 
 
     /** 
-     * Calls reviewhandler.php using AJAX in response to Admin creating a review
-     * Is included on reviews.php
-     * Also handles review deletion 
+     * Main controller that calls reviewhandler.php using AJAX when Admin creates a review
+     * Is included on reviews.php and also handles review deletion functionality
      */
 
+    // Get references to form elements and UI controls
+    let myform = document.getElementById("make-review-form");      // Main review creation form
+    let rangeSlider = document.getElementById("review-score");     // Score slider input (0-10)
+    let rangeField = document.getElementById("score-field");       // Score display field
+    let errorField = document.getElementById("review-fail");       // Review creation error display
 
-    let myform = document.getElementById("make-review-form");
-    let rangeSlider = document.getElementById("review-score");
-    let rangeField = document.getElementById("score-field");
-    let errorField = document.getElementById("review-fail");               // Review creation error field
+    // Get references to form toggle elements
+    let reviewOpenButton = document.getElementById("make-post-button");  // Button to open review form
+    let reviewCloseButton = document.getElementById("close-post-img");   // Button to close review form
+    let reviewFormDiv = document.getElementById("make-post");            // Container div for review form
 
-
-    let reviewOpenButton = document.getElementById("make-post-button");  // Open review form button
-    let reviewCloseButton = document.getElementById("close-post-img");   // Close review form button
-    let reviewFormDiv = document.getElementById("make-post");            // Div containing review form
-
-    // Display the make review inputs form clicked
+    // Display the review creation form when open button is clicked
     reviewOpenButton.addEventListener("click",function(event){ 
-        reviewFormDiv.style.display = "flex";    // Make form visible
-        reviewOpenButton.style.display = "none";  // Hide create review 'button'
+        reviewFormDiv.style.display = "flex";      // Make form visible
+        reviewOpenButton.style.display = "none";   // Hide the create review button
     })
 
-    // Hide the make review form when clickeed
+    // Hide the review creation form when close button is clicked
     reviewCloseButton.addEventListener("click",function(event){  
-        reviewFormDiv.style.display = "none";    // Hide form 
-        reviewOpenButton.style.display = "flex";  // Make create review 'button' visible
-
+        reviewFormDiv.style.display = "none";      // Hide the form
+        reviewOpenButton.style.display = "flex";   // Make create review button visible again
     });
 
-
     /** 
-     * Handle submitting AJAX request 
+     * Handle review form submission via AJAX with multipart form data
+     * Processes text fields, score, and image file upload
      */
     myform.addEventListener("submit",function(event){ 
-        event.preventDefault();
-        errorField.innerHTML = "";      // Clear review upload error field
+        event.preventDefault(); // Prevent default form submission
+        errorField.innerHTML = ""; // Clear any previous error messages
 
+        // Extract form field values
+        let title = document.getElementById("review-title").value;     // Review title
+        let msg = document.getElementById("review-message").value;     // Review content/message
+        let score = parseFloat(document.getElementById("review-score").value); // Numeric score (0-10)
+        let fileField = document.getElementById("album-cover");        // File input for album cover
 
-        let title = document.getElementById("review-title").value;
-        let msg = document.getElementById("review-message").value;
-        let score = parseFloat(document.getElementById("review-score").value);
-        let fileField = document.getElementById("album-cover");
+        let file = fileField.files[0]; // Get the first uploaded file
+        let uploadSize = 5 * (10**6);   // 5MB file size limit in bytes
 
-        let file = fileField.files[0]; //Get first fle uploaded 
-
-        let uploadSize = 5 * (10**6);   // 5MB in bytes
-
-        // Ensure file smaller than upload size
+        // Validate file size to prevent server overload
         if(file){
             if(file.size > uploadSize){
+                // File exceeds size limit - show error and clear selection
                 let fileLabel = document.getElementById("file-label"); 
                 fileLabel.innerHTML = "<span style = 'color:red'> FILE TOO LARGE ; MUST BE LESS THAN 5MB</span>";
-                fileField.value = null;  // Clear current file;
-                return;
+                fileField.value = null;  // Clear current file selection
+                return; // Exit without submitting
             }
         }
-        // Used to store form data, so it can be sent using fetch
-        // Important when using multipart type data
-        let formData = new FormData();      //Create form data object for multipart form data type
-        formData.append('title',title);     //Append review title
-        formData.append('msg',msg);         //Append review  body
-        formData.append('score',score);     //Append review score
-        formData.append('image', file);     //Append image under name 'image'
 
-        // Debugging, view items inside formData 
+        // Create FormData object for multipart form data (required for file uploads)
+        let formData = new FormData();      // Create form data object for multipart form data type
+        formData.append('title',title);     // Append review title
+        formData.append('msg',msg);         // Append review body/message  
+        formData.append('score',score);     // Append numeric review score
+        formData.append('image', file);     // Append image file under name 'image'
+
+        // Debug FormData contents (commented out for production)
         // for (let [key, value] of formData.entries()) {
         //     console.log(key,value);
         // }
 
-
-        // console.log(file);
+        // Configure AJAX request for multipart form submission
         let config = {
             method: 'POST',
-            // headers: { "Content-Type": "multipart/form-data" }, // Parameter format, sending file
-            body: formData  //Send formData as parameters in HTTP request body
+            // Note: Content-Type header is automatically set for FormData
+            // headers: { "Content-Type": "multipart/form-data" }, // Not needed - browser sets this
+            body: formData  // Send formData as parameters in HTTP request body
         };
 
-        // Initiate AJAX request
+        // Initiate AJAX request to create review
         fetch("../php/reviewhandler.php",config)
-        .then(response=>response.json())
-        // .then(d =>console.log(d))
-        .then(success);
+        .then(response=>response.json()) // Parse JSON response from server
+        // .then(d =>console.log(d))      // Debug response (commented out)
+        .then(success);                  // Handle successful response
 
     });
 
     /** 
-     * Handles Score slider, updates based on user input
+     * Handles score slider interaction - updates display field in real-time
+     * Provides immediate visual feedback as user adjusts review score
      */
     rangeSlider.addEventListener("input",function(event){ 
-        let num = parseFloat(rangeSlider.value);
-        rangeField.innerHTML = "Score: "+ num + " / 10";
-
+        let num = parseFloat(rangeSlider.value); // Get current slider value
+        rangeField.innerHTML = "Score: "+ num + " / 10"; // Update display text
     })
 
     /**
-     * Receives HTTP response from reviewhandler.php in form on object
-     * Showcases new post if successsful, else displays error message
-     * {username: user, title: review title, msg: review text, score: review score, 
-     *  date: date it was posted, img: img path, pfp: pfp_path, id: reviewID}
-     *  Note: pfp only exists if a valid pfp is stored else it is empty
-     * @param {Object} review 
+     * Processes HTTP response from reviewhandler.php and updates UI accordingly
+     * Displays new review if successful, otherwise shows error message
+     * @param {Object} review - Review object containing:
+     *   {username: user, title: review title, msg: review text, score: review score,
+     *    date: date it was posted, img: img path, pfp: pfp_path, id: reviewID}
+     *   Note: pfp only exists if a valid pfp is stored, else it is empty
      */ 
     function success(review){ 
-        myform.reset(); //Clear form
-        rangeField.innerHTML = "Score: 0/10";
+        myform.reset(); // Clear all form fields
+        rangeField.innerHTML = "Score: 0/10"; // Reset score display
 
-        // console.log("Hit here");
-        let reviewField = document.getElementById("reviews");
+        let reviewField = document.getElementById("reviews"); // Get reviews container
 
         if(review != -1){ 
-            //Inserted successfully 
-            // reviewField.innerHTML = "SUCCESS";
-            renderReview(review,reviewField); // Render new review to page
+            // Review was inserted successfully into database
+            renderReview(review,reviewField); // Render new review to page immediately
         }else { 
+            // Review creation failed - display error message
             errorField.innerHTML = "<h2>ERROR FAILED TO CREATE REVIEW</h2>";
         }
     }
 
     /**
-     * Render review inside element based on review object received
-     * {username: user, title: review title, msg: review body, score: review score, 
-     * date: date review posted, img: img path, pfp: pfp_path, id: reviewID}
-     * Note: pfp only exists if a valid pfp is stored else it is empty
-     * @param {Object} review 
-     * @param {HTML Element} element 
+     * Dynamically creates and renders a review element based on review data
+     * Constructs complete DOM structure with profile picture, content, and interactions
+     * @param {Object} review - Review object with user data, content, and metadata
+     *   {username: user, title: review title, msg: review body, score: review score, 
+     *    date: date review posted, img: img path, pfp: pfp_path, id: reviewID}
+     *   Note: pfp only exists if a valid pfp is stored, else it is empty
+     * @param {HTMLElement} element - Container element to append the review to
      */
     function renderReview(review,element){ 
-        let reviewDiv = document.createElement("div");          // Create review div 
-        reviewDiv.id = review.id;                               // Give it the unique reviewID
-        reviewDiv.classList.add("review");                      // Add it to class review
+        // Create main review container structure
+        let reviewDiv = document.createElement("div");          // Main review container
+        reviewDiv.id = review.id;                               // Set unique reviewID as element ID
+        reviewDiv.classList.add("review");                      // Add review CSS class
 
-        let reviewPfpDiv = document.createElement("div");       // Create review-pfp div
-        reviewPfpDiv.classList.add("review-pfp");               // Add it to class review-pfp
+        let reviewPfpDiv = document.createElement("div");       // Profile picture container
+        reviewPfpDiv.classList.add("review-pfp");               // Add profile picture CSS class
 
-        let triangleDiv = document.createElement("div");        // Create triangle div (Gives speech bubble effect)
-        triangleDiv.classList.add("triangle");
+        let triangleDiv = document.createElement("div");        // Speech bubble triangle
+        triangleDiv.classList.add("triangle");                  // Creates visual speech bubble effect
 
-        let reviewContentDiv = document.createElement("div");   // Create review-content Div
+        let reviewContentDiv = document.createElement("div");   // Main content container
         reviewContentDiv.classList.add("review-content");       
 
-        let reviewTitleDiv = document.createElement("div");     // Create review-title div
+        let reviewTitleDiv = document.createElement("div");     // Title/header container
         reviewTitleDiv.classList.add("review-title");
 
-        let reviewBodyDiv = document.createElement("div");      // Create review Body div
+        let reviewBodyDiv = document.createElement("div");      // Body content container
         reviewBodyDiv.classList.add("review-body");
 
-        let reviewTextDiv = document.createElement("div");      // Create review-text div
+        let reviewTextDiv = document.createElement("div");      // Text content container
         reviewTextDiv.classList.add("review-text");
 
+        // Construct DOM tree hierarchy
+        // Insert before second child (first child is typically an error div)
+        element.insertBefore(reviewDiv,element.children[1]);  
 
-        // Construct DOM Tree
-        // element.appendChild(reviewDiv);
-        element.insertBefore(reviewDiv,element.children[1]);  // Insert before second child
-                                                               // First child is an error div
+        // Build review structure
+        reviewDiv.appendChild(reviewPfpDiv);      // Add profile picture section
+        reviewDiv.appendChild(triangleDiv);       // Add speech bubble triangle
+        reviewDiv.appendChild(reviewContentDiv);  // Add main content section
 
-        reviewDiv.appendChild(reviewPfpDiv);
-        reviewDiv.appendChild(triangleDiv);
-        reviewDiv.appendChild(reviewContentDiv);
+        reviewContentDiv.appendChild(reviewTitleDiv); // Add title section
+        reviewContentDiv.appendChild(reviewBodyDiv);  // Add body section
 
-        reviewContentDiv.appendChild(reviewTitleDiv);
-        reviewContentDiv.appendChild(reviewBodyDiv);
-
-
-        // Check if an image was uploaded with review
+        // Handle optional album cover image
         if(review.img !== null && review.img !== undefined){ 
-            let reviewImgDiv = document.createElement("div");       // Create review image div
-            reviewImgDiv.classList.add("review-img");
-            reviewBodyDiv.appendChild(reviewImgDiv);
-            reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
-            // console.log(review.img);
+            let reviewImgDiv = document.createElement("div");       // Create image container
+            reviewImgDiv.classList.add("review-img");               // Add image CSS class
+            reviewBodyDiv.appendChild(reviewImgDiv);                // Add to body section
+            reviewImgDiv.innerHTML = "<img src = " + review.img + ">"; // Insert image element
         }
 
-        reviewBodyDiv.appendChild(reviewTextDiv);
+        reviewBodyDiv.appendChild(reviewTextDiv); // Add text content to body
 
-        // Start altering innerHTML 
+        // Populate content with actual review data
 
+        // Handle user profile picture (custom or default)
         if(review.pfp){ 
-            // Pfp exists 
+            // User has uploaded a custom profile picture
             reviewPfpDiv.innerHTML = "<img src =" + review.pfp + ">"; 
         }else{  
-            // Pfp does not exist, use default
+            // Use default profile picture
             reviewPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";  
         }
 
+        // Populate title section with review title, username, timestamp, and delete icon
         reviewTitleDiv.innerHTML =( 
             "<h1> " + review.title + " - " + review.username 
             + " <span class = 'timestamp'>" + review.date +"</span></h1>"
             + "<img class = 'trash-icon' src = '../images/trashicon.png'>"   
-        ); // Render title 
+        );
 
-        // Add delete event to trash icon 
+        // Attach delete event listener to the newly created trash icon
         reviewTitleDiv.querySelector(".trash-icon")
         .addEventListener("click",deleteReview);
 
+        // Populate text section with review message and score
         reviewTextDiv.innerHTML =(
              "<p>" + review.msg + "</p>" + 
              "<p>Score: " + review.score + "/10</p>"             
-         ); // Render text
-
-
+         );
     }
 
+    // REVIEW DELETION FUNCTIONALITY
 
-    // DELETION
-
-    let deleteIcon = document.querySelectorAll(".trash-icon");  // Select all trash icons 
+    // Get all existing trash icons and attach delete event listeners
+    let deleteIcon = document.querySelectorAll(".trash-icon");
 
     for(let e of deleteIcon){ 
         e.addEventListener("click",deleteReview);
     }
 
     /**
-     * Traverses DOM to delete review   
-     * the trash icon is inside 
+     * Initiates review deletion process with confirmation dialog
+     * Traverses DOM to find the review container and handles deletion workflow
      */
     function deleteReview(){ 
-        let toDelete = this.closest(".review"); // Traverse DOM and find closest ancestor with class .review
-                                                // This is the overarching review
+        // Find the review container that contains this trash icon
+        let toDelete = this.closest(".review"); // Find closest ancestor with class .review
 
         if(toDelete){ 
-            // Node to delete exists   
-            let content = toDelete.querySelector(".review-title");    // Get review title
-            let temp = content.innerHTML;   // Store copy of the innerHTML 
+            // Review container exists - proceed with deletion confirmation
+            let content = toDelete.querySelector(".review-title");    // Get review title element
+            let temp = content.innerHTML;   // Store original innerHTML for potential restoration
 
-            // Create confirm / cancel buttons 
+            // Replace title content with confirmation dialog
             content.innerHTML = (
                 "<div class = 'delete'>"+
                 "<h1> Are you sure you want to delete this review?</h1>"+
@@ -234,59 +232,54 @@ window.addEventListener("load",function(event){
                 "</div>"
             );
 
-            let confirm = content.querySelector(".confirm-button"); // Get confirm button inside this div
-            let cancel = content.querySelector(".cancel-button");   // Get cancel button inside this div
-
-            // console.log(cancel);
-            // console.log(confirm);
+            // Get references to the newly created confirmation buttons
+            let confirm = content.querySelector(".confirm-button"); // Yes/confirm button
+            let cancel = content.querySelector(".cancel-button");   // No/cancel button
 
             /** 
-             * Delete review tied to this element 
+             * Handles confirmed deletion by sending request to server
+             * Permanently removes review from database and DOM
              */
             confirm.addEventListener("click",function(event){ 
-                let id = toDelete.id;   // Get ID of parent node
-                let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
+                let id = toDelete.id;   // Get unique review ID
+                let url = "../php/deleteReviewHandler.php?id=" + id; // Server endpoint for deletion
 
+                // Send deletion request to server
                 fetch(url)
-                .then(response=>response.text())
-                .then(confirm_delete);
-                // .then(toDelete.remove()); // Delete node
-
+                .then(response=>response.text()) // Parse response as text
+                .then(confirm_delete);           // Handle deletion result
             });
 
             /** 
-             * Reset innerHTML and reset trash icon event listener
+             * Handles cancellation of deletion
+             * Restores original content and reattaches event listeners
              */
             cancel.addEventListener("click",function(event){ 
-                content.innerHTML = temp;
+                content.innerHTML = temp; // Restore original title content
+                // Reattach delete event listener to trash icon
                 content.querySelector(".trash-icon")
-                .addEventListener("click",deleteReview); // Re-add event listener
+                .addEventListener("click",deleteReview);
             });
 
-
-
             /**
-             * Receives the response from deleteReviewHandler.php
-             * @param {Int} response 
+             * Processes server response after deletion attempt
+             * @param {String} response - Server response (1 for success, other for failure)
              */
             function confirm_delete(response){ 
 
                 if(response == 1){ 
-                    // Successfully deleted
+                    // Deletion successful - remove review from DOM
                     toDelete.remove();
                 }else{ 
-                    content.innerHTML = temp;
+                    // Deletion failed - restore content and show error
+                    content.innerHTML = temp; // Restore original content
                     content.innerHTML += "<p class = 'error'>Unable to delete review...</p>";
+                    // Reattach delete event listener
                     content.querySelector(".trash-icon")
                     .addEventListener("click",deleteReview);
                 }
-
-
             }
-
         }
-        // console.log(toDelete);
     }
-
 
 });

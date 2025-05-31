@@ -1,176 +1,153 @@
-/** 
- * Handles making AJAX requests to scrollHandler.php for posts page
- * i.e Implements infinite scrolling for posts page
- * Does not include DELETE to new posts
- */
-
+// Wait for the entire page to load before setting up infinite scroll functionality
 window.addEventListener("load", function (event) {
 
-    let loading = false;  // Ensures only 1 event fires at a time
-    let debounce;
+    let loading = false;  // Flag to ensure only one AJAX request fires at a time
+    let debounce;         // Timeout variable for debouncing scroll events
 
-    // Add scroll event listener
+    // Add scroll event listener to trigger infinite loading
     window.addEventListener("scroll", send_requests);
 
     /**
-    * Sends AJAX requests once end of screen
-    */
+     * Handles scroll events and initiates AJAX requests when user reaches bottom of page
+     * Uses debouncing to prevent excessive API calls during rapid scrolling
+     */
     function send_requests() {
 
-        clearTimeout(debounce);
-        // Help with event firing issue, only do a check once you stop scrolling
-        // Scrolling causes the timeout to be reset, so it only does a check after you stop scrolling for 100ms
+        clearTimeout(debounce); // Clear previous timeout
+        
+        // Debounce mechanism: only check scroll position after user stops scrolling for 100ms
+        // This prevents constant API calls during active scrolling
         debounce = setTimeout(function () {
-            const threshold = 300;
-            // Check if end of page and you aren't already loading data
+            const threshold = 300; // Pixels from bottom to trigger loading
+            
+            // Check if user is near end of page and not already loading data
+            // Uses two different methods for cross-browser compatibility
             if ((window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold && !loading) ||
                 (window.innerHeight + document.documentElement.scrollTop) >= document.documentElement.scrollHeight - threshold
                 && !loading) {
-                let icon = create_load();
-                let url = "../php/scrollIndexHandler.php";
-                // console.log(url);
-
+                
+                let icon = create_load(); // Show loading indicator
+                let url = "../php/scrollIndexHandler.php"; // Server endpoint for more posts
+                
+                // Fetch additional posts from server
                 fetch(url)
-                    .then(response => response.json())
-                    .then(data => success(data, icon));
+                    .then(response => response.json()) // Parse JSON response
+                    .then(data => success(data, icon)); // Handle successful response
             }
-        }, 100);
-
+        }, 100); // 100ms debounce delay
     }
 
-
-
     /**
-     * Renders a loading icon on the screen
-     * Used when pulling more information
-     * returns div containing the load element
+     * Creates and displays a loading icon while fetching new content
+     * Sets loading flag to prevent multiple simultaneous requests
+     * @returns {HTMLElement} The loading icon div element
      */
     function create_load() {
-        let load = document.createElement("div");           // Create div for loader to go inside
-        load.classList.add("load");                         // Add it to load class
-
-        let posts = document.getElementById("posts");   // Get posts div
-
-        posts.appendChild(load);
-        loading = true; // Pulling data from db, don't allow any events to fire
-        return load;
+        let load = document.createElement("div");           // Create container div for loader
+        load.classList.add("load");                         // Add CSS class for loading styling
+        
+        let posts = document.getElementById("posts");       // Get posts container
+        posts.appendChild(load);                           // Add loading icon to page
+        loading = true; // Set flag to prevent additional requests while loading
+        return load;    // Return element reference for later removal
     }
 
-
     /**
-     * Removes loading icon after data has been pulled
-     * @param {HTML Element} load
+     * Removes loading icon after data has been successfully loaded
+     * Resets loading flag to allow new requests
+     * @param {HTMLElement} load - The loading icon element to remove
      */
     function remove_load(load) {
-        load.remove();  // Remove load icon
-        loading = false;   // Done rendering data, allow events
+        load.remove();      // Remove loading icon from DOM
+        loading = false;    // Clear loading flag to allow new requests
     }
 
-
     /**
-     * Receives Array of objects representing posts to render 
-     * And HTML element corresponding to load div
-     * @param {Array} arr 
-     * @param {HTML Element} icon 
+     * Processes server response and renders new posts or handles end-of-content
+     * @param {Array} arr - Array of post objects from server
+     * @param {HTMLElement} icon - Loading icon element to remove/modify
      */
     function success(arr, icon) {
-        let postField = document.getElementById("posts");
+        let postField = document.getElementById("posts"); // Get posts container
 
-        // Empty array check
+        // Check if server returned any new posts
         if (arr !== undefined && arr.length != 0) {
-
-            // Render each object in array
+            // New posts available - render each one
             for (let obj of arr) {
-                renderReview(obj, postField);
+                renderPost(obj, postField); // Render individual post
             }
-            remove_load(icon);
-
-        } else { // No more posts, so display error message
-            icon.classList.remove("load");
-            icon.classList.add("error");
+            remove_load(icon); // Remove loading indicator
+        } else { 
+            // No more posts available - display end message and cleanup
+            icon.classList.remove("load");  // Remove loading styling
+            icon.classList.add("error");    // Add end-of-content styling
             icon.innerHTML = "<h3 id='noposts'><span>No more posts..</span></h3>";
-            // setTimeout(function () { remove_load(icon); }, 1000); // Timeout is to ensure they can read the message
-            window.removeEventListener("scroll", send_requests);  // Remove event listener, not constantly sending queries to DB
+            
+            // Remove scroll event listener to prevent unnecessary API calls
+            window.removeEventListener("scroll", send_requests);
         }
-
-
     }
 
-
     /**
-         * Render post inside element based on post object received
-         * {username: user, title: post title, msg: post body, score: post score, 
-         * date: date post posted, img: img path, pfp: pfp_path, id: postID}
-         * Note: pfp only exists if a valid pfp is stored else it is empty
-         * Note: This is slightly modified compared to the one in postListener.js
-         * @param {Object} post 
-         * @param {HTML Element} element 
-         */
+     * Dynamically creates and renders a post element based on post data
+     * Constructs complete DOM structure with profile picture, title, content, and timestamp
+     * Note: This is a simplified version compared to review rendering (no images or scores)
+     * 
+     * @param {Object} post - Post object containing:
+     *   {username: user, title: post title, msg: post body, 
+     *    date: date post posted, pfp: pfp_path, id: postID}
+     *   Note: pfp only exists if a valid pfp is stored, else it is empty
+     * @param {HTMLElement} element - Container element to append the post to
+     */
     function renderPost(post, element) {
-        let postDiv = document.createElement("div");          // Create post div 
-        postDiv.id = post.id;                               // Give it the unique postID
-        postDiv.classList.add("post");                      // Add it to class post
+        // Create main post container structure
+        let postDiv = document.createElement("div");          // Main post container
+        postDiv.id = post.id;                                // Set unique postID as element ID
+        postDiv.classList.add("post");                       // Add post CSS class
 
-        // PFP not applied:
-        let postPfpDiv = document.createElement("div");       // Create postpfp div
-        postPfpDiv.classList.add("post-pfp");               // Add it to class pfp
+        let postPfpDiv = document.createElement("div");       // Profile picture container
+        postPfpDiv.classList.add("post-pfp");                // Add profile picture CSS class
 
-        let postContentDiv = document.createElement("div");   // Create post-content Div
-        postContentDiv.classList.add("textbox");
+        let postContentDiv = document.createElement("div");   // Main content container
+        postContentDiv.classList.add("textbox");             // Add textbox styling class
 
-        let postTitleDiv = document.createElement("div");     // Create post-title div
-        postTitleDiv.classList.add("post-title");
+        let postTitleDiv = document.createElement("div");     // Title/header container
+        postTitleDiv.classList.add("post-title");            // Add title CSS class
 
-        // Not needed for post:
-        // let reviewBodyDiv = document.createElement("div");      // Create review Body div
-        // reviewBodyDiv.classList.add("review-body");
+        let postTextDiv = document.createElement("div");      // Text content container
+        postTextDiv.classList.add("post-text");              // Add text CSS class
 
-        let postTextDiv = document.createElement("div");      // Create post-text div
-        postTextDiv.classList.add("post-text");
+        // Construct DOM tree hierarchy
+        element.appendChild(postDiv); // Add post to the end of posts container
 
+        // Build post structure
+        postDiv.appendChild(postPfpDiv);      // Add profile picture section
+        postDiv.appendChild(postContentDiv);  // Add main content section
+        postContentDiv.appendChild(postTitleDiv); // Add title section
+        postContentDiv.appendChild(postTextDiv);  // Add text content section
 
-        // Construct DOM Tree
-        element.appendChild(postDiv); // Add to end
+        // Populate content with actual post data
 
-        postDiv.appendChild(postPfpDiv);
-        // postDiv.appendChild(triangleDiv);
-        postDiv.appendChild(postContentDiv);
-
-        postContentDiv.appendChild(postTitleDiv);
-        // postContentDiv.appendChild(postBodyDiv);
-
-
-        // Not needed for announcement page:
-        // Check if an image was uploaded with review
-        // if (review.img !== null && review.img !== undefined) {
-        //     let reviewImgDiv = document.createElement("div");       // Create review image div
-        //     reviewImgDiv.classList.add("review-img");
-        //     reviewBodyDiv.appendChild(reviewImgDiv);
-        //     reviewImgDiv.innerHTML = "<img src = " + review.img + ">";  // Render review image
-        //     // console.log(review.img);
-        // }
-
-        // reviewBodyDiv.appendChild(reviewTextDiv);
-
-        // Start altering innerHTML 
+        // Handle user profile picture (custom or default)
         if (post.pfp) {
-            // Pfp exists 
+            // User has uploaded a custom profile picture
             postPfpDiv.innerHTML = "<img src =" + post.pfp + ">";
         } else {
-            // Pfp does not exist, use default
+            // Use default profile picture
             postPfpDiv.innerHTML = "<img src = '../images/defaultpfp.jpg'>";
         }
+        
+        // Populate title section with post title, username, and timestamp
         postTitleDiv.innerHTML = (
             "<h1> " + post.title + " - " + post.username
             + " <span class = 'timestamp'>" + post.date + "</span></h1>"
-        ); // Render title 
+        );
 
+        // Populate text section with post message content
         postTextDiv.innerHTML = (
             "<p>" + post.msg + "</p>"
-        ); // Render text
-
+        );
     }
-
 
 });
 
