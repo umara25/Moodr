@@ -11,7 +11,7 @@ session_start();
 Allows users to make a new account
 -->
 <html>
-<script src="../js/newAccount.js"></script>
+<script src="../js/login/newAccount.js"></script>
 
 <?php
 // Sanitize and validate form inputs for security

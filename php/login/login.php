@@ -17,7 +17,7 @@ This is the login page
     <meta name="viewport" content="width=device-width">
     <title>Login Page</title>
     <link rel="stylesheet" href="../css/login.css">
-    <script src = "../js/login.js"></script>
+    <script src = "../js/login/login.js"></script>
 </head>
 
 <body>

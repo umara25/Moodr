@@ -213,7 +213,7 @@ window.addEventListener("load", function (event) {
              */
             confirm.addEventListener("click", function (event) {
                 let id = toDelete.id;   // Get ID of parent node
-                let url = "../php/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
+                let url = "../php/reviews/deleteReviewHandler.php?id=" + id; // Handles deleting from Databse
 
                 fetch(url)
                     .then(response => response.text())
@@ -253,7 +253,7 @@ window.addEventListener("load", function (event) {
      * Ensures that dynamically loaded reviews match the admin panel's theme
      */
     function updateCSS() {
-        fetch("style.php")
+        fetch("../php/styles/style.php")
         .then(response => response.json())
         .then(success)
         .catch(error => console.error("Fetch error:", error));

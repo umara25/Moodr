@@ -22,25 +22,24 @@ and important information about the club.
     <title>Moodr</title>    
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hamburger.css">
-    <script src="../js/socialButtons.js"></script>
-    <script src="../js/nav.js"></script>
+    <script src="../js/utils/socialButtons.js"></script>
+    <script src="../js/utils/nav.js"></script>
     <?php
     // Load appropriate JavaScript based on user role and login status
     if (isset($_SESSION["username"])) {
         if ($_SESSION["role"] === "admin") {
             // Admin-specific scripts for post management and styling
-            echo "<script src='../js/indexStyleAdmin.js'></script>";
-            echo "<script src='../js/indexStyleRefresher.js'></script>";
-            echo "<script src='../js/scrollIndexAdmin.js'></script>";
-            echo "<script src='../js/postListenerAdmin.js'></script>";
+            echo "<script src='../js/styles/indexStyleAdmin.js'></script>";
+            echo "<script src='../js/styles/indexStyleRefresher.js'></script>";
+            echo "<script src='../js/posts/postListenerAdmin.js'></script>";
         } else {
             // Regular user scripts
-            echo "<script src='../js/indexStyle.js'></script>";
-            echo "<script src='../js/scrollIndex.js'></script>";
+            echo "<script src='../js/styles/indexStyle.js'></script>";
+            echo "<script src='../js/posts/scrollIndex.js'></script>";
         }
     } else {
         // Guest user scripts
-        echo "<script src='../js/scrollIndex.js'></script>";
+        echo "<script src='../js/posts/scrollIndex.js'></script>";
     }
     ?>
 </head>

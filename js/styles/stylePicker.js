@@ -28,7 +28,7 @@ window.addEventListener("load", function(event) {
      */
     function fetchStyles() {
         // Request available themes from server
-        fetch("getStyles.php")
+        fetch("../php/styles/getStyles.php")
             .then(response => response.json()) // Parse JSON response
             .then(success)                     // Handle successful fetch
             .catch(error => console.error("Fetch error:", error)); // Log any errors
@@ -71,7 +71,7 @@ window.addEventListener("load", function(event) {
         let selectedStyleID = this.value; // Get newly selected theme ID
         
         // Fetch theme details to update preview
-        fetch("getStyles.php")
+        fetch("../php/styles/getStyles.php")
             .then(response => response.json()) // Parse JSON response
             .then(styleSuccess)                // Handle theme data
             .catch(error => console.error("Fetch error:", error)); // Log any errors
@@ -120,7 +120,7 @@ window.addEventListener("load", function(event) {
         formData.append("styleID", selectedStyleID);
         
         // Send theme update request to server
-        fetch("updateUserStyle.php", {
+        fetch("../php/styles/updateUserStyle.php", {
             method: "POST",
             body: formData
         })

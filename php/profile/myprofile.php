@@ -11,17 +11,17 @@ This is the My Profile Page.
     <title>Moodr - My Profile</title>
     <link rel="stylesheet" href="../css/myprofile.css">
     <link rel = "stylesheet" href = "../css/hamburger.css">
-    <script src="../js/nav.js"></script>
-    <script src="../js/changeusername.js"></script>
-    <script src="../js/changepassword.js"></script>
-    <script src="../js/changepersonalinfo.js"></script>
-    <script src="../js/deleteprofile.js"></script>
-    <script src="../js/profilePicture.js"></script>
-    <script src="../js/stylePicker.js"></script>
+    <script src="../js/utils/nav.js"></script>
+    <script src="../js/profile/changeusername.js"></script>
+    <script src="../js/profile/changepassword.js"></script>
+    <script src="../js/profile/changepersonalinfo.js"></script>
+    <script src="../js/profile/deleteprofile.js"></script>
+    <script src="../js/profile/profilePicture.js"></script>
+    <script src="../js/styles/stylePicker.js"></script>
     <?php
     //if user is logged in then apply their style
     if(isset($_SESSION["username"])){
-        echo "<script src='../js/myProfileStyle.js'></script>";
+        echo "<script src='../js/profile/myProfileStyle.js'></script>";
     }
     ?>
 </head>
