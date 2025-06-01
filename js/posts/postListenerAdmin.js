@@ -35,7 +35,7 @@ window.addEventListener("load", function (event) {
         };
 
         // Send AJAX request to create new post
-        fetch("posthandler.php", config)
+        fetch("../php/posts/posthandler.php", config)
             .then(response => response.text()) // Parse response as text (HTML)
             .then(success)                     // Handle successful creation
     });
@@ -81,7 +81,7 @@ window.addEventListener("load", function (event) {
              */
             confirm.addEventListener("click", function (event) {
                 let id = toDelete.id;   // Get unique ID of the post to delete
-                let url = "../php/deleteposthandler.php" // Server endpoint for post deletion
+                let url = "../php/posts/deleteposthandler.php" // Server endpoint for post deletion
 
                 // Prepare deletion parameters
                 let params = "postId=" + id;

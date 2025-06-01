@@ -28,7 +28,7 @@ window.addEventListener("load", function (event) {
                 && !loading) {
                 
                 let icon = create_load(); // Show loading indicator
-                let url = "../php/scrollReviewHandler.php"; // Server endpoint for more reviews
+                let url = "../php/reviews/scrollReviewHandler.php"; // Server endpoint for more reviews
                 
                 // Fetch additional reviews from server
                 fetch(url)
@@ -177,7 +177,7 @@ window.addEventListener("load", function (event) {
      * to ensure newly loaded reviews match the current theme
      */
     function updateCSS() {
-        fetch("style.php")
+        fetch("../php/styles/style.php")
         .then(response => response.json())
         .then(success)
         .catch(error => console.error("Fetch error:", error));

@@ -22,7 +22,7 @@ window.addEventListener("load", function (event) {
                 };
 
                 // Send deletion request to server
-                fetch("deleteUserHandler.php", config)
+                fetch("../php/admin/deleteUserHandler.php", config)
                     .then(response => response.text()) // Parse response as text
                     .then(data => {
                         console.log(data); // Debug output
@@ -56,7 +56,7 @@ window.addEventListener("load", function (event) {
                     body: params,
                 };
 
-                fetch("makeAdminHandler.php", config)
+                fetch("../php/admin/makeAdminHandler.php", config)
                     .then(response => response.text())
                     .then(data => {
                         console.log(data);//debug
@@ -91,7 +91,7 @@ window.addEventListener("load", function (event) {
                     body: params,
                 };
 
-                fetch("banUserHandler.php", config)
+                fetch("../php/admin/banUserHandler.php", config)
                     .then(response => response.text())
                     .then(data => {
                         console.log(data);//debug
@@ -127,7 +127,7 @@ window.addEventListener("load", function (event) {
     resetAdmin.addEventListener("click", function (event) {
         let sure = confirm("Are you sure you want to reset admins?");
             if(sure){
-                fetch("resetAdminHandler.php")
+                fetch("../php/admin/resetAdminHandler.php")
                     .then(response => response.text())
                     .then(data => {
                         console.log(data);//debug
@@ -163,7 +163,7 @@ window.addEventListener("load", function (event) {
     let styleCreate = document.getElementById("styleCreate");
 
     //stores theme colors
-    fetch("style.php")
+    fetch("../php/styles/style.php")
     .then(response => response.json())
     .then(colors)
     .catch(error => console.error("Fetch error:", error));
@@ -179,7 +179,7 @@ window.addEventListener("load", function (event) {
     button.addEventListener("click",function(event){ 
 
 
-        let url = "../php/storeStyle.php?name="+name.value+"&primary="+primary.value.substring(1) + 
+        let url = "../php/styles/storeStyle.php?name="+name.value+"&primary="+primary.value.substring(1) + 
         "&secondary="+secondary.value.substring(1)+"&text="+text.value.substring(1) 
         + "&textbox=" + textbox.value.substring(1); //Removes the #
 

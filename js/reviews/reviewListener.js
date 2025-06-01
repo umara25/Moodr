@@ -78,7 +78,7 @@ window.addEventListener("load",function(event){
         };
 
         // Initiate AJAX request to create review
-        fetch("../php/reviewhandler.php",config)
+        fetch("../php/reviews/reviewhandler.php",config)
         .then(response=>response.json()) // Parse JSON response from server
         // .then(d =>console.log(d))      // Debug response (commented out)
         .then(success);                  // Handle successful response
@@ -242,7 +242,7 @@ window.addEventListener("load",function(event){
              */
             confirm.addEventListener("click",function(event){ 
                 let id = toDelete.id;   // Get unique review ID
-                let url = "../php/deleteReviewHandler.php?id=" + id; // Server endpoint for deletion
+                let url = "../php/reviews/deleteReviewHandler.php?id=" + id; // Server endpoint for deletion
 
                 // Send deletion request to server
                 fetch(url)
